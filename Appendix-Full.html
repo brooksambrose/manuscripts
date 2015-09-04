@@ -65,22 +65,29 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li><a href="#thomson-reuters-web-of-knowledge"><span class="toc-section-number">2.1</span> Thomson Reuters Web of Knowledge</a></li>
 <li><a href="#jstor-data-for-research"><span class="toc-section-number">2.2</span> JSTOR Data for Research</a></li>
 </ul></li>
-<li><a href="#formatting"><span class="toc-section-number">3</span> Formatting</a><ul>
-<li><a href="#flat-file"><span class="toc-section-number">3.1</span> Flat File</a></li>
-<li><a href="#network"><span class="toc-section-number">3.2</span> Network</a></li>
-<li><a href="#bag-of-words"><span class="toc-section-number">3.3</span> Bag of Words</a></li>
-<li><a href="#merging"><span class="toc-section-number">3.4</span> Merging</a></li>
-<li><a href="#survival"><span class="toc-section-number">3.5</span> Survival</a></li>
+<li><a href="#identity-resolution"><span class="toc-section-number">3</span> Identity Resolution</a></li>
+<li><a href="#formatting"><span class="toc-section-number">4</span> Formatting</a><ul>
+<li><a href="#flat-file"><span class="toc-section-number">4.1</span> Flat File</a></li>
+<li><a href="#network-formats"><span class="toc-section-number">4.2</span> Network Formats</a><ul>
+<li><a href="#bipartite-edgelist"><span class="toc-section-number">4.2.1</span> Bipartite Edgelist</a></li>
+<li><a href="#monopartite-edgelist"><span class="toc-section-number">4.2.2</span> Monopartite Edgelist</a></li>
 </ul></li>
-<li><a href="#analytical-method"><span class="toc-section-number">4</span> Analytical Method</a><ul>
-<li><a href="#clique-percolation"><span class="toc-section-number">4.1</span> Clique Percolation</a></li>
-<li><a href="#topic-modelling"><span class="toc-section-number">4.2</span> Topic Modelling</a></li>
-<li><a href="#survival-analysis"><span class="toc-section-number">4.3</span> Survival Analysis</a></li>
+<li><a href="#bag-of-words"><span class="toc-section-number">4.3</span> Bag of Words</a></li>
+<li><a href="#merging"><span class="toc-section-number">4.4</span> Merging</a></li>
+<li><a href="#survival"><span class="toc-section-number">4.5</span> Survival</a></li>
 </ul></li>
-<li><a href="#reporting"><span class="toc-section-number">5</span> Reporting</a></li>
+<li><a href="#analytical-method"><span class="toc-section-number">5</span> Analytical Method</a><ul>
+<li><a href="#clique-percolation"><span class="toc-section-number">5.1</span> Clique Percolation</a></li>
+<li><a href="#topic-modelling"><span class="toc-section-number">5.2</span> Topic Modelling</a></li>
+<li><a href="#survival-analysis"><span class="toc-section-number">5.3</span> Survival Analysis</a></li>
+</ul></li>
+<li><a href="#reporting"><span class="toc-section-number">6</span> Reporting</a></li>
 </ul>
 </div>
 
+<pre class="r"><code>rm(list=ls())
+cat('\014')</code></pre>
+<p></p>
 <div id="introduction" class="section level1">
 <h1><span class="header-section-number">1</span> Introduction</h1>
 <p>This appendix explains the research procedures used to produce tables and figures in <em>Productions of Culture: Knowledge Survival in Art and Science</em>.</p>
@@ -89,75 +96,88 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1><span class="header-section-number">2</span> Compiling Database from Source Records</h1>
 <div id="thomson-reuters-web-of-knowledge" class="section level2">
 <h2><span class="header-section-number">2.1</span> Thomson Reuters Web of Knowledge</h2>
-<p>Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The <code>wok2db.f</code> function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of <code>data.table</code> provides accomodation for very large databases that perform poorly when treated as a data.frame.</p>
-<pre class="r"><code>wok2db&lt;-wok2db.f(
+<p>Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The <code>wok2dbl.f</code> function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of <code>data.table</code> provides accomodation for very large databases that perform poorly when treated as a data.frame.</p>
+<pre class="r"><code>wok2dbl&lt;-wok2dbl.f(
     dir='../knowledge-survival/in'
     ,out='out'
     ,sample.batches=T
-    ,sample.size=1
+    ,sample.size=5
     ,save=T
     ,verbose=T
     ,check.for.saved.output=T
 )</code></pre>
-<pre><code>## Warning: Loading and returning saved wok2db.RData.</code></pre>
-<pre class="r"><code>wok2db</code></pre>
-<pre><code>##                        id field                               val
-##    1: WOS:000205691600001    AF                 Howard, Earl Dean
-##    2: WOS:000205691600001    AU                        Howard, ED
-##    3: WOS:000205691600001    BP                                65
-##    4: WOS:000205691600001    CR ASHLEY, PROGR GERMAN WORKING, P49
-##    5: WOS:000205691600001    DI                    10.1086/251195
-##   ---                                                            
-## 1419: WOS:000205692300005    TI   The English Patents of Monopoly
-## 1420: WOS:000205692300005    UT               WOS:000205692300005
-## 1421: WOS:000205692300005    VL                                14
-## 1422: WOS:000205692300005    WC                         Economics
-## 1423: WOS:000205692300005    Z9                                 0</code></pre>
+<pre><code>## Warning: Loading and returning saved wok2dbl.RData.</code></pre>
+<pre class="r"><code>wok2dbl</code></pre>
+<pre><code>##                         id field
+##     1: WOS:000077883400040    AF
+##     2: WOS:000077883400040    AU
+##     3: WOS:000077883400040    BP
+##     4: WOS:000077883400040    C1
+##     5: WOS:000077883400040    CR
+##    ---                          
+## 72993: WOS:A1995TG90400002    TI
+## 72994: WOS:A1995TG90400002    UT
+## 72995: WOS:A1995TG90400002    VL
+## 72996: WOS:A1995TG90400002    WC
+## 72997: WOS:A1995TG90400002    Z9
+##                                                                            val
+##     1:                                                               Yalman, N
+##     2:                                                               Yalman, N
+##     3:                                                                     526
+##     4:                                  Harvard Univ, Cambridge, MA 02138 USA.
+##     5:                                Glassie Henry, 1997, ART LIFE BANGLADESH
+##    ---                                                                        
+## 72993: DIRECTIVITY - THE CULTURAL AND EDUCATIONAL CONSTRUCTION OF MORALITY AND
+## 72994:                                                     WOS:A1995TG90400002
+## 72995:                                                                      26
+## 72996:                          Anthropology; Education &amp; Educational Research
+## 72997:                                                                       9</code></pre>
 <p>By default the data.table is keyed by its WOK id (the “UT” field), then by the field. This makes querying easy. To see the authors of the first three articles, we might enter:</p>
-<pre class="r"><code>(first.three&lt;-unique(wok2db$id)[1:3])</code></pre>
-<pre><code>## [1] &quot;WOS:000205691600001&quot; &quot;WOS:000205691600002&quot; &quot;WOS:000205691600003&quot;</code></pre>
-<pre class="r"><code>wok2db[list(id=first.three,field='AF')]</code></pre>
-<pre><code>##                     id field               val
-## 1: WOS:000205691600001    AF Howard, Earl Dean
-## 2: WOS:000205691600002    AF      Meyer, B. H.
-## 3: WOS:000205691600003    AF    Dewsnup, E. R.</code></pre>
+<pre class="r"><code>(first.three&lt;-unique(wok2dbl$id)[1:3])</code></pre>
+<pre><code>## [1] &quot;WOS:000077883400040&quot; &quot;WOS:000077883400041&quot; &quot;WOS:000077883400042&quot;</code></pre>
+<pre class="r"><code>wok2dbl[list(id=first.three,field='AF')]</code></pre>
+<pre><code>##                     id field          val
+## 1: WOS:000077883400040    AF    Yalman, N
+## 2: WOS:000077883400041    AF Guneratne, A
+## 3: WOS:000077883400042    AF      Ali, KA</code></pre>
 <p>By default the value field is not keyed. While there are scenarios where this would be useful—e.g. for calling every record by a particular author, or every record in a particular year—keying also sorts the data.table, and the original sort order is important for fields like “TI” (title) which may be broken across several observations.</p>
-<p>The <code>wok2db</code> object remains in the long format of the original data source. We can see this by simply calling the <code>wok2db</code> object itself or by using <code>expand.grid</code> to query multiple keys at once. Here was ask for the source journal, publication year, number of references, and total citations for each of the first three records.</p>
-<pre class="r"><code>wok2db[expand.grid(first.three,c('SO','PY','AU','NR'))]</code></pre>
-<pre><code>##                      id field                          val
-##  1: WOS:000205691600001    SO JOURNAL OF POLITICAL ECONOMY
-##  2: WOS:000205691600002    SO JOURNAL OF POLITICAL ECONOMY
-##  3: WOS:000205691600003    SO JOURNAL OF POLITICAL ECONOMY
-##  4: WOS:000205691600001    PY                         1906
-##  5: WOS:000205691600002    PY                         1906
-##  6: WOS:000205691600003    PY                         1906
-##  7: WOS:000205691600001    AU                   Howard, ED
-##  8: WOS:000205691600002    AU                    Meyer, BH
-##  9: WOS:000205691600003    AU                  Dewsnup, ER
-## 10: WOS:000205691600001    NR                           11
-## 11: WOS:000205691600002    NR                            1
-## 12: WOS:000205691600003    NR                            1</code></pre>
+<p>The <code>wok2dbl</code> object remains in the long format of the original data source. We can see this by simply calling the <code>wok2dbl</code> object itself or by using <code>expand.grid</code> to query multiple keys at once. Here was ask for the source journal, publication year, number of references, and total citations for each of the first three records.</p>
+<pre class="r"><code>wok2dbl[expand.grid(first.three,c('SO','PY','AU','NR'))]</code></pre>
+<pre><code>##                      id field                  val
+##  1: WOS:000077883400040    SO AMERICAN ETHNOLOGIST
+##  2: WOS:000077883400041    SO AMERICAN ETHNOLOGIST
+##  3: WOS:000077883400042    SO AMERICAN ETHNOLOGIST
+##  4: WOS:000077883400040    PY                 1998
+##  5: WOS:000077883400041    PY                 1998
+##  6: WOS:000077883400042    PY                 1998
+##  7: WOS:000077883400040    AU            Yalman, N
+##  8: WOS:000077883400041    AU         Guneratne, A
+##  9: WOS:000077883400042    AU              Ali, KA
+## 10: WOS:000077883400040    NR                    1
+## 11: WOS:000077883400041    NR                    1
+## 12: WOS:000077883400042    NR                    1</code></pre>
 <p>To sort results by record instead of field:</p>
-<pre class="r"><code>wok2db[rev(expand.grid(c('SO','PY','AU','NR'),first.three))]</code></pre>
-<pre><code>##                      id field                          val
-##  1: WOS:000205691600001    SO JOURNAL OF POLITICAL ECONOMY
-##  2: WOS:000205691600001    PY                         1906
-##  3: WOS:000205691600001    AU                   Howard, ED
-##  4: WOS:000205691600001    NR                           11
-##  5: WOS:000205691600002    SO JOURNAL OF POLITICAL ECONOMY
-##  6: WOS:000205691600002    PY                         1906
-##  7: WOS:000205691600002    AU                    Meyer, BH
-##  8: WOS:000205691600002    NR                            1
-##  9: WOS:000205691600003    SO JOURNAL OF POLITICAL ECONOMY
-## 10: WOS:000205691600003    PY                         1906
-## 11: WOS:000205691600003    AU                  Dewsnup, ER
-## 12: WOS:000205691600003    NR                            1</code></pre>
+<pre class="r"><code>wok2dbl[rev(expand.grid(c('SO','PY','AU','NR'),first.three))]</code></pre>
+<pre><code>##                      id field                  val
+##  1: WOS:000077883400040    SO AMERICAN ETHNOLOGIST
+##  2: WOS:000077883400040    PY                 1998
+##  3: WOS:000077883400040    AU            Yalman, N
+##  4: WOS:000077883400040    NR                    1
+##  5: WOS:000077883400041    SO AMERICAN ETHNOLOGIST
+##  6: WOS:000077883400041    PY                 1998
+##  7: WOS:000077883400041    AU         Guneratne, A
+##  8: WOS:000077883400041    NR                    1
+##  9: WOS:000077883400042    SO AMERICAN ETHNOLOGIST
+## 10: WOS:000077883400042    PY                 1998
+## 11: WOS:000077883400042    AU              Ali, KA
+## 12: WOS:000077883400042    NR                    1</code></pre>
 <p>It is convenient to keep the original source data in a long format and to reshape it as necessary for use in different methods. This will be discussed in the <em>Formatting</em> section below.</p>
 </div>
 <div id="jstor-data-for-research" class="section level2">
 <h2><span class="header-section-number">2.2</span> JSTOR Data for Research</h2>
-<p>Where WOK data are superior for the study of citations, the JSTOR Data for Research (JSTOR) service provides much of the bibliographic information available in WOK and sometimes more accurately. This makes it useful as a cross reference when assessing the quality of a WOK sample, or for augmenting fields such as authors’ names. In addition to these advantages, JSTOR data also provide ngram frequencies. These data are very valuable and allow partial full-text analysis using “bag of words” methods. The <code>jstor2db.f</code> function imports dfr.jstor.org records directly from the compressed files returned by queries to the service. Parallelization of the importing process is available and suitable for systems with fast disks. The function performs a standard set of pre-processing procedures on the ngram frequency tables contained in zip archives that include them. These tables and all other bibliographic data available are returned as a <code>data.table</code>.</p>
-<pre class="r"><code>jstor2db&lt;-jstor2db.f(
+<p>Where WOK data are superior for the study of citations, the JSTOR Data for Research (JSTOR) service provides much of the bibliographic information available in WOK and sometimes more accurately. This makes it useful as a cross reference when assessing the quality of a WOK sample, or for augmenting fields such as authors’ names.</p>
+<p>In addition to the usual variables, JSTOR data also provide ngram frequencies. These data are very valuable and allow limited full-text analysis using “bag of words” methods. The <code>jstor2dbw.f</code> function imports dfr.jstor.org records directly from the compressed files returned by queries to the service. Parallelization of the importing process is available and suitable for systems with fast disks. The function performs a standard set of text pre-processing procedures (e.g. stemming and stop word, punctuation, digit and idiosyncratic word removal) on the ngram frequency tables contained in zip archives that include them. These ngram frequency tables are returned in the indexed format expected by the <code>stm</code> package, and all other bibliographic data available are returned as a <code>data.table</code>. A character vector attribute called <code>vocab</code> is attached to which the indexes in the <code>jstor2dbw$bow</code> refer.</p>
+<pre class="r"><code>jstor2dbw&lt;-jstor2dbw.f(
     dir='../knowledge-survival/supplemental/dfr.jstor.org-1k-samples'
     ,out='out'
     ,sample.batches=T
@@ -166,68 +186,450 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
     ,drop.nchar1=T
     ,check.for.saved.output=T
 )</code></pre>
-<pre><code>## 
-## 1 or 1.786 % of batches drawn at random.</code></pre>
-<pre><code>## Loading required package: tm
-## Loading required package: NLP
-## Loading required package: SnowballC</code></pre>
-<pre><code>##                     journaltitle    N
-## 1: International Economic Review 1000</code></pre>
+<pre><code>## Warning: Loading and returning saved jstor2dbw.RData.</code></pre>
+<p>Inspecting the <code>jstor2dbw</code> object without bags of words (“bow”) or abstracts reveals the standard information, and in the conventional wide, flat file format. The only complex value here is author, and multiple authors are listed with names separated by commas.</p>
+<pre class="r"><code>jstor2dbw[1:5,!c('bow','abstract'),with=F]</code></pre>
+<pre><code>##                  id              doi
+## 1: 10.2307_20486787 10.2307/20486787
+## 2: 10.2307_20486789 10.2307/20486789
+## 3: 10.2307_20486790 10.2307/20486790
+## 4: 10.2307_20486791 10.2307/20486791
+## 5: 10.2307_20486792 10.2307/20486792
+##                                                                                          title
+## 1:                                                Firing Costs and Business Cycle Fluctuations
+## 2:                                                                 The U.S. Westward Expansion
+## 3:                                                        Search Direction and Wage Dispersion
+## 4:                    Why Have Aggregate Skilled Hours Become so Cyclical since the Mid-1980s?
+## 5: Anticipated Utility and Rational Expectations as Approximations of Bayesian Decision Making
+##                                               author
+## 1:                                Marcelo Veracierto
+## 2:                           Guillaume Vandenbroucke
+## 3: Marja-Liisa Halko, Klaus Kultti, Juha Virrankoski
+## 4:                   Rui Castro, Daniele Coen-Pirani
+## 5:                 Timothy Cogley, Thomas J. Sargent
+##                     journaltitle volume issue              pubdate
+## 1: International Economic Review     49     1 2008-02-01T00:00:00Z
+## 2: International Economic Review     49     1 2008-02-01T00:00:00Z
+## 3: International Economic Review     49     1 2008-02-01T00:00:00Z
+## 4: International Economic Review     49     1 2008-02-01T00:00:00Z
+## 5: International Economic Review     49     1 2008-02-01T00:00:00Z
+##      pagerange
+## 1:    pp. 1-39
+## 2:  pp. 81-110
+## 3: pp. 111-134
+## 4: pp. 135-184
+## 5: pp. 185-221
+##                                                                                                                       publisher
+## 1: Economics Department of the University of Pennsylvania, Institute of Social and Economic Research -- Osaka University, Wiley
+## 2: Economics Department of the University of Pennsylvania, Institute of Social and Economic Research -- Osaka University, Wiley
+## 3: Economics Department of the University of Pennsylvania, Institute of Social and Economic Research -- Osaka University, Wiley
+## 4: Economics Department of the University of Pennsylvania, Institute of Social and Economic Research -- Osaka University, Wiley
+## 5: Economics Department of the University of Pennsylvania, Institute of Social and Economic Research -- Osaka University, Wiley
+##    type reviewed-work
+## 1:  fla            NA
+## 2:  fla            NA
+## 3:  fla            NA
+## 4:  fla            NA
+## 5:  fla            NA</code></pre>
+<p>While the <code>bow</code> variable contains the indexed ngram frequency table, which indexes the <code>vocab</code> attribute of the jstor2dbw object.</p>
+<pre class="r"><code>jstor2dbw$bow[[1]][,1:5]</code></pre>
+<pre><code>##             [,1] [,2] [,3] [,4] [,5]
+## vocab.index    1   45   52   83  113
+## freq           3    2    3    6    2</code></pre>
+<pre class="r"><code>attributes(jstor2dbw)$vocab[jstor2dbw$bow[[1]][1,1:5]]</code></pre>
+<pre><code>## [1] &quot;aa&quot;       &quot;abel&quot;     &quot;abil&quot;     &quot;abstract&quot; &quot;account&quot;</code></pre>
 </div>
+</div>
+<div id="identity-resolution" class="section level1">
+<h1><span class="header-section-number">3</span> Identity Resolution</h1>
+<p>Also known as named entity recognition, identity resolution is a data quality problem preventing the researcher from identifying the same thing with a unique label. This happens whenever variations of a label exist. As a consequence the researcher may fail to connect two events to the same thing. When correcting for low identity resolution, the opposite error may be introduced, where two different entities are erroneously treated as the same thing.</p>
+<p>The approach to identity resolution involves supervised machine learning. Because this method is not fully automatic it is difficult to implement as a straightforward routine. For now, the results of this analysis are exploited without a manual for conducting the resolution itself.</p>
 </div>
 <div id="formatting" class="section level1">
-<h1><span class="header-section-number">3</span> Formatting</h1>
+<h1><span class="header-section-number">4</span> Formatting</h1>
+<p>Depending on the analysis or data manipulation to be performed, the <code>wok2dbl</code> and <code>jstor2dbw</code> objects may need to be converted to a different format, including network formats, which allow us to take advantage of records containing information on multiple units.</p>
 <div id="flat-file" class="section level2">
-<h2><span class="header-section-number">3.1</span> Flat File</h2>
-<p>The <code>reshape2</code> package makes it easy to return the wide or flat file format of a query of a <code>wok2db</code> object.</p>
+<h2><span class="header-section-number">4.1</span> Flat File</h2>
+<p>The <code>reshape2</code> package makes it easy to return the wide or flat file format of a query of a <code>wok2dbl</code> object.</p>
 <pre class="r"><code>library(reshape2)
 dcast(
-    data=wok2db[expand.grid(first.three,c('SO','PY','NR','TC'))]
+    data=wok2dbl[expand.grid(first.three,c('SO','PY','NR','TC'))]
     ,formula=id~field
     ,fun.aggregate=list
     ,value.var='val'
 )</code></pre>
-<pre><code>##                    id NR   PY                           SO TC
-## 1 WOS:000205691600001 11 1906 JOURNAL OF POLITICAL ECONOMY  0
-## 2 WOS:000205691600002  1 1906 JOURNAL OF POLITICAL ECONOMY  1
-## 3 WOS:000205691600003  1 1906 JOURNAL OF POLITICAL ECONOMY  0</code></pre>
+<pre><code>##                    id NR   PY                   SO TC
+## 1 WOS:000077883400040  1 1998 AMERICAN ETHNOLOGIST  0
+## 2 WOS:000077883400041  1 1998 AMERICAN ETHNOLOGIST  0
+## 3 WOS:000077883400042  1 1998 AMERICAN ETHNOLOGIST  0</code></pre>
 <p>Many of the interesting fields in WOK records are complex, having multiple observations per record. Some are falsely complex, such as title (TI), which stores a single observation across several fields. Simple and falsely complex values are often trivial features of the document itself. Truely complex field usually store named entities to which the article is related. The most important complex fiels are author (AU and AF) and cited reference (CR). Source journal is an example of a named entity field that is always simple, because a document is only published in one source at a time, though it may have several authors and citations.</p>
-<pre class="r"><code>wok2db[expand.grid(first.three,c('AU','CR'))]</code></pre>
-<pre><code>##                     id field                               val
-## 1: WOS:000205691600001    AU                        Howard, ED
-## 2: WOS:000205691600002    AU                         Meyer, BH
-## 3: WOS:000205691600003    AU                       Dewsnup, ER
-## 4: WOS:000205691600001    CR ASHLEY, PROGR GERMAN WORKING, P49
-## 5: WOS:000205691600002    CR        1905, GOVT REGULATION RAIL
-## 6: WOS:000205691600003    CR              RECORDS SCOTTISH CLO</code></pre>
+<pre class="r"><code>wok2dbl[expand.grid(first.three,c('AU','CR'))]</code></pre>
+<pre><code>##                     id field                                        val
+## 1: WOS:000077883400040    AU                                  Yalman, N
+## 2: WOS:000077883400041    AU                               Guneratne, A
+## 3: WOS:000077883400042    AU                                    Ali, KA
+## 4: WOS:000077883400040    CR   Glassie Henry, 1997, ART LIFE BANGLADESH
+## 5: WOS:000077883400041    CR      ROBERTS M, 1995, EXPLORING CONFRONTAT
+## 6: WOS:000077883400042    CR Verkaaik Oskar, 1994, PEOPLE MIGRANTS ETHN</code></pre>
 </div>
-<div id="network" class="section level2">
-<h2><span class="header-section-number">3.2</span> Network</h2>
+<div id="network-formats" class="section level2">
+<h2><span class="header-section-number">4.2</span> Network Formats</h2>
+<p>The simplest network data format to work with is an edgelist. An edgelist typically has two columns, the name of the node sending an edge in the first column and that of the node receiving the edge in second column.</p>
+<div id="bipartite-edgelist" class="section level3">
+<h3><span class="header-section-number">4.2.1</span> Bipartite Edgelist</h3>
+<p>When considering the different relationships among things that could be treated as a network, the <code>wok2dbl</code> object is naturally in the format of a bipartite edgelist. For instance we may treat the sender as the paper (UT record id) and the receiver is the citation (CR) to create a citation network.</p>
+<pre class="r"><code>setkey(wok2dbl,field)
+wok2dbl['CR',!'field',with=F]</code></pre>
+<pre><code>##                        id
+##    1: WOS:000077883400040
+##    2: WOS:000077883400041
+##    3: WOS:000077883400042
+##    4: WOS:000077883400043
+##    5: WOS:000077883400044
+##   ---                    
+## 2331: WOS:A1995RT19700002
+## 2332: WOS:A1995RT19700003
+## 2333: WOS:A1995RT19700004
+## 2334: WOS:A1995RT19700005
+## 2335: WOS:A1995TG90400002
+##                                                          val
+##    1:               Glassie Henry, 1997, ART LIFE BANGLADESH
+##    2:                  ROBERTS M, 1995, EXPLORING CONFRONTAT
+##    3:             Verkaaik Oskar, 1994, PEOPLE MIGRANTS ETHN
+##    4:              Comaroff Jean, 1997, REVELATION REVOLUTIO
+##    5:            Chidester David, 1996, SAVAGE SYSTEMS COLON
+##   ---                                                       
+## 2331:                   Arendt Hannah, 1958, HUMAN CONDITION
+## 2332:            *AAUW WELL COLL CT, 1992, SCH SHORTCH GIRLS
+## 2333:                  BAUSELL RB, 1991, LINKS DRUGS ALCOHOL
+## 2334: Bakhtin Mikhail Mikhailovich, 1984, RABELAIS HIS WORLD
+## 2335:         ALVAREZ A, 1994, EXPLORATIONS SOCIOCU, V4, P23</code></pre>
+<p>Or we could treat the author as the reciever to create a bipartite co-authorship network.</p>
+<pre class="r"><code>wok2dbl['AU',!'field',with=F]</code></pre>
+<pre><code>##                        id          val
+##    1: WOS:000077883400040    Yalman, N
+##    2: WOS:000077883400041 Guneratne, A
+##    3: WOS:000077883400042      Ali, KA
+##    4: WOS:000077883400043  Van Dijk, R
+##    5: WOS:000077883400044     Baum, RM
+##   ---                                 
+## 2461: WOS:A1995RT19700002     VARE, JW
+## 2462: WOS:A1995RT19700003     HENRY, A
+## 2463: WOS:A1995RT19700004   RHOADS, RA
+## 2464: WOS:A1995RT19700005 MCDERMOTT, R
+## 2465: WOS:A1995TG90400002    DELRIO, P</code></pre>
+<p>However, because of several problems of identity resolution of the CR field in particular, we recommend using the <code>dbl2bel.f</code> utility, which normalizes citation codes through case transformation, removal of digital object identifiers, and deduplication. It also optionally allows for data reduction of citations by flagging citations referenced only once (pendants). A report of the results of pendant treatment is printed.</p>
+<pre class="r"><code>dbl2bel&lt;-dbl2bel.f(
+    wok2dbl
+    ,out='out'
+    )</code></pre>
+<pre><code>##                                                          cr N
+##    1:           *AAUW WELL COLL CT, 1992, SCH SHORTCH GIRLS 1
+##    2: *ABBOTT LABORATORI, 1976, PORTLAND RETAIL DRUG, VCASE 1
+##    3:                       *ACAD SCI, RUSSK PRAV, V2, P314 1
+##    4:               *ADM P RES PROJ, 1982, EFF HOM VIS, P14 1
+##    5:                *ADV COUNC SOC SEC, 1980, 1979 REP, P1 1
+##   ---                                                        
+## 2263:                ANDERSON J.R., 1977, AGR DECISION ANAL 3
+## 2264:             ANDREWS F. M., 1976, SOCIAL INDICATORS WE 3
+## 2265:                  ALATALO RV, 1986, NATURE, V323, P152 4
+## 2266:                 ALTMANN J, 1974, BEHAVIOUR, V49, P227 4
+## 2267:                AKERLOF GA, 2000, Q J ECON, V115, P715 5
+## 
+## 
+##                                case   cr
+## 1           Total acts of reference 2335
+## 2                  Unique citations 2267
+## 3         Citations referenced once 2216
+## 4    Total referenced twice or more  119
+## 5   Unique referenced twice or more   51
+## 
+##                                case      cr
+## 1 Pendants as % of total references 94.9036
+## 2 Pendants as % of unique citations 97.7503</code></pre>
+<pre class="r"><code>dbl2bel</code></pre>
+<pre><code>##                        ut
+##    1: WOS:A1995RT19700003
+##    2: WOS:A1976DG68100005
+##    3: WOS:000203181100009
+##    4: WOS:A1986F385600016
+##    5: WOS:A1986C148600006
+##   ---                    
+## 2331: WOS:000302229900009
+## 2332: WOS:000271466100006
+## 2333: WOS:000204914900023
+## 2334: WOS:000245346600049
+## 2335: WOS:A1985AES4700030
+##                                                                                                                      cr
+##    1:                                                                       *AAUW WELL COLL CT, 1992, SCH SHORTCH GIRLS
+##    2:                                                             *ABBOTT LABORATORI, 1976, PORTLAND RETAIL DRUG, VCASE
+##    3:                                                                                   *ACAD SCI, RUSSK PRAV, V2, P314
+##    4:                                                                           *ADM P RES PROJ, 1982, EFF HOM VIS, P14
+##    5:                                                                            *ADV COUNC SOC SEC, 1980, 1979 REP, P1
+##   ---                                                                                                                  
+## 2331:                                                                              ZHANG LI, 2010, SEARCH PARADISE MIDD
+## 2332:                                                                               ZIGON J, 2008, MORALITY AN ANTHR PE
+## 2333:                                                                        ZIMMERMAN C.C., 1931, SIAM RURAL EC SURVEY
+## 2334: ZLOLNISKI C, 2006, JANITORS, STREET VENDORS, AND ACTIVISTS: THE LIVES OF MEXICAN IMMIGRANTS IN SILICON VALLEY, P1
+## 2335:                                                                              ZYSMAN J., 1983, GOVT MARKETS GROWTH
+##       pend
+##    1: TRUE
+##    2: TRUE
+##    3: TRUE
+##    4: TRUE
+##    5: TRUE
+##   ---     
+## 2331: TRUE
+## 2332: TRUE
+## 2333: TRUE
+## 2334: TRUE
+## 2335: TRUE</code></pre>
+<p>The <code>dbl2bel</code> object is appropriate for import into methods designed for bipartite graphs. Because of the nature of record keeping, each complex unit is relateable to others only indirectly by virtue of common inclusion in an article-level record. With a few lines of code we could merge an article to author data.table to an article to citation data.table to yield an author to citation edgelist.</p>
+<pre class="r"><code>aubel&lt;-copy(wok2dbl)
+setkey(aubel,field)
+aubel&lt;-aubel['AU',!'field',with=F]
+setnames(aubel,c('ut','au'))
+setkey(aubel,ut)
+setkey(dbl2bel,ut)</code></pre>
+<pre class="r"><code>dbl2bel[aubel,list(au,cr)]</code></pre>
+<pre><code>##                 au                                                     cr
+##    1:    Yalman, N               GLASSIE HENRY, 1997, ART LIFE BANGLADESH
+##    2: Guneratne, A                  ROBERTS M, 1995, EXPLORING CONFRONTAT
+##    3:      Ali, KA             VERKAAIK OSKAR, 1994, PEOPLE MIGRANTS ETHN
+##    4:  Van Dijk, R              COMAROFF JEAN, 1997, REVELATION REVOLUTIO
+##    5:     Baum, RM            CHIDESTER DAVID, 1996, SAVAGE SYSTEMS COLON
+##   ---                                                                    
+## 2461:     VARE, JW                   ARENDT HANNAH, 1958, HUMAN CONDITION
+## 2462:     HENRY, A            *AAUW WELL COLL CT, 1992, SCH SHORTCH GIRLS
+## 2463:   RHOADS, RA                  BAUSELL RB, 1991, LINKS DRUGS ALCOHOL
+## 2464: MCDERMOTT, R BAKHTIN MIKHAIL MIKHAILOVICH, 1984, RABELAIS HIS WORLD
+## 2465:    DELRIO, P         ALVAREZ A, 1994, EXPLORATIONS SOCIOCU, V4, P23</code></pre>
+</div>
+<div id="monopartite-edgelist" class="section level3">
+<h3><span class="header-section-number">4.2.2</span> Monopartite Edgelist</h3>
+<p>A more common operation however is to reduce a bipartite graph to a monopartite graph. This is called a reprojection of the graph, and involves a trivial loss of data. Because many network methods assume monopartite data, we include the <code>bel2mel.f</code> utility. The function expects a two column matrix, so when choosing to drop pendants you must do so explicitly and leave off the pendant column.</p>
+<pre class="r"><code>bel2mel&lt;-bel2mel.f(
+    dbl2bel[!dbl2bel$pend,!'pend',with=F]
+    ,out='out'
+    )
+bel2mel</code></pre>
+<pre><code>## $crel
+## [1] &quot;No connected crel.&quot;
+## 
+## $utel
+##                     ut1                 ut2 ew
+##  1: WOS:000077899700001 WOS:A1990CW19400002  1
+##  2: WOS:000175495300006 WOS:000176776900007  1
+##  3: WOS:000175495300006 WOS:000177067700003  1
+##  4: WOS:000175867800009 WOS:A1991GM73700006  1
+##  5: WOS:000175867800009 WOS:A1994PM61200007  1
+##  6: WOS:000176776900007 WOS:000177067700003  1
+##  7: WOS:000186624900010 WOS:000189000000002  1
+##  8: WOS:000186624900010 WOS:000223100200001  1
+##  9: WOS:000186624900010 WOS:000227607200002  1
+## 10: WOS:000186624900010 WOS:000227607200003  1
+## 11: WOS:000189000000002 WOS:000223100200001  1
+## 12: WOS:000189000000002 WOS:000227607200002  1
+## 13: WOS:000189000000002 WOS:000227607200003  1
+## 14: WOS:000189000000003 WOS:000221453300007  1
+## 15: WOS:000189000000003 WOS:000276808100006  1
+## 16: WOS:000189000000005 WOS:000234729400006  1
+## 17: WOS:000203260600001 WOS:000203260600002  1
+## 18: WOS:000204681500014 WOS:000204688600002  1
+## 19: WOS:000204688700003 WOS:000204688700004  1
+## 20: WOS:000204999000005 WOS:000204999100003  1
+## 21: WOS:000221453300001 WOS:A1986E061200004  1
+## 22: WOS:000221453300001 WOS:A1986E061200005  1
+## 23: WOS:000221453300007 WOS:000276808100006  1
+## 24: WOS:000223100200001 WOS:000227607200002  1
+## 25: WOS:000223100200001 WOS:000227607200003  1
+## 26: WOS:000227607200002 WOS:000227607200003  1
+## 27: WOS:000227607200004 WOS:A1978ER06400003  1
+## 28: WOS:000227607200004 WOS:A1985A680700028  1
+## 29: WOS:000234729400004 WOS:000241754800002  1
+## 30: WOS:000239734400002 WOS:000249215200002  1
+## 31: WOS:000239734400005 WOS:000241754800003  1
+## 32: WOS:000247056900006 WOS:000271466100008  1
+## 33: WOS:000247056900011 WOS:000300400600003  1
+## 34: WOS:000247326400011 WOS:A1985ALG1000037  1
+## 35: WOS:000266023800005 WOS:000266023800007  1
+## 36: WOS:000334873600001 WOS:000334873600002  1
+## 37: WOS:A1960CJD2200006 WOS:A1961CJD2500009  1
+## 38: WOS:A1970Y175100017 WOS:A1971I978800019  1
+## 39: WOS:A1970Y175200006 WOS:A1971I615700012  1
+## 40: WOS:A1971I615700003 WOS:A1985ALG1000009  1
+## 41: WOS:A1975AK58600006 WOS:A1977DT16500001  1
+## 42: WOS:A1975AK58600007 WOS:A1976BJ37100003  1
+## 43: WOS:A1975AK58600007 WOS:A1976CJ07000005  1
+## 44: WOS:A1975AS06200005 WOS:A1976BW27200002  1
+## 45: WOS:A1975BG98200001 WOS:A1976CJ07000001  1
+## 46: WOS:A1976BJ37100003 WOS:A1976CJ07000005  1
+## 47: WOS:A1976BW27200001 WOS:A1976BW27200006  1
+## 48: WOS:A1976BW27200001 WOS:A1976CX72200006  1
+## 49: WOS:A1976BW27200006 WOS:A1976CX72200006  1
+## 50: WOS:A1978ER06400003 WOS:A1985A680700028  1
+## 51: WOS:A1978ER06400007 WOS:A1978FX85200001  1
+## 52: WOS:A1978FB58600004 WOS:A1986E061200011  1
+## 53: WOS:A1984TG45800023 WOS:A1985ALG1000034  1
+## 54: WOS:A1984TG45800034 WOS:A1985AES4700037  1
+## 55: WOS:A1985AVR2800015 WOS:A1985AVR2800017  1
+## 56: WOS:A1985AVR2800015 WOS:A1989U852600014  1
+## 57: WOS:A1985AVR2800017 WOS:A1989U852600014  1
+## 58: WOS:A1986E061200004 WOS:A1986E061200005  1
+## 59: WOS:A1986F224600024 WOS:A1986F224600025  1
+## 60: WOS:A1989U120400030 WOS:A1993LL77800001  1
+## 61: WOS:A1991FU09900004 WOS:A1995QL17600007  1
+## 62: WOS:A1991FU09900008 WOS:A1991GC05400007  1
+## 63: WOS:A1991FU09900008 WOS:A1991GG90400004  1
+## 64: WOS:A1991FU09900008 WOS:A1994PM61200002  1
+## 65: WOS:A1991GC05400001 WOS:A1991GD05800003  1
+## 66: WOS:A1991GC05400003 WOS:A1991GD05800006  1
+## 67: WOS:A1991GC05400007 WOS:A1991GG90400004  1
+## 68: WOS:A1991GC05400007 WOS:A1994PM61200002  1
+## 69: WOS:A1991GC05400008 WOS:A1991GG90400011  1
+## 70: WOS:A1991GD05800004 WOS:A1994PM61200009  1
+## 71: WOS:A1991GD05800004 WOS:A1994PT57700006  1
+## 72: WOS:A1991GD05800004 WOS:A1995QT53200003  1
+## 73: WOS:A1991GG90400003 WOS:A1994PJ13300008  1
+## 74: WOS:A1991GG90400004 WOS:A1994PM61200002  1
+## 75: WOS:A1991GM73700006 WOS:A1994PM61200007  1
+## 76: WOS:A1994PD03300006 WOS:A1994PD03300008  1
+## 77: WOS:A1994PD03300006 WOS:A1995QG32700002  1
+## 78: WOS:A1994PD03300008 WOS:A1995QG32700002  1
+## 79: WOS:A1994PJ13300007 WOS:A1994PM61200006  1
+## 80: WOS:A1994PJ13300009 WOS:A1995QD26100008  1
+## 81: WOS:A1994PM61200008 WOS:A1995QL17600002  1
+## 82: WOS:A1994PM61200009 WOS:A1994PT57700006  1
+## 83: WOS:A1994PM61200009 WOS:A1995QT53200003  1
+## 84: WOS:A1994PT57700006 WOS:A1995QT53200003  1
+## 85: WOS:A1995QD26100001 WOS:A1995QT53200001  1
+## 86: WOS:A1995QG32700001 WOS:A1995QG32700011  1
+## 87: WOS:A1995QG32700004 WOS:A1995QG32700005  1
+## 88: WOS:A1995QG32700004 WOS:A1995QG32700006  1
+## 89: WOS:A1995QG32700005 WOS:A1995QG32700006  1
+## 90: WOS:A1995QG32900008 WOS:A1995QG32900009  1
+##                     ut1                 ut2 ew
+##                                                                 cr
+##  1:                      ABRAHAM ARTHUR, 1978, MENDE GOVT POLITICS
+##  2:                      ANDERSON DJ, 1993, CAN J ZOOL, V71, P2541
+##  3:                      ANDERSON DJ, 1993, CAN J ZOOL, V71, P2541
+##  4:           ALEXANDER R.D., 1974, ANNUAL REV ECOL SYST, V5, P325
+##  5:           ALEXANDER R.D., 1974, ANNUAL REV ECOL SYST, V5, P325
+##  6:                      ANDERSON DJ, 1993, CAN J ZOOL, V71, P2541
+##  7:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+##  8:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+##  9:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 10:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 11:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 12:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 13:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 14:                      ACEMOGLU D, 2001, AM ECON REV, V91, P1369
+## 15:                      ACEMOGLU D, 2001, AM ECON REV, V91, P1369
+## 16:                            ADAMS WJ, 1976, Q J ECON, V90, P475
+## 17:                                     1920, 33 ANN M AM EC ASS H
+## 18:                         BAVELAS A, 1942, CIVIVIAN MORALE, PCH8
+## 19:                          BARKER RG, 1942, SOCIOMETRY, V5, P169
+## 20:                           FARIS RE, 1939, MENTAL DISORDERS URB
+## 21:                       AKERLOF GA, 1985, AM ECON REV, V75, P708
+## 22:                       AKERLOF GA, 1985, AM ECON REV, V75, P708
+## 23:                      ACEMOGLU D, 2001, AM ECON REV, V91, P1369
+## 24:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 25:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 26:                         AKERLOF GA, 2000, Q J ECON, V115, P715
+## 27:                       ALCHIAN AA, 1972, AM ECON REV, V62, P777
+## 28:                       ALCHIAN AA, 1972, AM ECON REV, V62, P777
+## 29:                        BECKER WE, 2001, J ECON EDUC, V32, P269
+## 30:                         AGARWAL R, 1998, J ECON EDUC, V29, P99
+## 31:                        BECKER WE, 2001, AM ECON REV, V91, P446
+## 32:                      AMIT-TALAI V., 1995, YOUTH CULTURES CROSS
+## 33:                    ABRAMS PHILIP, 1988, J HIST SOCIOL, V1, P58
+## 34:                              BARRO R. J., 1984, MACROECONOMICS
+## 35:                         BARTH F, 2002, CURR ANTHROPOL, V43, P1
+## 36:                        AGHION P, 1992, ECONOMETRICA, V60, P323
+## 37:                       GORMAN WM, 1959, J POLIT ECON, V67, P246
+## 38:                          STRAUSS E, 1969, SOVIET AGRICULTURE P
+## 39:                            CAGAN P, 1956, STUDIES QUANTITY THE
+## 40:                             BECKER GS, 1965, ECON J, V75, P493
+## 41:                       ABEL-SMITH B, 1973, LEGAL PROBLEMS CITIZ
+## 42:                   ABEL RICHARD L., 1973, LAW SOC REV, V8, P217
+## 43:                   ABEL RICHARD L., 1973, LAW SOC REV, V8, P217
+## 44:              ALSCHULER A.W., 1968, U CHICAGO LAW REV, V36, P50
+## 45:                ABEL RICHARD, 1973, STANFORD LAW REV, V26, P175
+## 46:                   ABEL RICHARD L., 1973, LAW SOC REV, V8, P217
+## 47:                           ABEL RL, 1974, LAW SOC REV, V8, P217
+## 48:                           ABEL RL, 1974, LAW SOC REV, V8, P217
+## 49:                           ABEL RL, 1974, LAW SOC REV, V8, P217
+## 50:                       ALCHIAN AA, 1972, AM ECON REV, V62, P777
+## 51:                                 BECKER G., 1964, HUMAN CAPITAL
+## 52:                          AKERLOF GA, 1970, Q J ECON, V84, P488
+## 53:                           CAPIE F., 1983, DEPRESSION PROTECTIO
+## 54:                  LEFF NATHANIEL H., 1982, UNDERDEVELOPMENT DEV
+## 55:                         ANDERSON J.R., 1977, AGR DECISION ANAL
+## 56:                         ANDERSON J.R., 1977, AGR DECISION ANAL
+## 57:                         ANDERSON J.R., 1977, AGR DECISION ANAL
+## 58:                       AKERLOF GA, 1985, AM ECON REV, V75, P708
+## 59:                      ASCHAUER DA, 1985, AM ECON REV, V75, P117
+## 60:                          CARTER C., 1988, CHINAS GRAIN PRODUCT
+## 61:                                          ABLE K.P., 1980, P283
+## 62:                           ALATALO RV, 1986, NATURE, V323, P152
+## 63:                           ALATALO RV, 1986, NATURE, V323, P152
+## 64:                           ALATALO RV, 1986, NATURE, V323, P152
+## 65:                              ALATALO RV, 1984, OIKOS, V42, P41
+## 66:                          ARNOLD SJ, 1984, EVOLUTION, V38, P709
+## 67:                           ALATALO RV, 1986, NATURE, V323, P152
+## 68:                           ALATALO RV, 1986, NATURE, V323, P152
+## 69:                        ALATALO RV, 1990, ANIM BEHAV, V39, P601
+## 70:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 71:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 72:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 73: ALATALO R.V., 1990, ADVANCES IN THE STUDY OF BEHAVIOR, V19, P1
+## 74:                           ALATALO RV, 1986, NATURE, V323, P152
+## 75:           ALEXANDER R.D., 1974, ANNUAL REV ECOL SYST, V5, P325
+## 76:                      ANDREWS F. M., 1976, SOCIAL INDICATORS WE
+## 77:                      ANDREWS F. M., 1976, SOCIAL INDICATORS WE
+## 78:                      ANDREWS F. M., 1976, SOCIAL INDICATORS WE
+## 79:                        ANDERSSON M, 1986, EVOLUTION, V40, P804
+## 80:                           ALTMANN SA, 1974, AM ZOOL, V14, P221
+## 81:                        BIRKHEAD T., 1992, SPERM COMPETITION BI
+## 82:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 83:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 84:                          ALTMANN J, 1974, BEHAVIOUR, V49, P227
+## 85:                          ANDERSON SS, 1975, J ZOOL, V177, P179
+## 86:                     MICHALOS A. C., 1993, GLOBAL REPORT STUDEN
+## 87:                          ABBEY A, 1985, SOC INDIC RES, V16, P1
+## 88:                          ABBEY A, 1985, SOC INDIC RES, V16, P1
+## 89:                          ABBEY A, 1985, SOC INDIC RES, V16, P1
+## 90:                           LIESE BH, 1992, ORG MANAGING TROPICA
+##                                                                 cr</code></pre>
+<p>Assuming that there is at least one 2-star (node of degree two or more) in the bipartite graph, <code>bel2mel.f</code> will by default return both monopartite projections. Each projection is the inverse of the other in the sense that what are nodes in the first projection are edges in the second, and vice versa.</p>
+</div>
 </div>
 <div id="bag-of-words" class="section level2">
-<h2><span class="header-section-number">3.3</span> Bag of Words</h2>
+<h2><span class="header-section-number">4.3</span> Bag of Words</h2>
+<p>The <code>jstor2dbw</code> object contains a variable <code>bow</code> and associated attribute <code>vocab</code> which can be fed directly to the <code>stm</code> package for topic modeling. Usage will be described below.</p>
 </div>
 <div id="merging" class="section level2">
-<h2><span class="header-section-number">3.4</span> Merging</h2>
+<h2><span class="header-section-number">4.4</span> Merging</h2>
 </div>
 <div id="survival" class="section level2">
-<h2><span class="header-section-number">3.5</span> Survival</h2>
+<h2><span class="header-section-number">4.5</span> Survival</h2>
 </div>
 </div>
 <div id="analytical-method" class="section level1">
-<h1><span class="header-section-number">4</span> Analytical Method</h1>
+<h1><span class="header-section-number">5</span> Analytical Method</h1>
 <div id="clique-percolation" class="section level2">
-<h2><span class="header-section-number">4.1</span> Clique Percolation</h2>
+<h2><span class="header-section-number">5.1</span> Clique Percolation</h2>
 </div>
 <div id="topic-modelling" class="section level2">
-<h2><span class="header-section-number">4.2</span> Topic Modelling</h2>
+<h2><span class="header-section-number">5.2</span> Topic Modelling</h2>
+<p>The <code>jstor2stm.f</code> function is a simple wrapper for the <code>stm</code> package for stuctural topic modeling.</p>
 </div>
 <div id="survival-analysis" class="section level2">
-<h2><span class="header-section-number">4.3</span> Survival Analysis</h2>
+<h2><span class="header-section-number">5.3</span> Survival Analysis</h2>
 </div>
 </div>
 <div id="reporting" class="section level1">
-<h1><span class="header-section-number">5</span> Reporting</h1>
+<h1><span class="header-section-number">6</span> Reporting</h1>
 </div>
 
 

@@ -9,6 +9,12 @@ output:
     toc: yes
 ---
 
+```{r clear-console-and-memory}
+rm(list=ls())
+cat('\014')
+```
+
+
 # Introduction
 
 This appendix explains the research procedures used to produce tables and figures in *Productions of Culture: Knowledge Survival in Art and Science*.
@@ -17,47 +23,49 @@ This appendix explains the research procedures used to produce tables and figure
 
 ## Thomson Reuters Web of Knowledge
 
-
-Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The `wok2db.f` function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of `data.table` provides accomodation for very large databases that perform poorly when treated as a data.frame.
+Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The `wok2dbl.f` function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of `data.table` provides accomodation for very large databases that perform poorly when treated as a data.frame.
 
 ```{r source,echo=F,message=FALSE}
 library(data.table)
 source(file = '../knowledge-survival/dissertation_source.R')
+rm(list=ls()[!ls()%in%c(
+	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f'
+	)])
 ```
 
-```{r wok2db-f,echo=T}
-wok2db<-wok2db.f(
+```{r wok2dbl-f,echo=T}
+wok2dbl<-wok2dbl.f(
 	dir='../knowledge-survival/in'
 	,out='out'
-	,sample.batches=T
-	,sample.size=1
+	,sample.batches=F
+	,sample.size=50
 	,save=T
 	,verbose=T
 	,check.for.saved.output=T
 )
-wok2db
+wok2dbl
 ```
 
 By default the data.table is keyed by its WOK id (the "UT" field), then by the field. This makes querying easy. To see the authors of the first three articles, we might enter:
 
 
-```{r wok2db-usage1}
-(first.three<-unique(wok2db$id)[1:3])
-wok2db[list(id=first.three,field='AF')]
+```{r wok2dbl-usage1}
+(first.three<-unique(wok2dbl$id)[1:3])
+wok2dbl[list(id=first.three,field='AF')]
 ```
 
 By default the value field is not keyed. While there are scenarios where this would be useful---e.g. for calling every record by a particular author, or every record in a particular year---keying also sorts the data.table, and the original sort order is important for fields like "TI" (title) which may be broken across several observations.
 
-The `wok2db` object remains in the long format of the original data source. We can see this by simply calling the `wok2db` object itself or by using `expand.grid` to query multiple keys at once. Here was ask for the source journal, publication year, number of references, and total citations for each of the first three records.
+The `wok2dbl` object remains in the long format of the original data source. We can see this by simply calling the `wok2dbl` object itself or by using `expand.grid` to query multiple keys at once. Here was ask for the source journal, publication year, number of references, and total citations for each of the first three records.
 
-```{r wok2db-usage2}
-wok2db[expand.grid(first.three,c('SO','PY','AU','NR'))]
+```{r wok2dbl-usage2}
+wok2dbl[expand.grid(first.three,c('SO','PY','AU','NR'))]
 ```
 
 To sort results by record instead of field:
 
-```{r wok2db-usage3}
-wok2db[rev(expand.grid(c('SO','PY','AU','NR'),first.three))]
+```{r wok2dbl-usage3}
+wok2dbl[rev(expand.grid(c('SO','PY','AU','NR'),first.three))]
 ```
 
 It is convenient to keep the original source data in a long format and to reshape it as necessary for use in different methods. This will be discussed in the *Formatting* section below.
@@ -66,10 +74,10 @@ It is convenient to keep the original source data in a long format and to reshap
 
 Where WOK data are superior for the study of citations, the JSTOR Data for Research (JSTOR) service provides much of the bibliographic information available in WOK and sometimes more accurately. This makes it useful as a cross reference when assessing the quality of a WOK sample, or for augmenting fields such as authors' names.
 
-In addition to these advantages, JSTOR data also provide ngram frequencies. These data are very valuable and allow partial full-text analysis using "bag of words" methods. The `jstor2db.f` function imports dfr.jstor.org records directly from the compressed files returned by queries to the service. Parallelization of the importing process is available and suitable for systems with fast disks. The function performs a standard set of pre-processing procedures on the ngram frequency tables contained in zip archives that include them. These tables and all other bibliographic data available are returned as a `data.table`.
+In addition to the usual variables, JSTOR data also provide ngram frequencies. These data are very valuable and allow limited full-text analysis using "bag of words" methods. The `jstor2dbw.f` function imports dfr.jstor.org records directly from the compressed files returned by queries to the service. Parallelization of the importing process is available and suitable for systems with fast disks. The function performs a standard set of text pre-processing procedures (e.g. stemming and stop word, punctuation, digit and idiosyncratic word removal) on the ngram frequency tables contained in zip archives that include them. These ngram frequency tables are returned  in the indexed format expected by the `stm` package, and all other bibliographic data available are returned as a `data.table`. A character vector attribute called `vocab` is attached to which the indexes in the `jstor2dbw$bow` refer.
 
-```{r jstor2db-f,echo=TRUE,message=TRUE}
-jstor2db<-jstor2db.f(
+```{r jstor2dbw-f,echo=TRUE,message=FALSE}
+jstor2dbw<-jstor2dbw.f(
 	dir='../knowledge-survival/supplemental/dfr.jstor.org-1k-samples'
 	,out='out'
 	,sample.batches=T
@@ -79,18 +87,66 @@ jstor2db<-jstor2db.f(
 	,check.for.saved.output=T
 )
 ```
+Inspecting the `jstor2dbw` object without bags of words ("bow") or abstracts reveals the standard information, and in the conventional wide, flat file format. The only complex value here is author, and multiple authors are listed with names separated by commas.
+
+```{r jstor2dbw-usage1,echo=TRUE,message=FALSE}
+jstor2dbw[1:5,!c('bow','abstract'),with=F]
+```
+While the `bow` variable contains the indexed ngram frequency table, which indexes the `vocab` attribute of the jstor2dbw object.
+
+```{r jstor2dbw-usage2,echo=TRUE,message=FALSE}
+jstor2dbw$bow[[1]][,1:5]
+attributes(jstor2dbw)$vocab[jstor2dbw$bow[[1]][1,1:5]]
+```
+
+# Identity Resolution
+
+Also known as named entity recognition, identity resolution is a data quality problem preventing the researcher from identifying the same thing with a unique label. This happens whenever variations of a label exist. As a consequence the researcher may fail to connect two events to the same thing. When correcting for low identity resolution, the opposite error may be introduced, where two different entities are erroneously treated as the same thing.
+
+The approach to identity resolution involves supervised machine learning. Because this method is not fully automatic it is difficult to implement as a straightforward routine. For now, the results of this analysis are exploited without a manual for conducting the resolution itself.
+
+```{r identity-resolution,echo=F,eval=FALSE}
+load('../knowledge-survival/pba.RData')
+load('../knowledge-survival/sl.RData')
+el<-list()
+for(i in names(pba)){
+pass<-pba[[i]]$dat$match
+el[[i]]<-pba[[i]]$dat[
+	#pass
+	,list(k,i,j)]
+el[[i]]<-el[[i]][,list(
+cr1=mapply(FUN=function(k,ij) sl[[k]][ij],k=k,ij=i)
+,cr2=mapply(FUN=function(k,ij) sl[[k]][ij],k=k,ij=j)
+)]
+el[[i]][,pred:=pba[[i]]$dat$pred]
+el[[i]][,k:=paste(i,pba[[i]]$dat$k,sep='')]
+}
+el<-rbindlist(el)
+el[,k:=factor(k)]
+setkey(el,k,cr1,cr2)
+netl<-el['A53361',list(cr1,cr2)]
+levs<-sort(unique(unlist(netl)))
+netl<-cbind(as.numeric(factor(netl$cr1,levels=levs)),as.numeric(factor(netl$cr2,levels=levs)))
+net<-graph.edgelist(matrix(netl,ncol=2), directed=F)
+V(net)$name<-levs
+ic<-infomap.community(net,e.weights=el['A53361']$pred)
+membership(ic)
+#comps<-decompose.graph(net,min.vertices=0)
+```
 
 
 # Formatting
 
+Depending on the analysis or data manipulation to be performed, the `wok2dbl` and `jstor2dbw` objects may need to be converted to a different format, including network formats, which allow us to take advantage of records containing information on multiple units.
+
 ## Flat File
 
-The `reshape2` package makes it easy to return the wide or flat file format of a query of a `wok2db` object.
+The `reshape2` package makes it easy to return the wide or flat file format of a query of a `wok2dbl` object.
 
 ```{r reshape}
 library(reshape2)
 dcast(
-	data=wok2db[expand.grid(first.three,c('SO','PY','NR','TC'))]
+	data=wok2dbl[expand.grid(first.three,c('SO','PY','NR','TC'))]
 	,formula=id~field
 	,fun.aggregate=list
 	,value.var='val'
@@ -100,13 +156,71 @@ dcast(
 Many of the interesting fields in WOK records are complex, having multiple observations per record. Some are falsely complex, such as title (TI), which stores a single observation across several fields. Simple and falsely complex values are often trivial features of the document itself. Truely complex field usually store named entities to which the article is related. The most important complex fiels are author (AU and AF) and cited reference (CR). Source journal is an example of a named entity field that is always simple, because a document is only published in one source at a time, though it may have several authors and citations.
 
 ```{r}
-wok2db[expand.grid(first.three,c('AU','CR'))]
+wok2dbl[expand.grid(first.three,c('AU','CR'))]
 ```
 
+## Network Formats
 
-## Network
+The simplest network data format to work with is an edgelist. An edgelist typically has two columns, the name of the node sending an edge in the first column and that of the node receiving the edge in second column.
+
+### Bipartite Edgelist
+
+When considering the different relationships among things that could be treated as a network, the `wok2dbl` object is naturally in the format of a bipartite edgelist. For instance we may treat the sender as the paper (UT record id) and the receiver is the citation (CR) to create a citation network.
+
+```{r wok2dbl-format1,echo=TRUE}
+setkey(wok2dbl,field)
+wok2dbl['CR',!'field',with=F]
+```
+
+Or we could treat the author as the reciever to create a bipartite co-authorship network.
+
+```{r wok2dbl-format2,echo=TRUE}
+wok2dbl['AU',!'field',with=F]
+```
+However, because of several problems of identity resolution of the CR field in particular, we recommend using the `dbl2bel.f` utility, which normalizes citation codes through case transformation, removal of digital object identifiers, and deduplication. It also optionally allows for data reduction of citations by flagging citations referenced only once (pendants). A report of the results of pendant treatment is printed.
+
+```{r dbl2bel-f,echo=TRUE}
+load('../knowledge-survival/fuzzy-sets.RData')
+dbl2bel<-dbl2bel.f(
+	wok2dbl
+	,out='out'
+	,saved_recode=fuzzy.sets
+	)
+dbl2bel
+```
+
+The `dbl2bel` object is appropriate for import into methods designed for bipartite graphs. Because of the nature of record keeping, each complex unit is relateable to others only indirectly by virtue of common inclusion in an article-level record. With a few lines of code we could merge an article to author data.table to an article to citation data.table to yield an author to citation edgelist.
+
+```{r dbl2bel-usage1}
+aubel<-copy(wok2dbl)
+setkey(aubel,field)
+aubel<-aubel['AU',!'field',with=F]
+setnames(aubel,c('ut','au'))
+setkey(aubel,ut)
+setkey(dbl2bel,ut)
+```
+
+```{r dbl2bel-usage2,echo=TRUE}
+dbl2bel[aubel,list(au,cr)]
+```
+
+### Monopartite Edgelist
+
+A more common operation however is to reduce a bipartite graph to a monopartite graph. This is called a reprojection of the graph, and involves a trivial loss of data. Because many network methods assume monopartite data, we include the `bel2mel.f` utility. The function expects a two column matrix, so when choosing to drop pendants you must do so explicitly and leave off the pendant column.
+
+```{r bel2mel-f,echo=TRUE}
+bel2mel<-bel2mel.f(
+	dbl2bel[!dbl2bel$pend,!'pend',with=F]
+	,out='out'
+	)
+bel2mel
+```
+
+Assuming that there is at least one 2-star (node of degree two or more) in the bipartite graph, `bel2mel.f` will by default return both monopartite projections. Each projection is the inverse of the other in the sense that what are nodes in the first projection are edges in the second, and vice versa.
 
 ## Bag of Words
+
+The `jstor2dbw` object contains a variable `bow` and associated attribute `vocab` which can be fed directly to the `stm` package for topic modeling. Usage will be described below.
 
 ## Merging
 
@@ -117,6 +231,8 @@ wok2db[expand.grid(first.three,c('AU','CR'))]
 ## Clique Percolation
 
 ## Topic Modelling
+
+The `jstor2stm.f` function is a simple wrapper for the `stm` package for stuctural topic modeling.
 
 ## Survival Analysis
 
