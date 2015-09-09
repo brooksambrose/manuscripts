@@ -29,7 +29,7 @@ Web of Knowledge (WOK) data that are available through regular subscriptions may
 library(data.table)
 source(file = '../knowledge-survival/dissertation_source.R')
 rm(list=ls()[!ls()%in%c(
-	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','out'
+	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','bel2mel,'out'
 	)])
 ```
 
@@ -216,12 +216,14 @@ bel2mel.f(
 	dbl2bel
 	,out='out/mel/zcrel'
 	,type='crel'
-))
+	,write2disk=F
+))/60
 system.time(
 bel2mel.f(
 	dbl2bel
 	,out='out/mel/zutel'
 	,type='utel'
+	,write2disk=F
 ))
 load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
 dbl2bel<-dbl2bel[!(dbl2bel$pend|dbl2bel$loop),list(ut,cr)]
@@ -230,17 +232,121 @@ bel2mel.f(
 	dbl2bel
 	,out='out/mel/crel'
 	,type='crel'
+	,write2disk=F
 	))
 system.time(
 bel2mel.f(
 	dbl2bel
 	,out='out/mel/utel'
 	,type='utel'
+	,write2disk=F
 	))
-
 ```
 
+```{r mel2cfinder-f,echo=TRUE}
+source('../knowledge-survival/dissertation_source.R')
+rm(bel2mel)
+system.time(load(paste('out/mel/zcrel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/zcrel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/zutel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/zutel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/crel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/crel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel/utel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel/utel'
+))/60
+```
 
+```{r ut49,echo=TRUE}
+source('../knowledge-survival/dissertation_source.R')
+out='out'
+load(paste(out,'wok2dbl.RData',sep=.Platform$file.sep))
+setkey(wok2dbl,field,val)
+ut49<-wok2dbl[list('PY',as.character(1900:1949)),unique(id)]
+rm(wok2dbl)
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+setkey(dbl2bel,ut)
+dbl2bel<-dbl2bel[ut49]
+dbl2bel<-dbl2bel[!(dbl2bel$zpend|dbl2bel$zdup|dbl2bel$zloop),list(ut,zcr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/zcrel'
+	,type='crel'
+))
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/zutel'
+	,type='utel'
+))
+load(paste(out,'dbl2bel.RData',sep=.Platform$file.sep))
+setkey(dbl2bel,ut)
+dbl2bel<-dbl2bel[ut49]
+dbl2bel<-dbl2bel[!(dbl2bel$pend|dbl2bel$loop),list(ut,cr)]
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/crel'
+	,type='crel'
+	))
+system.time(
+bel2mel.f(
+	dbl2bel
+	,out='out/mel49/utel'
+	,type='utel'
+	))
+```
+
+```{r mel2cfinder-f49,echo=TRUE}
+source('../knowledge-survival/dissertation_source.R')
+rm(bel2mel)
+system.time(load(paste('out/mel49/zcrel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/zcrel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/zutel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/zutel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/crel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/crel'
+))/60
+rm(bel2mel)
+system.time(load(paste('out/mel49/utel','bel2mel.RData',sep=.Platform$file.sep)))/60
+system.time(
+mel2cfinder.f(
+	bel2mel
+	,out='out/mel49/utel'
+))/60
+```
 Assuming that there is at least one 2-star (node of degree two or more) in the bipartite graph, `bel2mel.f` will by default return both monopartite projections. Each projection is the inverse of the other in the sense that what are nodes in the first projection are edges in the second, and vice versa.
 
 ## Bag of Words
