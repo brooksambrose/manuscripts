@@ -347,6 +347,263 @@ mel2cfinder.f(
 	,out='out/mel49/utel'
 ))/60
 ```
+
+```{r igraph-test}
+source('../knowledge-survival/dissertation_source.R')
+library(igraph)
+library(data.table)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zutel/bel2mel.RData")
+g<-graph.edgelist(as.matrix(bel2mel$utel[,list(ut1,ut2)]),FALSE)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gut<-g[[which.max(sg)]]
+write.table(matrix(as.integer(factor(get.edgelist(gut))),ncol=2),file='out/mel49/giant-comp-zutel49.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zcrel/bel2mel.RData")
+g<-graph.edgelist(as.matrix(bel2mel$crel[,list(cr1,cr2)]),FALSE)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gcr<-g[[which.max(sg)]]
+# shouldn't be any components of size 2
+write.table(matrix(as.integer(factor(get.edgelist(gcr))),ncol=2),file='out/mel49/giant-comp-zcrel49.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+load("~/Dropbox/GitHub/manuscript/out/mel49/zutel/bel2mel.RData")
+setkey(bel2mel$utel,ew)
+g<-graph.edgelist(as.matrix(bel2mel$utel[list(4),list(ut1,ut2)]),F)
+g<-decompose.graph(g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4<-g[which(sg==max(sg))]
+write.table(matrix(as.integer(factor(get.edgelist(gut4[[1]]))),ncol=2),file='out/mel49/utel49-gut4_1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+write.table(matrix(as.integer(factor(get.edgelist(gut4[[2]]))),ncol=2),file='out/mel49/utel49-gut4_2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+pdf('out/mel/test/gut4.pdf')
+	plot(gut4[[1]])
+	plot(gut4[[2]])
+dev.off()
+gutid<-sapply(gut4,vertex.attributes)
+load("~/Dropbox/GitHub/manuscript/out/dbl2bel.RData")
+
+gut4_1<-dbl2bel[gutid[[1]],list(ut,zcr)]
+setkey(gut4_1,ut,zcr)
+gut4_1<-unique(gut4_1)
+zcr<-gut4_1[,.N,by=zcr]
+setkey(zcr,N)
+zcr<-sort(zcr[!list(1),zcr])
+setkey(gut4_1,zcr)
+gut4_1<-gut4_1[zcr]
+ut<-gut4_1[,.N,by=ut]
+setkey(ut,N)
+ut<-sort(ut[!list(1),ut])
+setkey(gut4_1,ut)
+gut4_1<-gut4_1[ut]
+
+gut4_2<-dbl2bel[gutid[[2]],list(ut,zcr)]
+setkey(gut4_2,ut,zcr)
+gut4_2<-unique(gut4_2)
+zcr<-gut4_2[,.N,by=zcr]
+setkey(zcr,N)
+zcr<-sort(zcr[!list(1),zcr])
+setkey(gut4_2,zcr)
+gut4_2<-gut4_2[zcr]
+ut<-gut4_2[,.N,by=ut]
+setkey(ut,N)
+ut<-sort(ut[!list(1),ut])
+setkey(gut4_2,ut)
+gut4_2<-gut4_2[ut]
+
+gut4_1<-bel2mel.f(gut4_1,out='out/mel/test/1',type='crel')
+gut4_2<-bel2mel.f(gut4_2,out='out/mel/test/2',type='crel')
+#mel2cfinder.f(gut4_1,out='out/mel/test/1') # will strip names because data.table doesn't make copies
+#mel2cfinder.f(gut4_2,out='out/mel/test/2') # will strip names because data.table doesn't make copies
+
+gut4_1g<-graph.edgelist(as.matrix(gut4_1$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_1g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_1g<-g[[which(sg==max(sg))]]
+
+hulls1<-list()
+for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/1/gut4_1.pdf')
+plot(graph.adjacency(sapply(hulls1,function(x) sapply(hulls1,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp1<-c('WOS:000204992100005','WOS:000205009200002')
+pdf('out/mel/test/1/gut4_1g-zcr.pdf')
+plot(
+	gut4_1g
+	,mark.groups=hulls1[samp1]
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_1g))),ncol=2),file='out/mel/test/1/1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+
+gut4_2g<-graph.edgelist(as.matrix(gut4_2$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_2g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_2g<-g[[which(sg==max(sg))]]
+
+hulls2<-list()
+for(i in unique(unlist(gut4_2$crel$ut))) hulls2[[i]]<-which(V(gut4_2g)$name%in%sort(unique(unlist(gut4_2$crel[sapply(gut4_2$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/2/gut4_2.pdf')
+plot(graph.adjacency(sapply(hulls2,function(x) sapply(hulls2,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp2<-c('WOS:000204682200001','WOS:000204694300003','WOS:000204681700001')
+pdf('out/mel/test/2/gut4_2g-zcr.pdf')
+plot(
+	gut4_2g
+	,mark.groups=hulls2[samp2]
+	,vertex.label=1:length(V(gut4_2g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_2g))%in%unique(unlist(hulls2[samp2])))+1]
+	)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+```
+
+```{r cosparallel-test}
+cosresults.f<-function(dir){
+f<-grep('[0-9]_communities\\.txt$',dir(dir),value=T)
+k<-as.integer(sub('_.+','',f))
+f<-f[order(k)]
+k<-k[order(k)]
+cos<-lapply(f,function(x) {
+	x<-readLines(paste(dir,x,sep=.Platform$file.sep))
+	x<-sapply(x,function(y) lapply(strsplit(y,split='[: ]'),as.integer))
+	x<-data.table(id=sapply(x,function(y) y[1]),memb=lapply(x,function(y) y[-1]))
+	x<-x[,list(memb=list(memb)),by=id]
+	x<-lapply(x$memb,function(y) sort(unique(unlist(y))))
+	x
+	})
+names(cos)<-paste('k',k,sep='')
+cos<-cos[!duplicated(cos,fromLast=T)]
+l<-read.table(paste(dir,grep('map',dir(dir),value=T),sep=.Platform$file.sep))
+cos<-lapply(cos,function(x) lapply(x,function(y) sort(l[y+1,1])))
+
+ret<-list(orig=cos)
+
+x<-lapply(cos,function(x) sort(unique(unlist(x))))
+x<-rev(lapply(length(x):1, function(y) sort(unique(unlist(x[length(x):y])))))
+for(i in 1:(length(x)-1)) x[[i]] <- setdiff(x[[i]],x[[i+1]])
+ret$strict<-mapply(function(com,reg) lapply(com,function(y) intersect(y,reg)),com=cos,reg=x) # com=communities reg=register
+ret$strict<-lapply(ret$strict,function(x) x[!!sapply(x,length)])
+ret$strict<-ret$strict[!!sapply(ret$strict,length)]
+names(ret$strict)<-paste(names(ret$strict),'-',sep='')
+ret$strict<-do.call(c,ret$strict)
+names(ret$strict)<-sub('-$','',names(ret$strict))
+
+attributes(ret)$levels<-readLines(gzfile(paste(dir,grep('levs.txt.gz',dir(dir),value=T),sep=.Platform$file.sep)))
+ret
+}
+cos<-cosresults.f('/Users/bambrose/Dropbox/GitHub/manuscript/out/mel/test/1')
+```
+
+```{r plot_cosresults}
+lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
+pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
+mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
+lapply(names(cos$orig),function(j){
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$orig[[j]])))-2
+try(
+	plot(
+	gut4_1g
+	,mark.groups=lapply(cos$orig[[j]],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=0
+	,mark.col=rainbow(mxcol,start=.7,end=.1,alpha=.3)[cols]
+	,mark.border=rainbow(mxcol,start=.7,end=.1,alpha=1)[cols]	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main=j
+	,layout=lout
+	)
+)
+	})
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-terrain.colors(max(cols))[cols] #rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-mark.col #rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+```
+
+```{r 3d-test}
+z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
+V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
+V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']
+if(F) {rglplot(
+	gut4_1g
+	#,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	#,mark.expand=5
+	#,mark.col=mark.col
+	#,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.color=terrain.colors(max(cols))[V(gut4_1g)$maxk-2]
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=cbind(lout,V(gut4_1g)$maxk)
+)}
+chulls<-lapply(lapply(split(lout,f=V(gut4_1g)$maxc),matrix,ncol=2),function(x) convex.hull(x)$rescoords)
+chulls<-mapply(function(a,b) cbind(a,b[1]),a=chulls,b=split(V(gut4_1g)$maxk,f=V(gut4_1g)$maxc))
+open3d()
+#rgl.open()
+#rgl.bg(color="gray")
+#rgl.light()
+tercol<-sapply(chulls,function(x) terrain.colors(max(cols))[x[1,3]-2])
+for(i in 1:(length(chulls)-1)) {cat(i,"");try(shade3d(extrude3d(chulls[[i]][,-3],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+#rgl.close()
+
+```
+
+
+
 Assuming that there is at least one 2-star (node of degree two or more) in the bipartite graph, `bel2mel.f` will by default return both monopartite projections. Each projection is the inverse of the other in the sense that what are nodes in the first projection are edges in the second, and vice versa.
 
 ## Bag of Words

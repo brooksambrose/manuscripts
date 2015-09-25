@@ -1,0 +1,398 @@
+source('../knowledge-survival/dissertation_source.R')
+cat('\014')
+
+```{r mel2comps-f}
+mel2comps.f<-function(
+	bel2mel
+	,type=c('crel','utel')
+	,out=stop('Specify output directory')
+	,min.size=3
+	){
+	require(data.table)
+	require(igraph)
+	out
+	ret<-list()
+	for(i in type) if(i%in%names(bel2mel)) {
+		cat('\n',i,'\n',sep='')
+		levs<-factor(bel2mel[[i]][,do.call(c,.SD),.SDcols=1:2])
+		bel2mel[[i]]<-matrix(as.character(as.integer(levs)),ncol=2)
+		levs<-levels(levs)
+		g<-graph.edgelist(bel2mel[[i]],FALSE)
+		g<-decompose.graph(g)
+		comp.sizes<-sapply(g,vcount)
+		print(table(comp.sizes))
+		cat('Only networks of size',min.size,'and above returned.')
+		cat('\nDirectories created:')
+		mapply(
+			function(net,id,vcount) {
+				path<-paste(out,'mel2comps',i,paste(id,vcount,sep='-'),sep=.Platform$file.sep)
+				dir.create(path,recursive=T)
+				cat('\n',path)
+				write.table(get.edgelist(net),file=paste(path,'mel2comps.txt',sep=.Platform$file.sep),sep='\t',quote=F,na='',row.names=F,col.names=F)
+				}
+			,net=g[comp.sizes>=min.size]
+			,id=(1:length(g))[comp.sizes>=min.size]
+			,vcount=comp.sizes[comp.sizes>=min.size]
+			)
+		writeLines(levs,con=paste(out,'mel2comps',i,'mel2comps-levs.txt',sep=.Platform$file.sep))
+		ret[[i]]<-g[comp.sizes>=min.size]
+		}
+	ret
+	}
+mel2comps<-mel2comps.f(bel2mel,out='out')
+```
+
+```{r comps2cos-f}
+comps2cos.f<-function(
+	mel2comps.dir=stop('Specify directory where mel2comps.txt edgelists are located.')
+	,cosparallel.path=stop('Specify path to cosparallel executable (e.g. ~/cosparallel-code/cos)')
+	,threads=1
+	)
+{
+	mel2comps.dir
+	cosparallel.path
+	
+	mel2comps<-list.files(mel2comps.dir,pattern='mel2comps\\.txt$',recursive=T,full.names=T)
+	
+	for(i in mel2comps){
+		com<-paste(
+				'cd \'',sub('mel2comps.txt','\'',i)
+				,' && ',sub('cos$','extras/maximal_cliques',cosparallel.path),' \'',i,'\''
+				,' && ',cosparallel.path,' -P ',threads,' \'',i,'.mcliques\''
+				,sep='')
+		cat('Source data: ',i,'\n\nThreads used: ',threads,'\n\nsh: ',com,'\n\ncos stdout:\n\n',sep='')
+		system(
+			command=com
+			#		,stdout='stdout.txt'
+			)
+		}
+	}
+time<-system.time(comps2cos.f(
+	mel2comps.dir='/Users/bambrose/Dropbox/GitHub/manuscript/out/mel2comps'
+	,cosparallel.path='~/cosparallel-code/cos'
+	,threads=4
+	))
+# time<-list(t1=time,t3=system.time(comps2cos.f(
+# 	mel2comps.dir='/Users/bambrose/Dropbox/GitHub/manuscript/out/mel2comps'
+# 	,cosparallel.path='~/cosparallel-code/cos'
+# 	,threads=3
+# 	)))
+time
+```
+
+```{r cos2kcliqdb-f}
+cos2kcliqdb.f<-function(
+	mel2comps.dir=stop('Specify a mel2comps directory that includes cos output.')
+	,out=stop('Specify output directory.')
+	,type=c('crel','utel')
+	)
+	{
+	require(data.table)
+	mel2comps.dir
+	for(i in type) if(i%in%dir(mel2comps.dir)) {
+		p<-paste(mel2comps.dir,i,sep=.Platform$file.sep)
+		d<-list.dirs(p)[-1]
+		olevs<-readLines(list.files(p,pattern='levs',full.names=T))
+		ret<-list()
+		ret[[i]]$orig<-lapply(d,function(j) {
+			f<-list.files(j,pattern='[0-9]_communities\\.txt$',full.names=T)
+			if(length(f)) {
+				coslevs<-read.table(list.files(j,full.names=T,pattern='map$'))$V1
+				k<-as.integer(sub('^.+/([0-9]+)_.+$','\\1',f))
+				f<-f[order(k)]
+				k<-k[order(k)]
+				cos<-lapply(f,function(x) {
+					x<-readLines(x)
+					x<-sapply(x,function(y) lapply(strsplit(y,split='[: ]'),as.integer))
+					x<-data.table(id=sapply(x,function(y) y[1]),memb=lapply(x,function(y) y[-1]))
+					x<-x[,list(memb=list(memb)),by=id]
+					x<-lapply(x$memb,function(y) sort(unique(unlist(y))))
+					x
+					})
+				dup<-duplicated(cos,fromLast=T)
+				cos<-cos[!dup]
+				k<-k[!dup]
+				f<-f[!dup]
+				names(cos)<-paste('k',k,'c',sub('^.+/([0-9]+)-[0-9]+/.+','\\1',f),'-',sep='')
+				cos<-do.call(c,cos)
+				names(cos)<-sub('-$','',names(cos))
+				cos<-lapply(cos,function(x) sort(coslevs[x+1]))
+				return(cos)
+				}
+			})
+		ret[[i]]$orig<-do.call(c,ret[[i]]$orig)
+		ret[[i]]$orig<-split(ret[[i]]$orig,f=sub('^k([0-9]+).+$','\\1',names(ret[[i]]$orig)))
+		ret[[i]]$orig<-ret[[i]]$orig[order(as.integer(names(ret[[i]]$orig)))]
+		names(ret[[i]]$orig)<-paste('k',names(ret[[i]]$orig),sep='')
+		cat('\n',i,'k-clique community distribution (original)\n')
+		print(sapply(ret[[i]]$orig,length))
+		
+		### strict membership interpretation
+		x<-lapply(ret[[i]]$orig,function(x) sort(unique(unlist(x))))
+		x<-rev(lapply(length(x):1, function(y) sort(unique(unlist(x[length(x):y])))))
+		for(j in 1:(length(x)-1)) x[[j]] <- setdiff(x[[j]],x[[j+1]])
+		ret[[i]]$strict<-mapply(function(com,reg) lapply(com,function(y) intersect(y,reg)),com=ret[[i]]$orig,reg=x) # com=communities reg=register
+		ret[[i]]$strict<-lapply(ret[[i]]$strict,function(x) x[!!sapply(x,length)])
+		ret[[i]]$strict<-ret[[i]]$strict[!!sapply(ret[[i]]$strict,length)]
+		names(ret[[i]]$strict)<-paste(names(ret[[i]]$strict),'-',sep='')
+		ret[[i]]$strict<-do.call(c,ret[[i]]$strict)
+		names(ret[[i]]$strict)<-sub('^.+\\.','',sub('-$','',names(ret[[i]]$strict)))
+		
+		cat('\n',i,'k-clique community distribution (strict)\n')
+		t<-table(as.integer(sub('^k([0-9]+).+$','\\1',names(ret[[i]]$strict))))
+		names(t)<-paste('k',names(t),sep='')
+		print(t)
+		
+		attributes(ret[[i]])$levels<-olevs
+		}
+	save(ret,file=paste(out,'cos2kcliqdb.RData',sep=.Platform$file.sep))
+	ret
+	}
+cos<-cos2kcliqdb.f(mel2comps.dir='/Users/bambrose/Dropbox/GitHub/manuscript/out/mel2comps',out='/Users/bambrose/Dropbox/GitHub/manuscript/out')
+```
+
+```{r kcliqdb2viz-f}
+kcliqdb2viz.f<-function(
+	cos2kcliqdb
+	,mel2comps.dir=stop('Specify a mel2comps directory that includes cos output.')
+	,out=stop('Specify output directory.')
+	,type=c('crel','utel')
+	){
+	require(igraph)
+	mel2comps.dir
+	ret<-list()
+	for(i in type) if(i%in%dir(mel2comps.dir)){
+		p<-paste(mel2comps.dir,i,sep=.Platform$file.sep)
+		olevs<-readLines(list.files(p,pattern='levs',full.names=T))
+		els<-list.files(p,recursive=T,full.names=T,pattern='mel2comps.txt$')
+		els<-as.matrix(do.call(rbind,lapply(els,function(x) read.delim(x,header=F,quote='',fill=F,colClasses='character'))))
+		ret[[i]]$g<-graph.edgelist(els,F)
+		key<-data.table(gph=1:vcount(ret[[i]]$g),src=as.integer(V(ret[[i]]$g)$name))
+		setkey(key,src)
+		
+		# plot strict interpretation with terrain colors
+		cos2kcliqdb[[i]]$strict<-lapply(cos2kcliqdb[[i]]$strict,function(x) key[list(x),gph])
+		pdf(paste(out,paste('kcliqdb2vis',i,'strict.pdf',sep='-'),sep=.Platform$file.sep))
+		cols<-as.integer(sub('^k([0-9]+).*$','\\1',names(cos2kcliqdb[[i]]$strict)))-2
+		mark.col<-terrain.colors(max(cols))[cols] 
+		mark.border<-'white'
+		plot(
+			ret[[i]]$g
+			# 			,mark.groups=tail(cos2kcliqdb[[i]]$strict,1)
+			# 			,mark.expand=5
+			#			,mark.col=mark.col
+			#			,mark.border=mark.border
+			,vertex.size=0
+			,vertex.shape='square'
+			,vertex.label=NA
+			,vertex.color=gray(0,.1)
+			,vertex.frame.color=NA
+			#			,vertex.label.cex=0
+			,edge.color=gray(0,.1)
+			#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+			,main="Strict"
+			,layout=ret[[i]]$lout
+			)
+		dev.off()
+		t1<-proc.time()
+		t1-t0
+		
+		## Plot kcoms as nodes in hierarchical tree
+		
+		trg<-list()
+		for(j in length(cos2kcliqdb[[i]]$orig):2) trg[[j]]<-graph.incidence(sapply(cos2kcliqdb[[i]]$orig[[j]],function(x) sapply(cos2kcliqdb[[i]]$orig[[j-1]],function(y) sum(x%in%y))),mode='in',weighted=T,directed=T)
+		trg<-do.call(graph.union,trg)
+		V(trg)$k<-as.integer(sub('^k([0-9]+).+$','\\1',V(trg)$name))
+		V(trg)$layer<-max(V(trg)$k)-V(trg)$k+1
+		tc<-as.integer((log(V(trg)$k-2)+.1)*10)
+		V(trg)$terrain<-terrain.colors(round(max(tc)+.1*max(tc)),alpha=1)[tc]
+		trg$layout<-layout.sugiyama(trg,hgap=15,layers=V(trg)$layer,maxiter=10000)$layout
+
+		pdf(paste(out,paste('kcliqdb2vis',i,'sugiyama.pdf',sep='-'),sep=.Platform$file.sep))
+		plot(trg
+				 ,layout=trg$layout
+				 ,vertex.label=NA
+				 ,vertex.size=4
+				 ,vertex.shape='square'
+				 ,vertex.frame.color=NA # 'white'  #gray(0,.05)
+				 ,vertex.color=V(trg)$terrain
+				 ,edge.arrow.mode='-'
+				 ,edge.width=.1
+				 ,edge.color=gray(.1,1)
+				 )
+		dev.off()
+		}
+	}
+kcliqdb2viz.f(cos,mel2comps.dir,out='out')
+
+
+```
+
+
+
+
+hulls1<-list()
+for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/1/gut4_1.pdf')
+plot(graph.adjacency(sapply(hulls1,function(x) sapply(hulls1,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp1<-c('WOS:000204992100005','WOS:000205009200002')
+pdf('out/mel/test/1/gut4_1g-zcr.pdf')
+plot(
+	gut4_1g
+	,mark.groups=hulls1[samp1]
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_1g))),ncol=2),file='out/mel/test/1/1.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+
+gut4_2g<-graph.edgelist(as.matrix(gut4_2$crel[,list(as.character(cr1),as.character(cr2))],ncol=2),F)
+g<-decompose.graph(gut4_2g)
+sg<-sapply(g,vcount)
+table(sg)
+gut4_2g<-g[[which(sg==max(sg))]]
+
+hulls2<-list()
+for(i in unique(unlist(gut4_2$crel$ut))) hulls2[[i]]<-which(V(gut4_2g)$name%in%sort(unique(unlist(gut4_2$crel[sapply(gut4_2$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
+
+pdf('out/mel/test/2/gut4_2.pdf')
+plot(graph.adjacency(sapply(hulls2,function(x) sapply(hulls2,function(y) length(intersect(x,y)))),mode='upper',diag=F,weighted=T))
+dev.off()
+
+samp2<-c('WOS:000204682200001','WOS:000204694300003','WOS:000204681700001')
+pdf('out/mel/test/2/gut4_2g-zcr.pdf')
+plot(
+	gut4_2g
+	,mark.groups=hulls2[samp2]
+	,vertex.label=1:length(V(gut4_2g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	,vertex.color=c('white','gray')[(1:length(V(gut4_2g))%in%unique(unlist(hulls2[samp2])))+1]
+)
+dev.off()
+write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
+```
+
+
+
+```{r plot_cosresults}
+lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
+pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
+mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
+lapply(names(cos$orig),function(j){
+	cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$orig[[j]])))-2
+	try(
+		plot(
+			gut4_1g
+			,mark.groups=lapply(cos$orig[[j]],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+			,mark.expand=0
+			,mark.col=rainbow(mxcol,start=.7,end=.1,alpha=.3)[cols]
+			,mark.border=rainbow(mxcol,start=.7,end=.1,alpha=1)[cols]	,vertex.label=1:length(V(gut4_1g))
+			,vertex.size=5
+			,vertex.label.cex=.5
+			,edge.color=gray(0,.1)
+			#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+			,main=j
+			,layout=lout
+		)
+	)
+})
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+pdf('out/mel/test/gut4_1g-zcr-cos-strict.pdf')
+cols<-as.integer(sub('k([0-9]+).*','\\1',names(cos$strict)))-2
+mark.col<-terrain.colors(max(cols))[cols] #rainbow(max(cols),start=.7,end=.1,alpha=1)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+mark.border<-mark.col #rainbow(max(cols),start=.7,end=.1,alpha=.3)[cols] #sapply(1:(max(cols))/max(cols),gray)[cols] #
+plot(
+	gut4_1g
+	,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	,mark.expand=5
+	,mark.col=mark.col
+	,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=lout
+)
+dev.off()
+```
+
+```{r 3d-test}
+z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
+V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
+V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']
+if(F) {rglplot(
+	gut4_1g
+	#,mark.groups=lapply(cos$strict,function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))
+	#,mark.expand=5
+	#,mark.col=mark.col
+	#,mark.border=mark.border
+	,vertex.label=1:length(V(gut4_1g))
+	,vertex.size=5
+	,vertex.color=terrain.colors(max(cols))[V(gut4_1g)$maxk-2]
+	,vertex.label.cex=.5
+	,edge.color=gray(0,.1)
+	#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
+	,main="Strict"
+	,layout=cbind(lout,V(gut4_1g)$maxk)
+)}
+chulls<-lapply(lapply(split(lout,f=V(gut4_1g)$maxc),matrix,ncol=2),function(x) convex.hull(x)$rescoords)
+chulls<-mapply(function(a,b) cbind(a,b[1]),a=chulls,b=split(V(gut4_1g)$maxk,f=V(gut4_1g)$maxc))
+open3d()
+#rgl.open()
+#rgl.bg(color="gray")
+#rgl.light()
+tercol<-sapply(chulls,function(x) terrain.colors(max(cols))[x[1,3]-2])
+for(i in 1:(length(chulls)-1)) {cat(i,"");try(shade3d(extrude3d(chulls[[i]][,-3],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+play3d(spin3d(axis=c(0,0,1), rpm=2), duration=30)
+#rgl.close()
+
+### original 
+cos$origi<-lapply(cos$orig,function(x) sapply(x,function(i) which(V(gut4_1g)$name%in%levels(cos)[i])))
+cos$stricti<-lapply(cos$strict,function(x) sapply(x,function(i) which(V(gut4_1g)$name%in%levels(cos)[i])))
+for(i in 1:(length(cos$stricti))) {cat(i,"");try(shade3d(extrude3d(lout[cos$stricti,],thickness=unique(chulls[[i]][,3]),smooth=T),col=tercol[i]))}
+
+resize.Polygon <- function(coords, size=1.0) {
+	tmp <- scale(coords[,], scale=rep(1/size, 2))
+	scaled <- t(tmp) + attr(tmp, 'scaled:center')
+	closed <- t(cbind(scaled, scaled[,1]))
+	closed
+}
+
+ks<-as.integer(sub('k([0-9]+).*','\\1',names(cos$origi)))
+cs<-terrain.colors(max(ks))[ks]
+open3d()
+mapply(function(memb,k,clr,scl) try(shade3d(extrude3d(
+	resize.Polygon(convex.hull(lout[memb,])$rescoords,size=scl),smooth=T,thickness=k),col=clr)),memb=cos$origi,k=ks,clr=cs,scl=1-(as.integer(factor(ks))-1)/1000)
+play3d(spin3d(axis=c(0,0,1), rpm=2), duration=30)
+
+```
+
