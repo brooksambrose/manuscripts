@@ -1,72 +1,145 @@
-source('../knowledge-survival/dissertation_source.R')
+---
+title: "Chapter 1 - Clique Percolation"
+author: "Brooks Ambrose"
+date: "August 14, 2015"
+output:
+  html_document:
+    highlight: textmate
+    number_sections: yes
+    toc: yes
+---
+
+#Clique Percolation
+##Theory
+###Observed and Unobserved Dimensions of Cultural Production
+##Community Detection as Measure of Invisible Colleges
+##Community Detection
+All community detection methods assumes that ties are driven by an unobserved set of groups and each proposes a procedure to uncover those groups. What is really being interrogated in each case is the existence of boundaries between sets of nodes. One set of methods uses the modularity measure introduced by {REF} to adjudicate among proposed boundary configurations. Modularity is  class of network methods that reduces tie information into category membership. , like cluster analysis or latent variable regression approaches that use conventional flat-file data, synthesize information about ties among nodes into higher level constructs about group membership.
+###Clique Percolation Method
+## k-clique percolation -201-.md
+k-clique percolation, which has several advantages. First, unlike modularity-based methods that use randomization, clique percolation is determinate and reproducible, like the link-community method utilizing the tanimoto coefficient. It is reasonably fast on large networks. It is also well-suited to the design of a co-reference network, in which the reference page of an article is represented as a k-clique of citations where k is equal to the number of references.
+###Other Approaches
+#### Modularity Optimization
+Modularity as a metric is the outcome of a function that takes a given community structure, e.g. one fed in iteration to an algorithm,  and compares it to the same network if it were randomly reorganized. Modularity is a value between -1 and 1 and is equal to the proportion of ties within community boundaries minus the proportion of ties within the same boundaries when ties are randomly reassigned. A community structure with a value of 0 refers to a structure that could appear at random. A positive score means that the structure captures more internal ties than we would expect at random. A negative score means that the structure cuts against the real organization, that random ties would be more likely to occur within than across boundaries. Modularity methods each attempt to find "the" boundary configuration that has the maximal modularity score, and they differ either in how they simulate the random network or in how efficiently they explore the set of all boundary configurations.
+
+Shwed and Bearman have treated modularity as an operationalization of the concept of "consensus" in scientific communities, implying that it measures the same thing across networks. If two networks have similar modularity scores for their respective maximal boundary configurations then we know
+
+Networks with the same modularity score Contrary to Shwed and Bearman {*Shwed:2010kv}, modularity does not have generalizable meaning because it is based on a comparison to a null network that must resemble the real network on parameters such as size, density and degree distribution.
+
+Fortunato (2010) provides a useful review of accomplishments in the field of community detection in networks. Community detection refers to a set of techniques that attempt to locate sets of nodes that have more external than internal ties. The field is characterized by diversity in the theoretical characterization of what “communities” should mean analytically and how communities should be algorithmically constructed given real or simulated network data. The concept of modularity provides a standard against which alternative theories and computational solutions can be compared and evaluated. There are two broad categories of community detection techniques: “agglomerative” algorithms collapse sets of high degree, high density nodes recursively, and “divisive” algorithms remove links between nodes with high “betweeness”, discovering communities by breaking weak ties between them. (Blondel et. al. 2008: 2, Jackson 2008: 444) Both techniques continue iteratively and eventually reach a limit where they have either collapsed the entire network into one node or they have completely dissolved all network connections. The analyst may choose a desirable point to stop the algorithm, for instance, by specifying the expected number of communities, but most applications use the concept of “modularity” to provide an objective stopping point.
+
+An additional methodological difficulty is the fact that the algorithm does not produce an unequivocal community structure. As a maximization function, it is sensitive to local maxima that might be lower than the global maximum. The problem manifests itself in that some articles at the “edge” of a community will oscillate randomly across the boundary depending on starting point of the algorithm. To mitigate this effect, the starting point can be randomized, the algorithm can be repeated, and then the highest modularity can be chosen from the set of trials. A more sophisticated technique is to use this variability to one’s advantage by capturing information about the oscillations of particular nodes among different clusters, thus constructing a measure of cluster overlap or the interstitial locations of particular nodes.
+###Estimation at Scale
+##Interpretation of k-Clique Communities (kcc)
+This ontology describes a pattern of cultural cohesion yielding both segmentation and stratification. We might call it the "sermon on the mount" network pattern; as producers move in status from audience to players, they ascend a landscape that has a peak (core) and valley (periphery) pattern.
+
+At the periphery are crowds with weak borders and much traffic between them. In k-clique terms a low k means that at the periphery one only needs to know a few faces to feel welcome in a region adjacent to one's current location. 
+
+As one jostles for a position nearer to the cores, crowds turn to cliques. They become smaller in inverse relation to the amount of capital required to enter
+###Overlapping Invisible Colleges (kcc)
+###Non-overlapping Invisible Colleges
+####Highest-k 
+####Disjoint Union
+##Social Science Article Network, 1900-1949
+###Data
+The raw data for this analysis are from the Thompson Reuters Web of Knowledge Social Science Citation Index. Ideally, we would analyze the entire stock of recorded publication material to give the best chance of observing when authors contravene institutional boundaries. Practically, we must take a sample, however sampled networks are not small versions of the population network {Handcock:2010iw}. Sampling may have the effect of degrading the network cohesion on which community detection methods depend, such that a method will not detect the same boundaries in a sample as it would in the population. To avoid a sampling effect on network cohesion, we draw a full census of articles, reviews, and book reviews from each journal selected.
+
+Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, we should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, we use Leydesdorff's {/*Leydesdorff:2010ci/ :}
+
+We should also expect to observe boundaries due to several other institutional levels higher than journals, like publishers, disciplines, or national and language groups. which is  To provide ample opportunity to observe boundaries existing in the space between journals and between academic disciplines, we also take a large sample of journals
+
+To observe some of these high level institutions, we draw sets of journals from four social science disciplines–anthropology, sociology, economics, and political science–and we draw these in blocks from the same publisher. Journals were selected from the disciplinary affiliations signaled in their titles. From a JSTOR master list of archived materials, journals were selected if they contained any of the disciplinary prefixes anth-, soci-, e[ck]on-, and poli-. {{Though not all journals that are affiliated with a discipline signal this with a word containing the signature prefix, those that do are affiliated with a high degree of accuracy. Soci is an exception, and journals like the Royal Society of Statistics [madeup] are excluded.}} This list was cross referenced with the TR WOK database.
+#### Coding Variations -214-.md
+Some singletons exist only because of codification errors. These may be address errors, where the original author miscoded or incompletely coded the reference, while others are the data coding errors of WOK workers. Authors behavior toward citations in two ways. When they have read and can remember the original reference, an author may treat the citation as a sign that evokes the text for herself and her audience. When she requires the citations to locate the text, it acts like the street address of building. When an author writes a reference as a sign, she may be less concerned with its accuracy as an address, and this, along with database errors, will lead to variations in the coding of a reference in TR WOK data. As it may still be possible to locate a home with only a partially correct or complete address, a poorly coded reference may still be enough to lead a researcher to the correct reference; it may just as well lead her on a goose chase.
+
+One must decide how to represent citations variations computationally. Some errors may be corrected using record matching techniques. The Levenshtein string distance, or the number of transformations required to turn one character string into another, can be used to identify citation codes that are nearly identical. This should be done to correct artificial database entry errors, as network methods tend to not be robust to node and edge identification errors. Natural address errors require a decision. If historically scholars successfully perceived two versions of a citation as signs to the same text, then we should correct the codes even if they were actually different in historical documents. If the addresses were so wrong as to lose one searching for the reference, then they should remain as different in the data. The Levenshtein distance is an appropriate measure of this distinction. If two codes to the same reference have a close Levenshtein distance, then it is reasonable to assume that historical actors would have perceived their identity. If they are far, however, then we should allow them to fool the computer as they would have fooled an historical actor. By performing hierarchical clustering of these string distances, sets of variations can be used to assign consistent codes to members of the set. The threshold at which one stops clustering citations represents the standard beyond which their identity is unrecognizable. We use the same procedure to handle variations in the coding of author names. In both the citation and author name case, we manually verify the contents of each set, and we train the algorithm to be sensitive to small differences that make a big difference, such as a one unit change in the volume number of a journal or two author names that have a different middle initial. Historically the problem of natural variations abates due to the institutionalization of a norm of accuracy as a feature of scholarly professionalization. Those that remain are database errors and should be corrected.
+##### Decision Rules for Variations
+Sorting through millions of citation variations is not impossible, but much of this process can be automated. TR WOK citation codes follow several patterns that can be exploited. Here we have tried to establish a parsimonious set of rules that will allow the computer to treat as identical those sets that are likely to contain only one variation, leaving the more problematic cases to the discretion of a human coder. These are the rules:
+
+For each citation, the following information was measured if present:
+
+- The year, volume, and page, and character count.
+- The date in seconds from January 1, 1960 if coded as a daily serial.
+- The minimum similarity score associated with it.
+
+For each set of citations, the above measures were collapsed into minimum and maximum values and standard deviations. The number of citations in a set were also recorded. Especially to aid decisions in the case of corporate author sources, discussed below, a measure was taken to determine if years within a set were consecutive, as in the case of annual reports that should be treated discretely.
+
+Each of these absolute scores were then commensurated by conversion into percentile ranks. In general, citation sets that fell into the lowest percentiles (highest for character count and set size) were regarded as most unproblematic. If one computed an average percentile score for all nonmissing measures, and sorted the list of sets, time could be minimized by having the coder look at the most problematic sets first. Beyond a certain threshold, a coder could safely assume that the remaining sets were valid.
+
+Commensuration by percentiles may obscure natural thresholds in the data, thus histograms were observed to locate such cut points.
+
+To increase our accuracy, we can exploit categorical distinctions among citations, which may be to books, journals, non-journal serials, and corporate authors. The following rules let us treat these cases more carefully.
+
+To identify books:
+
+1. Each citation must begin with a letter, which is assumed to be the author.
+2. A volume number cannot exceed 3.
+3. 
+
+Journals:
+
+1. Each citation must have a volume and page numbers.
+
+Other serials:
+
+1. Citation must have a four digit day-month code.
+
+Corporate authors:
+
+1. Citation must begin with an asterisk.
+
+Treating these categories separately helps coders move more quickly by allowing them to remain in a particular human coding routine. Below we document a full protocol for each category, and add rules as we discover them to be useful.
+
+We begin with books.
+
+For periodicals, we simply treat as identical sets whose standard deviation of dates is three days or less.
+#### Population Descriptions -193-.md
+TABLE X ABOUT HERE
+
+Table X describes the sample of TR WOK records by their journal and publisher membership. These records contain information about several different kinds of units in the scholarly field. In real settings, there may be a scale free relationship between sorting and sorted units in that depending on the relationship the same concrete unit may be a sorter or a sortee. We describe five low level units–authors, documents, pages, references, and citations–and three high level units–publishers, journals, and document types–into which the former are distributed. Later, we will add another high level unit, the citation community, which will be derived from the citation relationships among documents. 
+
+A TR WOK record measures several variables about the article and its journal, and it includes a coding of the citations in its reference page. Though the terms are synonyms, for clarity we will refer to a reference as the unique work itself and a citation as an author's inclusion of that work in her reference page. The population of articles is equal to the number of TR WOK records, but there are two populations to consider in the case of citations. The population of works referenced by any article is the unique number of citations among them, while the population of acts of reference is equal to the sum of the length of each page of citations. The reference population is larger because many citations are referenced more than once. Because of the censorship inherent in reliance on WOK records, the citation population cannot be smaller than the reference population. Because we only observe citations that were referenced at least once, the population of works that are referred to but never cited are unfortunately censored.  We will recover this notion of relevant and uncited work when we discuss the proximity of references in a citation networks. There it will be possible to identify references that were not cited as well as the authors who might have cited them.
+
+Though we sometimes refer to all WOK records as articles, we actually use article, review, and book review records. While we focus on journals, we also use book review records to make it more likely that we include books relevant to the work of journal authors. While book reviews normally only include a single reference to the reviewed work, this reference will increase the degree of the book as a node in a reference network. Because we make selection decisions on the basis of degree, book reviews help add weight to works that might otherwise have been discarded. The distinction between an article and a review may be twofold. First, reviews tend to have much longer reference lists than articles, and we will see that reference count has an exponential impact on the network. Secondly and partially as function of their high degree, reviews also tend to bridge small worlds within the network.
+
+### Network Specification and Projection
+Researchers often interpret reference data as indicating a deference tie from the citing to the cited paper or an influence tie in the opposite direction. We have a different concept of the meaning of these data. The citing paper represents the consummation of a social project in the face of particular historical and sociological constraints. It represents successful social productivity, both in the research of the paper and in the navigation of the publication process. It is a special intersection of social and cultural processes, where the scope of cultural meaning is restricted to what counts within the reward system of science. The cited paper, on the other hand, is a member of a set of cultural resources that endures historically and is only ever partially exploited at a historical moment. Compared to the crop of new articles published in a particular year, the class to which the cited reference belongs is much larger in scope and represents both accumulated knowledge and a grammar of communicative possibilities within which innovations are developed. Much of the sociology of science is concerned with the exploration of and creative destruction of this historical stock of knowledge.
+
+We make to operational decisions to represent the stock of knowledge as distinct from its exploitation. The first is to project the TR data as a bipartite or two-mode affiliation network in which intermode ties are allowed and intramode ties disallowed. By assigning citing and cited article each to a different mode we maintain the ontological distinction between them and condition how each can relate to the other. A cited article is affiliated indirectly with another cited article only if each is used in the same citing article. Similarly, citing articles are affiliated by having cited one or more of the same reference. In this two-mode framework, it is possible that the same article can be represented in each mode, once as a project and once as a resource for other projects. For simplicity we will call the first mode the article and the second the reference.
+
+Two-mode data is sometimes referred to as affiliation data, where two people may be related if they belong to the same organizations. Sociologists have used affiliation data to compare formal membership, coded directly as ties between individuals and organizations, and the informal membership that can be gleaned from the relational structure of the formal ties. For Stark and Vedry, they are related if they are members of the same managing board {Vedres:2010gd}. 
+
+As a practical concern, the two-mode format matches the raw data well. In the TR database citing and cited references are identified according to a different codification scheme. Though it is sometimes possible to recover some author, date, and journal information from reference codes, thorough covariates are measured only for citing articles.
+
+Bipartite networks exhibit different patterns of clustering depending on whether they are projected in one mode or the other {Melamed:2014ft}.
+
+It is often stated that a one-mode projection of two-mode data entails information loss, but this depends both on the ontology one associates with the data elements of a network and on whether one does the necessary bookkeeping to prevent the loss. In the co-reference network, ties represent the number of articles that used both citations in their references. In the co-article network, ties represent the number of citations two articles have in common. Data loss occurs both in the aggregation of ties and in the failure to recall that what is on one side of the coin a node is on the other a hyper tie or a ties connecting several nodes.
+
+degreedist_table
+
+paintedmode_projection
+
+####Citing Article Network
+####Cited Article Network
+###Results: Visualization
+### Conclusion
+#### The Problem of Network Selection
+We have described population characteristics of four kinds of cultural units that may be identified in TR WOK records. The use of co-citations as a measure of affiliation among articles forces a large selection effect on the article population. Because they provide no relational information in this sense, we omit articles that make no citations. It was not uncommon early in the century for articles to make no citations, either because they were short comments or because referencing in the much smaller academic world of the time was possible by informal acknowledgements in the text. {{Often a reference to an author would not even include his first name. As scholarship professionalized reference behavior became more common, thorough, and accurate. Where the ratio of tacit to explicit references is high, the citation-based method pursued here will fail to capture the cultural boundaries at work, and another measure of meaningful affiliation, such as topic modeling of full text, would perform better. As the size and complexity of the scholarly stock of knowledge grew, citation behavior developed as a form of addressing in a larger world that was no longer familiar even to experts. Formal citations became normative between 19... and 19...In this early period prior to World War II,... }} Eleven percent of articles are not selected because they make no citation and therefore no contribution to network structure.
+
+A second criterion of selection concerns the status of references that are only cited once, which are the vast majority (94 percent) of references. As a statement about the boundary between personal and cultural meaning, we may note that nineteen in twenty resources are meaningful to individuals and yet are so much flotsam and jetsam to the projected culture of a community. We omit this large body of references both because as meaningful objects they are idiosyncratic, meaning something to only one project, and because they do not provide information in a network sense. This carries a risk of selecting against citations that were culturally relevant and yet were not picked up by the community, but many of these singletons are citations to data rather than to scholarship of general significance {/Cole:1983vd/ :127}. In a secondary analysis, we will predict the relative prevalence of (culturally) meaningful and meaningless singletons by making assumptions about the distribution of citation counts. We will however be unable to distinguish which singletons are in which category, so the relational information they would add to a network analysis is lost with or without this exercise.
+
+```{r init, echo=F}
 cat('\014')
+rm(list=ls())
+source('../pack-dev/dissertation_source.R')
+```
 
 ```{r mel2comps-f}
-mel2comps.f<-function(
-	bel2mel
-	,type=c('crel','utel')
-	,out=stop('Specify output directory')
-	,min.size=3
-	){
-	require(data.table)
-	require(igraph)
-	out
-	ret<-list()
-	for(i in type) if(i%in%names(bel2mel)) {
-		cat('\n',i,'\n',sep='')
-		levs<-factor(bel2mel[[i]][,do.call(c,.SD),.SDcols=1:2])
-		bel2mel[[i]]<-matrix(as.character(as.integer(levs)),ncol=2)
-		levs<-levels(levs)
-		g<-graph.edgelist(bel2mel[[i]],FALSE)
-		g<-decompose.graph(g)
-		comp.sizes<-sapply(g,vcount)
-		print(table(comp.sizes))
-		cat('Only networks of size',min.size,'and above returned.')
-		cat('\nDirectories created:')
-		mapply(
-			function(net,id,vcount) {
-				path<-paste(out,'mel2comps',i,paste(id,vcount,sep='-'),sep=.Platform$file.sep)
-				dir.create(path,recursive=T)
-				cat('\n',path)
-				write.table(get.edgelist(net),file=paste(path,'mel2comps.txt',sep=.Platform$file.sep),sep='\t',quote=F,na='',row.names=F,col.names=F)
-				}
-			,net=g[comp.sizes>=min.size]
-			,id=(1:length(g))[comp.sizes>=min.size]
-			,vcount=comp.sizes[comp.sizes>=min.size]
-			)
-		writeLines(levs,con=paste(out,'mel2comps',i,'mel2comps-levs.txt',sep=.Platform$file.sep))
-		ret[[i]]<-g[comp.sizes>=min.size]
-		}
-	ret
-	}
+load('out/bel2mel.RData')
 mel2comps<-mel2comps.f(bel2mel,out='out')
 ```
 
 ```{r comps2cos-f}
-comps2cos.f<-function(
-	mel2comps.dir=stop('Specify directory where mel2comps.txt edgelists are located.')
-	,cosparallel.path=stop('Specify path to cosparallel executable (e.g. ~/cosparallel-code/cos)')
-	,threads=1
-	)
-{
-	mel2comps.dir
-	cosparallel.path
-	
-	mel2comps<-list.files(mel2comps.dir,pattern='mel2comps\\.txt$',recursive=T,full.names=T)
-	
-	for(i in mel2comps){
-		com<-paste(
-				'cd \'',sub('mel2comps.txt','\'',i)
-				,' && ',sub('cos$','extras/maximal_cliques',cosparallel.path),' \'',i,'\''
-				,' && ',cosparallel.path,' -P ',threads,' \'',i,'.mcliques\''
-				,sep='')
-		cat('Source data: ',i,'\n\nThreads used: ',threads,'\n\nsh: ',com,'\n\ncos stdout:\n\n',sep='')
-		system(
-			command=com
-			#		,stdout='stdout.txt'
-			)
-		}
-	}
 time<-system.time(comps2cos.f(
 	mel2comps.dir='/Users/bambrose/Dropbox/GitHub/manuscript/out/mel2comps'
 	,cosparallel.path='~/cosparallel-code/cos'
@@ -81,156 +154,14 @@ time
 ```
 
 ```{r cos2kcliqdb-f}
-cos2kcliqdb.f<-function(
-	mel2comps.dir=stop('Specify a mel2comps directory that includes cos output.')
-	,out=stop('Specify output directory.')
-	,type=c('crel','utel')
-	)
-	{
-	require(data.table)
-	mel2comps.dir
-	for(i in type) if(i%in%dir(mel2comps.dir)) {
-		p<-paste(mel2comps.dir,i,sep=.Platform$file.sep)
-		d<-list.dirs(p)[-1]
-		olevs<-readLines(list.files(p,pattern='levs',full.names=T))
-		ret<-list()
-		ret[[i]]$orig<-lapply(d,function(j) {
-			f<-list.files(j,pattern='[0-9]_communities\\.txt$',full.names=T)
-			if(length(f)) {
-				coslevs<-read.table(list.files(j,full.names=T,pattern='map$'))$V1
-				k<-as.integer(sub('^.+/([0-9]+)_.+$','\\1',f))
-				f<-f[order(k)]
-				k<-k[order(k)]
-				cos<-lapply(f,function(x) {
-					x<-readLines(x)
-					x<-sapply(x,function(y) lapply(strsplit(y,split='[: ]'),as.integer))
-					x<-data.table(id=sapply(x,function(y) y[1]),memb=lapply(x,function(y) y[-1]))
-					x<-x[,list(memb=list(memb)),by=id]
-					x<-lapply(x$memb,function(y) sort(unique(unlist(y))))
-					x
-					})
-				dup<-duplicated(cos,fromLast=T)
-				cos<-cos[!dup]
-				k<-k[!dup]
-				f<-f[!dup]
-				names(cos)<-paste('k',k,'c',sub('^.+/([0-9]+)-[0-9]+/.+','\\1',f),'-',sep='')
-				cos<-do.call(c,cos)
-				names(cos)<-sub('-$','',names(cos))
-				cos<-lapply(cos,function(x) sort(coslevs[x+1]))
-				return(cos)
-				}
-			})
-		ret[[i]]$orig<-do.call(c,ret[[i]]$orig)
-		ret[[i]]$orig<-split(ret[[i]]$orig,f=sub('^k([0-9]+).+$','\\1',names(ret[[i]]$orig)))
-		ret[[i]]$orig<-ret[[i]]$orig[order(as.integer(names(ret[[i]]$orig)))]
-		names(ret[[i]]$orig)<-paste('k',names(ret[[i]]$orig),sep='')
-		cat('\n',i,'k-clique community distribution (original)\n')
-		print(sapply(ret[[i]]$orig,length))
-		
-		### strict membership interpretation
-		x<-lapply(ret[[i]]$orig,function(x) sort(unique(unlist(x))))
-		x<-rev(lapply(length(x):1, function(y) sort(unique(unlist(x[length(x):y])))))
-		for(j in 1:(length(x)-1)) x[[j]] <- setdiff(x[[j]],x[[j+1]])
-		ret[[i]]$strict<-mapply(function(com,reg) lapply(com,function(y) intersect(y,reg)),com=ret[[i]]$orig,reg=x) # com=communities reg=register
-		ret[[i]]$strict<-lapply(ret[[i]]$strict,function(x) x[!!sapply(x,length)])
-		ret[[i]]$strict<-ret[[i]]$strict[!!sapply(ret[[i]]$strict,length)]
-		names(ret[[i]]$strict)<-paste(names(ret[[i]]$strict),'-',sep='')
-		ret[[i]]$strict<-do.call(c,ret[[i]]$strict)
-		names(ret[[i]]$strict)<-sub('^.+\\.','',sub('-$','',names(ret[[i]]$strict)))
-		
-		cat('\n',i,'k-clique community distribution (strict)\n')
-		t<-table(as.integer(sub('^k([0-9]+).+$','\\1',names(ret[[i]]$strict))))
-		names(t)<-paste('k',names(t),sep='')
-		print(t)
-		
-		attributes(ret[[i]])$levels<-olevs
-		}
-	save(ret,file=paste(out,'cos2kcliqdb.RData',sep=.Platform$file.sep))
-	ret
-	}
 cos<-cos2kcliqdb.f(mel2comps.dir='/Users/bambrose/Dropbox/GitHub/manuscript/out/mel2comps',out='/Users/bambrose/Dropbox/GitHub/manuscript/out')
 ```
 
 ```{r kcliqdb2viz-f}
-kcliqdb2viz.f<-function(
-	cos2kcliqdb
-	,mel2comps.dir=stop('Specify a mel2comps directory that includes cos output.')
-	,out=stop('Specify output directory.')
-	,type=c('crel','utel')
-	){
-	require(igraph)
-	mel2comps.dir
-	ret<-list()
-	for(i in type) if(i%in%dir(mel2comps.dir)){
-		p<-paste(mel2comps.dir,i,sep=.Platform$file.sep)
-		olevs<-readLines(list.files(p,pattern='levs',full.names=T))
-		els<-list.files(p,recursive=T,full.names=T,pattern='mel2comps.txt$')
-		els<-as.matrix(do.call(rbind,lapply(els,function(x) read.delim(x,header=F,quote='',fill=F,colClasses='character'))))
-		ret[[i]]$g<-graph.edgelist(els,F)
-		key<-data.table(gph=1:vcount(ret[[i]]$g),src=as.integer(V(ret[[i]]$g)$name))
-		setkey(key,src)
-		
-		# plot strict interpretation with terrain colors
-		cos2kcliqdb[[i]]$strict<-lapply(cos2kcliqdb[[i]]$strict,function(x) key[list(x),gph])
-		pdf(paste(out,paste('kcliqdb2vis',i,'strict.pdf',sep='-'),sep=.Platform$file.sep))
-		cols<-as.integer(sub('^k([0-9]+).*$','\\1',names(cos2kcliqdb[[i]]$strict)))-2
-		mark.col<-terrain.colors(max(cols))[cols] 
-		mark.border<-'white'
-		plot(
-			ret[[i]]$g
-			# 			,mark.groups=tail(cos2kcliqdb[[i]]$strict,1)
-			# 			,mark.expand=5
-			#			,mark.col=mark.col
-			#			,mark.border=mark.border
-			,vertex.size=0
-			,vertex.shape='square'
-			,vertex.label=NA
-			,vertex.color=gray(0,.1)
-			,vertex.frame.color=NA
-			#			,vertex.label.cex=0
-			,edge.color=gray(0,.1)
-			#,vertex.color=c('white','gray')[(1:length(V(gut4_1g))%in%unique(unlist(hulls1[samp1])))+1]
-			,main="Strict"
-			,layout=ret[[i]]$lout
-			)
-		dev.off()
-		t1<-proc.time()
-		t1-t0
-		
-		## Plot kcoms as nodes in hierarchical tree
-		
-		trg<-list()
-		for(j in length(cos2kcliqdb[[i]]$orig):2) trg[[j]]<-graph.incidence(sapply(cos2kcliqdb[[i]]$orig[[j]],function(x) sapply(cos2kcliqdb[[i]]$orig[[j-1]],function(y) sum(x%in%y))),mode='in',weighted=T,directed=T)
-		trg<-do.call(graph.union,trg)
-		V(trg)$k<-as.integer(sub('^k([0-9]+).+$','\\1',V(trg)$name))
-		V(trg)$layer<-max(V(trg)$k)-V(trg)$k+1
-		tc<-as.integer((log(V(trg)$k-2)+.1)*10)
-		V(trg)$terrain<-terrain.colors(round(max(tc)+.1*max(tc)),alpha=1)[tc]
-		trg$layout<-layout.sugiyama(trg,hgap=15,layers=V(trg)$layer,maxiter=10000)$layout
-
-		pdf(paste(out,paste('kcliqdb2vis',i,'sugiyama.pdf',sep='-'),sep=.Platform$file.sep))
-		plot(trg
-				 ,layout=trg$layout
-				 ,vertex.label=NA
-				 ,vertex.size=4
-				 ,vertex.shape='square'
-				 ,vertex.frame.color=NA # 'white'  #gray(0,.05)
-				 ,vertex.color=V(trg)$terrain
-				 ,edge.arrow.mode='-'
-				 ,edge.width=.1
-				 ,edge.color=gray(.1,1)
-				 )
-		dev.off()
-		}
-	}
 kcliqdb2viz.f(cos,mel2comps.dir,out='out')
-
-
 ```
 
-
-
-
+```
 hulls1<-list()
 for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
 
@@ -279,8 +210,6 @@ plot(
 dev.off()
 write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
 ```
-
-
 
 ```{r plot_cosresults}
 lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))

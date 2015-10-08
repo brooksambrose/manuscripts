@@ -27,9 +27,9 @@ Web of Knowledge (WOK) data that are available through regular subscriptions may
 
 ```{r source,echo=F,message=FALSE}
 library(data.table)
-source(file = '../knowledge-survival/dissertation_source.R')
+source(file = '../pack-dev/dissertation_source.R')
 rm(list=ls()[!ls()%in%c(
-	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','bel2mel,'out'
+	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','bel2mel','out'
 	)])
 ```
 
