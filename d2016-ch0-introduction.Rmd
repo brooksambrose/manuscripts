@@ -1,0 +1,34 @@
+---
+title: "Chapter 0 - Introduction"
+author: "Brooks Ambrose"
+date: "October 21, 2015"
+output:
+  html_document:
+    highlight: textmate
+    number_sections: yes
+    toc: yes
+csl: asa.csl
+bibliography: d2016.bib
+---
+
+```{r,echo=FALSE}
+source('d2016-glossary.R')
+```
+
+#Abstract
+
+#Introduction
+
+![Aran Islands Landscape](http://blog.alainntours.fr/IMG/jpg/ch_091107_044_1024px.jpg)
+
+Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment of each as a field was the development of a pan-disciplinary convention of citing references. We now take for granted the use of citations as a currency of information flow and authorial recognition, but early in the century it was not a norm to provide precisely codified descriptions of publications. Citations were often very casual, referencing an author by title and surname only, and referring to an idea and not any work in particular. These proto-citations required a contemporary grasp of context to be intelligible, as do citations today, but they lacked the address-like codification that would allow the unknowing reader to actually locate the source in question.
+
+Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. When for whatever reason citations became precisely codified, especially in the journal space, it became possible to use references as a form of currency in the profession. Here the function of citations became something more than an aide to understanding the text; they became on one hand raw material for sustained cultural production and on the other a set of credentials for membership in social science disciplines and their specialties.
+
+Citations now play several roles, some of which are largely decoupled from the underlying cultural content to which the citation ostensibly points. The role of citations at the center of this article concerns how they are used by researchers to jockey for legitimacy in a competitive professional field. Citations in this sense are neither forms of cultural capital, for they may be used without understanding their significance, nor forms of social capital, because they rarely connote personal ties among the authors. Instead we consider the claim that citations are adoptable traits which refer to the abstract social categories of inclusion and exclusion that form one of the institutional bases of the academic profession. Insofar as particular lists of references must be cited to request or signal membership in an extant professional club, citations become a currency of status exchange.
+
+If a list of citations acts as a credential, there is variability in the length and content of the list, and this variability may become the basis of esoteric hierarchies within disciplines.
+
+This brief foray into the different sociocultural functions of citations may be demonstrated by the observation of the formative moments of U.S. social science. The impressions left by the earliest social scientists became a terrain of disciplines and `r onus$sd` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s?
+
+

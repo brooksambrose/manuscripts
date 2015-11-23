@@ -1,25 +1,98 @@
 ---
 title: "Chapter 1 - Clique Percolation"
 author: "Brooks Ambrose"
-date: "August 14, 2015"
+date: "October 18, 2015"
 output:
   html_document:
     highlight: textmate
     number_sections: yes
     toc: yes
 csl: asa.csl
-bibliography: d2016-ch1-clique-percolation.bib
+bibliography: d2016.bib
 ---
+
+```{r init,echo=FALSE}
+cat('\014')
+rm(list=ls())
+require(data.table)
+source('d2016-glossary.R')
+knitr::opts_chunk$set(
+	fig.width=5
+	,fig.height=3
+	,fig.path='Figs/'
+	,fig.align='center'
+	,echo=FALSE
+	,eval=FALSE
+	,warning=FALSE
+	,message=FALSE
+	,tidy=TRUE
+)
+```
 
 #Abstract
 
+Have sociologists been more eclectic than economists? Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r onus$sd` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
+
 #Theory
 
-What we
+In this paper we observe the generation, duration, and decline of `r sample(onus,1)` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r sample(onus,3)` are internally cohesive groups closed by clear boundaries of inclusion, yet in reality `r onus$sc` may be difficult to distinguish looking only at the flow of culture between them. Sometimes quite a bit of work has been done to craft the culture itself to naturalize social distinctions.
 
-##Observed and Unobserved Dimensions of Cultural Production
+##Cultural vs. Social Hierarchy
 
-When studying 
+##Hierarchy
+Sociologists often tolerate a slippery connection between the ontological assumptions underlying stated theoretical motivations and those that are required to fit empirical models to data. This is 
+
+Bourdieu 
+
+Bourdieu was not consistent between his theoretical and empirical studies of science [@Camic:2011fg].
+
+Slippery connections between theory and operationalization make it difficult to test theories, as results  A similar Recent attempts to engage with Bourdieu on the part of quantitative scholars [@Foster:2015eb] have similarly relied on different assumptions in the theoretical 
+between in a telling conflict between the content of fascinating if unresolved theoretical dilemmas that will prove to extend. have resulted in  it has been difficult to operationalize his ideas in a way that is consistent with important assumptions. are still are unresolved problems exist in a cogent operationalization of his ideas.
+
+The first 
+
+In this paper we observe the generation, duration, and decline of `r sample(onus,1)` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r sample(onus,3)` are internally cohesive groups closed by clear boundaries of inclusion and exclusion, yet in reality `r onus$sc` may be difficult to distinguish looking only at the flow of culture between them. When the culture between two groups is the same, the division between them must be entirely social; such arbitrary distinctions however are bound to guide cultural development along different tracks.
+
+Sometimes quite a bit of work is done to craft the culture itself to naturalize social distinctions. We may preliminarily say that two dimensions of culture may develop quasi independently, the message and the codification. Just as it is possible to say the same thing in two different languages, disciplines may explore the same ideas and call them by different names. When social dynamics require tension among authors who are discussing the same thing, groups may form on the basis of a difference in codification alone. By the force of separation, however, shallow differences may deepen, and the underlying cultural meaning of the discourses my diverge.
+
+When this kind of formation is done in the humanities, there may be a closed circle between cultural content and group formation, a circle that is nonetheless broken by social uses of culture. In the sciences, or wherever a quest for meaning exposes itself to reality, the dyanmic takes a fascinating turn. There becomes a tension between the exposure to experience that may contravene codified codifications and the social interests that may heavily depend on the codes. In the social sciences these struggles deeply effect how we understand the social world, as it is not always known whether at the end of the day reality or preconception will control the field.
+
+Self consistent activity could not exist without its secure footing both in social interests and cultural meanings, and in this way the developmental model may be epigenetic for those cultures that have stood the test of time. What is great about looking at cultural commodity production, whether in art, science, or the rest of the human-made world, is that many new forms are tried out all the time, forms that may have no hope of success.
+
+Indeed, the task at hand is to test construct validity; we hypothesize that there is a real, historical, and observable unit that conforms to our commonsense and theoretical notions of `r do.call(cat,onus[-length(onus)])` or `r onus[[length(onus)]]`. Insofar as reality deviates from this assumption it means that producers of culture are embedded deeply in the cultures they produce and that we treat them independently at our peril.
+
+##Boundaries
+
+Culture knows boundaries, but most boundaries are social.
+
+##Development
+
+To aid us in the elaboration of the several mechanisms involved in the reproduction of these distinctions, we will rely on a developmental model that puts some time ordering on what types of distinctions occur and when.
+
+Following the production of culture (POC) approach {Peterson:2004ux}, Lena and Peterson "defocalize text and place the study of genre squarely in a social context" {/*Lena:2008er/ :698}. POC makes a strong claim, as Durkheim {*Durkheim:1965uu} did, that many cultures can be usefully reduced to a set of social relationships. This study by necessity follows the same path, but not because we believe that cultures fail to influence social structures according to their own logics {c.f.  /*Weber:1996ux/}. Indeed 
+Genre theory, an application of classification theory {Dimaggio:1987vr}, treats genre distinctions as "phenomena where individuals and groups construct cultural boundaries" {/Lena:2008er/ :698}. Lena and Peterson summarize a large literature on music genres by organizing vignettes about musics and the social locations where they are found first into genres and second into a stage-sequential developmental typology.
+
+As an observer a classification theorist applies the same categories ostensibly used by the observed, and has one foot in and one foot out of the reification trap described by Bourdieu. Lena and Peterson offer a stage sequential framework which, by their own admission {/*Lena:2008er/ :698}, implies unstudied mechanisms about how genres work. It treats genres as empirically knowable lacks the operational direction of the social space model.
+
+The archetypical developmental pattern has four stages: avant-garde, scene-based, industry-based, and traditionalist (AgSIT).
+A genre is ostensibly born in the avant-garde, where, in an effort to do something new, musicians including amateurs simply produce at their given capacity. The resources they bring to bear generate some level of object production. In hearing their own music, what must also be present is a sense of taste. There must therefore be a pre-avant-garde stage of production without taste, of mere play for their own amusement and with not expectation that they will develop influence, that others will regard what they do as a legitimate class of activity for which they may earn respect, or at least recognition. It is essential then that legitimation theory be yolked to genre theory, as it must have been in the authors reading of the literature. But Lena and Peterson genuflect to the underlying mechanisms, giving opportunity for these theories to be developed. This is beyond the scope.
+What is in scope is a characterization of the developmental sequence. It implies a morphodynamic problem that could lead to misidentification of boundaries. Say a large boundary is carved out historically; within this boundary segmentation may trick a boundary detection method into thinking there are many units, when indeed there are, but also a larger unit defining the developmental trajectory. To see a person as a child, adult, and not the same person may indeed be valid. We treat those moments as separate units who live and day according to a clock that is not so regular as it is for living things.
+
+POC is better thought of as a theory that is correct within certain scope conditions. The assumption that culture can be ignored is systematically related to the affinity of POC for the study of industrial commodity production, where business relationships develop precisely to be be robust to problems of cultural meaning. Hirsch {*Hirsch:1972fm} describes that through organizational throughput businesses ignore meaning by arranging auctions among producers who cannot ignore it, because their understand of meaning is an important factor in the production process. From the businesses perspective they need only arrange the entire market of producers into an auction for the scare resource of distribution. This selection boundary enables them to achieve high quality cultural content without understanding it. The only check on this willful unintelligibility of the product is a concern with the quantity of demand of it, but marketing in large markets obviates the need for taste in the development of a market, since people can be told what to like. Such a process finds its apex in the phenomena of genre classifications, which exist as the cultural articulation point between the production and consumption of culture. Not only do genres constitute the tastes of consumers, as they develop opportunity structures within them the force of social stratification in capitalist societies they have an inexorable effect ton the tastes of producers. Productive ability becomes generalized and is no longer wed to the development of taste. In this situation of industrialized culture, monastic cells are paradoxically given a special kind of power, free reign due to the scarcity of taste.
+
+
+##Specification of Ignorance
+
+###Observed and Unobserved Dimensions of Cultural Production
+
+Units differentiate along a dimension of potential; high potential units are the more macro; a discipline like sociology is a loose collection of cultural products and producers that are themselves much more precise than sociology itself. Low potential units have occupied a narrower position within that range of potential, as actualizing potential means choosing some possibilities while rejecting many others. Between the discipline and the producer and her product
+
+- *Ignorance*: The unknown knowns.
+- *Education*: What is learnable
+- *Status*: What is revered.
+- *Opportunity*: What is facilitated and rewarded.
+
+What we do observe are the selections. We do not observe the mechanisms by which these selections are made, nor the conditions of the production in which they function as factors.
 
 ##Community Detection as Measure of Invisible Colleges
 
@@ -29,7 +102,7 @@ All community detection methods assumes that ties are driven by an unobserved se
 
 ##Clique Percolation Method
 
-# k-clique percolation -201-.md
+Clique percolation generalizes the concept of k-core cohesion, where a k-core is a clique of size k. Because total connectedness is a high standard for defining a subgraph, k-cores with a higher k is both larger in membership and less expected to be observed since every new member requires an exponential step in the number of ties. Th k-clique community concept relaxes the standard. Whereas a k-core is completely connected, members of a k-clique community need not be tied to every other member. What is required is that they be reachable via a set of overlapping cliques of size k. Where by definition the diameter or the longest shortest path of a k-core is one, in a k-clique community it is theoretically possible though empirically unlikely 3for members to be distant, especially when k is much smaller than the size of the subgraph.
 
 k-clique percolation, which has several advantages. First, unlike modularity-based methods that use randomization, clique percolation is determinate and reproducible, like the link-community method utilizing the tanimoto coefficient. It is reasonably fast on large networks. It is also well-suited to the design of a co-reference network, in which the reference page of an article is represented as a k-clique of citations where k is equal to the number of references.
 
@@ -168,11 +241,7 @@ We have described population characteristics of four kinds of cultural units tha
 A second criterion of selection concerns the status of references that are only cited once, which are the vast majority (94 percent) of references. As a statement about the boundary between personal and cultural meaning, we may note that nineteen in twenty resources are meaningful to individuals and yet are so much flotsam and jetsam to the projected culture of a community. We omit this large body of references both because as meaningful objects they are idiosyncratic, meaning something to only one project, and because they do not provide information in a network sense. This carries a risk of selecting against citations that were culturally relevant and yet were not picked up by the community, but many of these singletons are citations to data rather than to scholarship of general significance [@Cole:1983vd:127]. In a secondary analysis, we will predict the relative prevalence of (culturally) meaningful and meaningless singletons by making assumptions about the distribution of citation counts. We will however be unable to distinguish which singletons are in which category, so the relational information they would add to a network analysis is lost with or without this exercise.
 
 
-```{r init, echo=F,results='asis'}
-cat('\014')
-rm(list=ls())
-require(data.table)
-nice<-function(x) format(x,big.mark=',',big.interval=3,nsmall=3)
+```{r wok2dbl-f,results='asis'}
 inwok0041<-'../knowledge-survival/inwok/1900-1941'
 outwok0041<-'../knowledge-survival/outwok0041'
 outwok0099<-'../knowledge-survival/outwok0099'
@@ -189,9 +258,9 @@ wok2dbl<-wok2dbl.f(
 invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
 ```
 
-The source data is `r nice(nrow(wok2dbl))` observations on `r nice(length(unique(wok2dbl[,id])))` documents spanning `r nice(diff(range(wok2dbl[list(id,'PY'),as.integer(val)])))` years.
+The source data is `r nicen(nrow(wok2dbl))` observations on `r nicen(length(unique(wok2dbl[,id])))` documents spanning `r nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)])))` years.
 
-```{r dbl2bel-f,echo=F}
+```{r dbl2bel-f}
 load(paste(outwok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
 dbl2bel<-dbl2bel.f(
 	wok2dbl
@@ -202,7 +271,7 @@ dbl2bel<-dbl2bel.f(
 dbl2bel
 ```
 
-```{r bel2mel-f,echo=F}
+```{r bel2mel-f}
 dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
 bel2mel<-bel2mel.f(
 	dbl2bel
@@ -214,11 +283,11 @@ bel2mel<-bel2mel.f(
 bel2mel
 ```
 
-```{r mel2comps-f,echo=FALSE}
+```{r mel2comps-f}
 mel2comps<-mel2comps.f(bel2mel,out=outwok0041)
 ```
 
-```{r comps2cos-f,echo=FALSE}
+```{r comps2cos-f}
 comps2cos.f(
 	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
 	,cosparallel.path='~/cosparallel-code/cos'
@@ -226,18 +295,18 @@ comps2cos.f(
 	)
 ```
 
-```{r cos2kcliqdb-f,echo=FALSE}
+```{r cos2kcliqdb-f}
 cos<-cos2kcliqdb.f(
 	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
 	,out=outwok0041
 	)
 ```
 
-```{r kcliqdb2viz-f,echo=FALSE,eval=FALSE}
+```{r kcliqdb2viz-f,eval=FALSE}
 kcliqdb2viz.f(cos,paste(outwok0041,'mel2comps',sep=.Platform$file.sep),out=outwok0041)
 ```
 
-```{r unorganized, eval=F,echo=F}
+```{r unorganized, eval=F}
 hulls1<-list()
 for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
 
@@ -287,7 +356,7 @@ dev.off()
 write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
 ```
 
-```{r plot_cosresults, eval=F,echo=F}
+```{r plot_cosresults, eval=F}
 lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
 pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
 mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
@@ -350,7 +419,7 @@ plot(
 dev.off()
 ```
 
-```{r 3d-test, eval=F,echo=F}
+```{r 3d-test, eval=F}
 z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
 V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
 V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']
@@ -402,4 +471,3 @@ play3d(spin3d(axis=c(0,0,1), rpm=2), duration=30)
 ```
 
 #References
-
