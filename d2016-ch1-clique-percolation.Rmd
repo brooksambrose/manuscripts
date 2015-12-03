@@ -27,11 +27,19 @@ knitr::opts_chunk$set(
 	,message=FALSE
 	,tidy=TRUE
 )
+inwok0041<-'../knowledge-survival/inwok/1900-1941'
+outwok0041<-'../knowledge-survival/outwok0041'
+outwok0099<-'../knowledge-survival/outwok0099'
+source('../pack-dev/dissertation_source.R')
 ```
 
 #Abstract
 
-Have sociologists been more eclectic than economists? Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r onus$sd` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
+What is the role of knowledge in the closure of professions? [STRAW MAN] contends that specialized knowledge forms the standards against which professional memberships and authorities are regulated, even prior to the development of trade associations. On the contrary, it is argued that knowledges are consequences rather than causes of professional closure. Closure mechanisms are likely to develop not as cultural structures defining correct knowledge, but as socio-categorical structures defining correct association. Sociocultural structures are hybrids between cultural know-how and social categorization. 'what you know/who you know'.  Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession, yet each did so without also establishing an orthodoxy. Rather than 
+
+#Introduction
+
+Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r onus$sd` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
 
 #Theory
 
@@ -241,11 +249,7 @@ We have described population characteristics of four kinds of cultural units tha
 A second criterion of selection concerns the status of references that are only cited once, which are the vast majority (94 percent) of references. As a statement about the boundary between personal and cultural meaning, we may note that nineteen in twenty resources are meaningful to individuals and yet are so much flotsam and jetsam to the projected culture of a community. We omit this large body of references both because as meaningful objects they are idiosyncratic, meaning something to only one project, and because they do not provide information in a network sense. This carries a risk of selecting against citations that were culturally relevant and yet were not picked up by the community, but many of these singletons are citations to data rather than to scholarship of general significance [@Cole:1983vd:127]. In a secondary analysis, we will predict the relative prevalence of (culturally) meaningful and meaningless singletons by making assumptions about the distribution of citation counts. We will however be unable to distinguish which singletons are in which category, so the relational information they would add to a network analysis is lost with or without this exercise.
 
 
-```{r wok2dbl-f,results='asis'}
-inwok0041<-'../knowledge-survival/inwok/1900-1941'
-outwok0041<-'../knowledge-survival/outwok0041'
-outwok0099<-'../knowledge-survival/outwok0099'
-source('../pack-dev/dissertation_source.R')
+```{r wok2dbl-f}
 wok2dbl<-wok2dbl.f(
 	dir=inwok0041
 	,out=outwok0041
@@ -301,6 +305,30 @@ cos<-cos2kcliqdb.f(
 	,out=outwok0041
 	)
 ```
+
+```{r kcliqdb2flat.f}
+cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
+	require(data.table)
+	ret<-list()
+for(i in type)	if(i%in%names(kcliqdb)) {
+	ret[[i]]<-data.table(id=unique(unlist(kcliqdb[[i]]$orig)),vlo=0,hlo=0,key='id')
+	ret[[i]][,vlo:=table(unlist(lapply(kcliqdb[[i]]$orig,function(x) unique(unlist(x)))))]
+	for(j in names(kcliqdb[[i]]$orig)) {
+		t<-table(unlist(kcliqdb[[i]]$orig[[j]]))
+		ret[[i]][list(as.integer(names(t))),hlo:=hlo+t]
+	}
+	ret[[i]][,hlo:=hlo-vlo]
+	ret[[i]][,tlo:=table(unlist(kcliqdb[[i]]$orig))]
+}
+	ret
+}
+cliqdb2flat<-cliqdb2flat.f(cos)
+```
+
+```{r kcliqdb2flat.f}
+cliqdb2flat.f
+```
+
 
 ```{r kcliqdb2viz-f,eval=FALSE}
 kcliqdb2viz.f(cos,paste(outwok0041,'mel2comps',sep=.Platform$file.sep),out=outwok0041)
