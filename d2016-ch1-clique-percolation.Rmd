@@ -14,7 +14,7 @@ bibliography: d2016.bib
 ```{r init,echo=FALSE}
 cat('\014')
 rm(list=ls())
-require(data.table)
+invisible(require(data.table))
 source('d2016-glossary.R')
 knitr::opts_chunk$set(
 	fig.width=5
@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 	,fig.path='Figs/'
 	,fig.align='center'
 	,echo=FALSE
-	,eval=FALSE
+	,eval=F
 	,warning=FALSE
 	,message=FALSE
 	,tidy=TRUE
@@ -30,7 +30,11 @@ knitr::opts_chunk$set(
 inwok0041<-'../knowledge-survival/inwok/1900-1941'
 outwok0041<-'../knowledge-survival/outwok0041'
 outwok0099<-'../knowledge-survival/outwok0099'
+injstor0041<-'../knowledge-survival/injstor0041top5'
+outjstor0041<-'../knowledge-survival/outjstor0041top5'
 source('../pack-dev/dissertation_source.R')
+#local defaults
+c.f.s.o.def=TRUE
 ```
 
 #Abstract
@@ -39,11 +43,11 @@ What is the role of knowledge in the closure of professions? [STRAW MAN] contend
 
 #Introduction
 
-Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r onus$sd` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
+Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r try(onus$sd)` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
 
 #Theory
 
-In this paper we observe the generation, duration, and decline of `r sample(onus,1)` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r sample(onus,3)` are internally cohesive groups closed by clear boundaries of inclusion, yet in reality `r onus$sc` may be difficult to distinguish looking only at the flow of culture between them. Sometimes quite a bit of work has been done to craft the culture itself to naturalize social distinctions.
+In this paper we observe the generation, duration, and decline of `r try(sample(onus,1))` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r try(sample(onus,3))` are internally cohesive groups closed by clear boundaries of inclusion, yet in reality `r try(onus$sc)` may be difficult to distinguish looking only at the flow of culture between them. Sometimes quite a bit of work has been done to craft the culture itself to naturalize social distinctions.
 
 ##Cultural vs. Social Hierarchy
 
@@ -59,7 +63,7 @@ between in a telling conflict between the content of fascinating if unresolved t
 
 The first 
 
-In this paper we observe the generation, duration, and decline of `r sample(onus,1)` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r sample(onus,3)` are internally cohesive groups closed by clear boundaries of inclusion and exclusion, yet in reality `r onus$sc` may be difficult to distinguish looking only at the flow of culture between them. When the culture between two groups is the same, the division between them must be entirely social; such arbitrary distinctions however are bound to guide cultural development along different tracks.
+In this paper we observe the generation, duration, and decline of `r try(sample(onus,1))` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r try(sample(onus,3))` are internally cohesive groups closed by clear boundaries of inclusion and exclusion, yet in reality `r try(onus$sc)` may be difficult to distinguish looking only at the flow of culture between them. When the culture between two groups is the same, the division between them must be entirely social; such arbitrary distinctions however are bound to guide cultural development along different tracks.
 
 Sometimes quite a bit of work is done to craft the culture itself to naturalize social distinctions. We may preliminarily say that two dimensions of culture may develop quasi independently, the message and the codification. Just as it is possible to say the same thing in two different languages, disciplines may explore the same ideas and call them by different names. When social dynamics require tension among authors who are discussing the same thing, groups may form on the basis of a difference in codification alone. By the force of separation, however, shallow differences may deepen, and the underlying cultural meaning of the discourses my diverge.
 
@@ -67,7 +71,7 @@ When this kind of formation is done in the humanities, there may be a closed cir
 
 Self consistent activity could not exist without its secure footing both in social interests and cultural meanings, and in this way the developmental model may be epigenetic for those cultures that have stood the test of time. What is great about looking at cultural commodity production, whether in art, science, or the rest of the human-made world, is that many new forms are tried out all the time, forms that may have no hope of success.
 
-Indeed, the task at hand is to test construct validity; we hypothesize that there is a real, historical, and observable unit that conforms to our commonsense and theoretical notions of `r do.call(cat,onus[-length(onus)])` or `r onus[[length(onus)]]`. Insofar as reality deviates from this assumption it means that producers of culture are embedded deeply in the cultures they produce and that we treat them independently at our peril.
+Indeed, the task at hand is to test construct validity; we hypothesize that there is a real, historical, and observable unit that conforms to our commonsense and theoretical notions of `r try(do.call(cat,onus[-length(onus)]))` or `r try(onus[[length(onus)]])`. Insofar as reality deviates from this assumption it means that producers of culture are embedded deeply in the cultures they produce and that we treat them independently at our peril.
 
 ##Boundaries
 
@@ -148,11 +152,320 @@ As one jostles for a position nearer to the cores, crowds turn to cliques. They 
 
 #Social Science Article Network, 1900-1949
 
+```{r wok2dbl-f}
+wok2dbl<-wok2dbl.f(
+	dir=inwok0041
+	,out=outwok0041
+	,sample.batches=F
+	,sample.size=50
+	,save=T
+	,verbose=T
+	,check.for.saved.output=c.f.s.o.def
+)
+col.ord<-attributes(wok2dbl)$col.ord
+```
+
+```{r dbl2inspect-f,eval=FALSE}
+if(F) {pdf('Figs/dbl2inspect-bef.pdf') ; system.time(x<-dbl2inspect.f(wok2dbl)) ; dev.off()}
+```
+
+```{r wok2dbl-cleaning}
+##DROP
+setkey(wok2dbl,field)
+low<-c('C1','CA','DI','EI','ID','PN','RI','RP','SU') # low observation count
+wokfld[low]
+unu<- c('PT','PA','PI','JI','J9','SN','GA') # unuseful or redundant fields
+wokfld[unu]
+wok2dbl<-wok2dbl[!c(low ,unu)] 
+
+
+##RECODE
+setkey(wok2dbl,field)
+invisible(wok2dbl['SO',val:=gsub('(-FIRST SERIES)|(-NEW SERIES)','',val)]);setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('SO','JOURNAL OF SOCIAL FORCES'),val:='SOCIAL FORCES']);setkey(wok2dbl,field,val)
+
+invisible(wok2dbl[list('PU','M I T PRESS'),val:='MIT PRESS']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PU','WILEY-BLACKWELL PUBLISHING, INC'),val:='WILEY-BLACKWELL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PU','OXFORD UNIV PRESS INC'),val:='OXFORD UNIV PRESS']) ; setkey(wok2dbl,field,val)
+
+invisible(wok2dbl[list('PD','APR-JUN'),val:='APR']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JAN-APR'),val:='JAN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JAN-MAR'),val:='JAN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUL-OCT'),val:='JUL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUL-SEP'),val:='JUL']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','JUN-SEP'),val:='JUN']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','MAY 23'),val:='MAY']) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[list('PD','OCT-DEC'),val:='OCT']) ; setkey(wok2dbl,field,val)
+
+# Variations in page numbers
+invisible(wok2dbl[c('BP','EP'),val:=sub('^[ANPU]','',val)]) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[expand.grid(c('BP'),unique(grep('[A-Za-z]',wok2dbl[c('BP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
+invisible(wok2dbl[expand.grid(c('EP'),unique(grep('[A-Za-z]',wok2dbl[c('EP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
+
+```
+
+```{r dbl2dbw-f}
+attributes(wok2dbl)$col.ord<-col.ord
+dbl2dbw<-dbl2dbw.f(wok2dbl)
+```
+
+```{r dbl2dbw-imputing}
+# 3% of records are missing a publication month
+dbl2dbw[is.na(dbl2dbw$PD),PD:=sample(na.omit(dbl2dbw$PD),sum(is.na(dbl2dbw$PD)))]
+```
+
+The source data are `r try(nicen(nrow(wok2dbl)))` observations on `r try(nicen(length(unique(wok2dbl[,id]))))` documents spanning `r try(nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)]))))` years.
+
+```{r dbl2dbw-deriv}
+# secondary or derivative measurements
+dbl2dbw[,db:='wok']
+
+## disciplines
+dbl2dbw[,anth:=grepl('anth',SO,ignore.case=T)]
+dbl2dbw[,soci:=grepl('soci',SO,ignore.case=T)]
+dbl2dbw[,econ:=grepl('[eo][ck]on',SO,ignore.case=T)]
+dbl2dbw[,poli:=grepl('poli',SO,ignore.case=T)]
+dc<-dbl2dbw[,.N,by=c('anth','soci','econ','poli')]
+dc[,N:=NULL]
+setkey(dbl2dbw,anth,soci,econ,poli)
+for(i in 1:nrow(dc)) dbl2dbw[dc[i],disc:=paste(colnames(dc)[unlist(dc[i])],collapse='')]
+dbl2dbw[,disc:=factor(disc)]
+
+## publisher private/public
+dbl2dbw[,putyp:=factor(NA,levels=sort(c('University','Private','Professional')))]
+setkey(dbl2dbw,PU)
+dbl2dbw[c('AMER AGRICULTURAL ECONOMICS ASSOC','AMER ECONOMIC ASSOC','AMER SOCIOLOGICAL ASSOC'),putyp:='Professional']
+dbl2dbw[c('MIT PRESS','OXFORD UNIV PRESS','UNIV CHICAGO PRESS','UNIV NORTH CAROLINA PRESS'),putyp:='University']
+dbl2dbw[c('SAGE PUBLICATIONS INC','SPRINGER','WILEY-BLACKWELL'),putyp:='Private']
+
+## age of citations
+
+```
+
+
+```{r wok2dbl-summary1}
+graphics.off()
+require(ggplot2)
+setkey(dbl2dbw,PY)
+top5<-unique(dbl2dbw[list(1900),SO])
+setkey(dbl2dbw,DT,SO)
+so_disc_dt_nr_py<-ggplot(data=dbl2dbw[expand.grid(c(
+	'Article'
+	#,'Book Review'
+	,'Review'
+),top5)]
+,mapping = aes(
+	x = PY
+	,y = NR
+	,color=DT)) +
+	geom_jitter(
+		alpha=I(1/3)
+		#		,shape=1
+	) +
+	geom_hline(yintercept = 100,color='darkgray') +
+	facet_grid(disc+SO~.
+						 ,scales='free_y'
+						 ,space='free') +
+	theme(
+		strip.text.y=element_text(angle=0)
+		#	,legend.position="none"
+	)
+so_disc_dt_nr_py
+```
+
+```{r}
+nut<-ggplot(data=dbl2dbw[expand.grid(
+	c('Article'
+		,'Book Review'
+		,'Review'
+	),top5),.N,by=c('SO','disc','DT','PY')]
+,mapping = aes(PY,fill=DT,weight=N)
+) +
+	geom_histogram(binwidth=1) +
+	facet_grid(disc+SO~.
+						# ,scales='free_y'
+						 ,space='free'
+						 ) +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,legend.position="none"
+	)
+nut + scale_fill_brewer(palette='Set1')
+```
+
+```{r jstordfr-0041top5-query,eval=FALSE}
+dfrcounts<-c('./resources/dfr.jstor.org_AMERICAN-ANTHROPOLOGIST_0041_counts_ameranth.csv'
+,'./resources/dfr.jstor.org_AMERICAN-JOURNAL-OF-SOCIOLOGY_0041_counts_amerjsoci.csv'
+,'./resources/dfr.jstor.org_ECONOMIC-JOURNAL_0041_counts_economicj.csv'
+,'./resources/dfr.jstor.org_JOURNAL-OF-POLITICAL-ECONOMY_0041_counts_jpoliecon.csv'
+,'./resources/dfr.jstor.org_QUARTERLY-JOURNAL-OF-ECONOMICS_0041_counts_quarjecon.csv')
+dfrcs.f<-function(csv,maxbatch=1000,url){
+	require(data.table)
+	dfr<-data.table(read.csv(csv))
+	ret<-list()
+	while(nrow(dfr)>0){
+		w<-which(cumsum(dfr$ARTICLE_COUNT)%/%1000==0)
+		r<-range(dfr$Year_of_Publication[w])
+		ret[[length(ret)+1]]<-data.table(batch=length(ret)+1,beg=r[1],end=r[2],n=sum(dfr$ARTICLE_COUNT[w]))
+		dfr<-dfr[!w]
+	}
+ret<-rbindlist(ret)
+ret[,jour:=sub('^.+_(.+)\\.csv','\\1',csv)]
+ret[,cat(paste('\nhttp://dfr.jstor.org/fsearch/submitrequest?cs=jcode%3A',jour,'%5E1.0%7Cyear%3A%5B',beg,'+TO+',end,'%5D%5E1.0&fs=rtm1%3Ayrm1%3Atym1%3Asnm2&view=text&',collapse='',sep=''))]
+ret
+}
+(batches<-rbindlist(lapply(dfrcounts,dfrcs.f)))
+```
+
+```{r jstor2dbw-f}
+jstor2dbw<-jstor2dbw.f(dir=injstor0041,out=outjstor0041,sample.batches = F)
+```
+
+```{r jstor2dbw-deriv}
+jstor2dbw[,db:='jstor']
+#to align with WOK codes
+jstor2dbw[,`:=`(
+	PY=as.integer(substr(pubdate,0,4))
+	,SO=toupper(sub('^The ','',journaltitle))
+	,DT=sub('^fla$','Article',sub('^brv$','Book Review',type))
+	)]
+```
+
+```{r jstor2dbw-summary1}
+setkey(jstor2dbw,type)
+jnut<-ggplot(data=jstor2dbw[c('fla'),.N,by=c('journaltitle','type','PY')]
+,mapping = aes(PY,fill=factor(type,levels=c('fla','brv','edi','mis','nws')),weight=N)
+) +
+	geom_histogram(binwidth=1) +
+	facet_grid(journaltitle~.
+						# ,scales='free_y'
+						 ,space='free'
+						 ) +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,legend.position="none"
+	)
+jnut + scale_fill_brewer(palette='Set1')
+```
+
+```{r jstor-wok-comparison}
+setkey(jstor2dbw,SO)
+setkey(dbl2dbw,SO)
+jwc<-rbindlist(list(dbl2dbw[list(top5),list(SO,DT,PY,db)],jstor2dbw[list(top5),list(SO,DT,PY,db)]))
+jwc[,db:=factor(db)]
+jwc[,DT:=factor(DT,levels=c('Article','Review','edi','Book Review','mis','nws'))]
+jwc[,PY:=as.double(PY)]
+setkey(jwc,db,DT)
+```
+
+```{r}
+jnut<-ggplot() +
+	geom_bar(data=jwc['jstor',.N,by=c('SO','DT','PY','db')],aes(x = PY-.2,y = N,fill=DT),width=.4,stat='identity') + 
+	geom_bar(data=jwc['wok',.N,by=c('SO','DT','PY','db')],aes(x = PY+.2,y=N,fill=DT),width=.4,stat='identity') + 
+	facet_grid(SO~PY,scales='free',space='free') +
+	theme(
+		strip.text.y=element_text(angle=0)
+		,strip.text.x=element_text(angle=90)
+		,legend.title=element_blank()
+		,axis.text.x=element_blank()
+		,axis.title.x=element_blank()
+		,axis.ticks.x=element_blank()
+		,panel.background=element_blank()
+		#		,legend.position="none"
+	)
+jnut + scale_fill_brewer(palette='Set1')
+```
+
+
+```{r}
+dbl2dbw['Article',list(med=quantile(NR,.5),avg=mean(NR)),by=c('PY')]
+
+setkey(dbl2dbw,SO,DT)
+t1<-dbl2dbw[,list(list(data.table(rbind(round(prop.table(table(DT)),3))))),keyby=c('disc','SO')]
+				t1<-data.table(t1[,list(disc,SO)],rbindlist(t1$V1))
+cbind(table(dbl2dbw$NR))
+
+
+
+
+setkey(wok2dbl,id,field)
+invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
+setkey(wok2dbl,field)
+invisible(SO<-wok2dbl['SO',.N,keyby=val])
+SO
+```
+
+```{r dbl2bel-f}
+load(paste(outwok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
+dbl2bel<-dbl2bel.f(
+	wok2dbl
+	,out=outwok0041
+	,check.for.saved.output=c.f.s.o.def
+	,saved_recode=fuzzy.sets
+	)
+dbl2bel
+```
+
+```{r bel2mel-f}
+dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
+bel2mel<-bel2mel.f(
+	dbl2bel
+	,out=outwok0041
+	,check.for.saved.output=c.f.s.o.def
+	,type='crel'
+	,write2disk=F
+)
+bel2mel
+```
+
+```{r mel2comps-f}
+invisible(mel2comps<-mel2comps.f(bel2mel,out=outwok0041))
+```
+
+```{r comps2cos-f}
+invisible(comps2cos.f(
+	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
+	,cosparallel.path='~/cosparallel-code/cos'
+	,threads=3
+	))
+```
+
+```{r cos2kcliqdb-f}
+cos<-cos2kcliqdb.f(
+	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
+	,out=outwok0041
+	)
+```
+
+```{r kcliqdb2flat.f}
+cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
+	require(data.table)
+	ret<-list()
+for(i in type)	if(i%in%names(kcliqdb)) {
+	ret[[i]]<-data.table(id=unique(unlist(kcliqdb[[i]]$orig)),vlo=0,hlo=0,key='id')
+	ret[[i]][,vlo:=table(unlist(lapply(kcliqdb[[i]]$orig,function(x) unique(unlist(x)))))]
+	for(j in names(kcliqdb[[i]]$orig)) {
+		t<-table(unlist(kcliqdb[[i]]$orig[[j]]))
+		ret[[i]][list(as.integer(names(t))),hlo:=hlo+t]
+	}
+	ret[[i]][,hlo:=hlo-vlo]
+	ret[[i]][,tlo:=table(unlist(kcliqdb[[i]]$orig))]
+}
+	ret
+}
+cliqdb2flat<-cliqdb2flat.f(cos)
+```
+
+
 ##Data
+
+###A lexical sample
+
+The social sciences
 
 The raw data for this analysis are from the Thompson Reuters Web of Knowledge Social Science Citation Index. Ideally, we would analyze the entire stock of recorded publication material to give the best chance of observing when authors contravene institutional boundaries. Practically, we must take a sample, however sampled networks are not small versions of the population network [@Handcock:2010iw]. Sampling may have the effect of degrading the network cohesion on which community detection methods depend, such that a method will not detect the same boundaries in a sample as it would in the population. To avoid a sampling effect on network cohesion, we draw a full census of articles, reviews, and book reviews from each journal selected.
 
-Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, we should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, we use Leydesdorff's [-@Leydesdorff:2010ci]
+Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, we should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two or more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, we use Leydesdorff's [-@Leydesdorff:2010ci]
 
 We should also expect to observe boundaries due to several other institutional levels higher than journals, like publishers, disciplines, or national and language groups. which is  To provide ample opportunity to observe boundaries existing in the space between journals and between academic disciplines, we also take a large sample of journals
 
@@ -248,86 +561,6 @@ We have described population characteristics of four kinds of cultural units tha
 
 A second criterion of selection concerns the status of references that are only cited once, which are the vast majority (94 percent) of references. As a statement about the boundary between personal and cultural meaning, we may note that nineteen in twenty resources are meaningful to individuals and yet are so much flotsam and jetsam to the projected culture of a community. We omit this large body of references both because as meaningful objects they are idiosyncratic, meaning something to only one project, and because they do not provide information in a network sense. This carries a risk of selecting against citations that were culturally relevant and yet were not picked up by the community, but many of these singletons are citations to data rather than to scholarship of general significance [@Cole:1983vd:127]. In a secondary analysis, we will predict the relative prevalence of (culturally) meaningful and meaningless singletons by making assumptions about the distribution of citation counts. We will however be unable to distinguish which singletons are in which category, so the relational information they would add to a network analysis is lost with or without this exercise.
 
-
-```{r wok2dbl-f}
-wok2dbl<-wok2dbl.f(
-	dir=inwok0041
-	,out=outwok0041
-	,sample.batches=F
-	,sample.size=50
-	,save=T
-	,verbose=T
-	,check.for.saved.output=T
-)
-invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
-```
-
-The source data is `r nicen(nrow(wok2dbl))` observations on `r nicen(length(unique(wok2dbl[,id])))` documents spanning `r nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)])))` years.
-
-```{r dbl2bel-f}
-load(paste(outwok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
-dbl2bel<-dbl2bel.f(
-	wok2dbl
-	,out=outwok0041
-	,check.for.saved.output=T
-	,saved_recode=fuzzy.sets
-	)
-dbl2bel
-```
-
-```{r bel2mel-f}
-dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
-bel2mel<-bel2mel.f(
-	dbl2bel
-	,out=outwok0041
-	,check.for.saved.output=T
-	,type='crel'
-	,write2disk=F
-)
-bel2mel
-```
-
-```{r mel2comps-f}
-mel2comps<-mel2comps.f(bel2mel,out=outwok0041)
-```
-
-```{r comps2cos-f}
-comps2cos.f(
-	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
-	,cosparallel.path='~/cosparallel-code/cos'
-	,threads=3
-	)
-```
-
-```{r cos2kcliqdb-f}
-cos<-cos2kcliqdb.f(
-	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
-	,out=outwok0041
-	)
-```
-
-```{r kcliqdb2flat.f}
-cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
-	require(data.table)
-	ret<-list()
-for(i in type)	if(i%in%names(kcliqdb)) {
-	ret[[i]]<-data.table(id=unique(unlist(kcliqdb[[i]]$orig)),vlo=0,hlo=0,key='id')
-	ret[[i]][,vlo:=table(unlist(lapply(kcliqdb[[i]]$orig,function(x) unique(unlist(x)))))]
-	for(j in names(kcliqdb[[i]]$orig)) {
-		t<-table(unlist(kcliqdb[[i]]$orig[[j]]))
-		ret[[i]][list(as.integer(names(t))),hlo:=hlo+t]
-	}
-	ret[[i]][,hlo:=hlo-vlo]
-	ret[[i]][,tlo:=table(unlist(kcliqdb[[i]]$orig))]
-}
-	ret
-}
-cliqdb2flat<-cliqdb2flat.f(cos)
-```
-
-```{r kcliqdb2flat.f}
-cliqdb2flat.f
-```
 
 
 ```{r kcliqdb2viz-f,eval=FALSE}
