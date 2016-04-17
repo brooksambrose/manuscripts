@@ -1,30 +1,15 @@
----
-title: "Chapter 0 - Introduction"
-author: "Brooks Ambrose"
-date: "October 21, 2015"
-output:
-  html_document:
-    highlight: textmate
-    keep_md: yes
-    number_sections: yes
-    toc: yes
-    toc_depth: 4
-  pdf_document:
-    toc: yes
-csl: asa.csl
-bibliography: d2016.bib
----
+# Chapter 0 - Introduction
+Brooks Ambrose  
+October 21, 2015  
 
-```{r init,echo=FALSE}
-cat('\014')
-rm(list=ls())
-invisible(source('d2016-init.R'))
-invisible(require(ngramr))
-invisible(require(ggplot2))
-ev=F
-ec=F
-knitr::opts_chunk$set(eval=F,fig.path='Figs/ch0',comment=NA)
-c.f.s.o.def=T #check for saved output
+
+
+```
+## Loading required package: ngramr
+```
+
+```
+## Loading required package: ggplot2
 ```
 
 ##Abstract
@@ -43,14 +28,12 @@ c.f.s.o.def=T #check for saved output
 #Stage-sequential Development of Scholarly Disciplines
 
 ####Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession.
+These battles were hard fought, harder still because each was a contest on cognitive, cultural, and social fronts. 
 
 ####A key component of the establishment of each as a field was the development of a pan-disciplinary convention of citing references.
 We take for granted the use of citations as a currency of information flow and authorial recognition, but early in the century it was not a norm to provide precisely codified descriptions of publications. Citations were often very casual, referencing an author by title and surname only, and referring to an idea and not any work in particular. These proto-citations required a contemporary grasp of context to be intelligible, as do citations today, but they lacked the address-like codification that would allow the unknowing reader to actually locate the source in question. 
 
 ####Signpost b/w E&T
-
-####These battles were hard fought, harder still because each was a contest on cultural, cognitive, and social fronts.
-While all human behavior can be analyzed as consisting in different ratios of all three components, the institutional development of professions procedes in a conditional order. While a ^[In sociology to declare something an institution is to ask how patterns of human behavior became regular and to excavate the hidden mechanisms that maintain that regularity within limits. Religious practice is regulated by the church, political practice by the state [@Sewell:2005vq\:172]. Such large scale organizations eclipse the cultures that provide the content around which they initially organized. They assure their own cultural inputs, and may be open or closed with respect to novel culture.] A proto-institution begins to cohere  Culture preceeds cognition in the sense that practices develop tacitly before they are "recognized" explicitly, and indeed recognition is, while often transformative, not actually necessary. On the contrary a cultural thing, whether an object or a practice, must already exist for it to be recognized. Likewise cognition, especially classification, preceeds social control Cultural processes center on human interaction with meaningfully constituted objects. This far reaching concept is usefully characterized in the tradition of Geertz where culture exists at the intersection of symbolically organized thought and concrete practice. Since Geertz priority has been placed This polarity between real and ideal may be adapted in a tr
 
 ####A discipline must cohere culturally before it can professionalize, and this process occurs in four stages.
 First, a prototypical set of productions--articles, books and lectures--had either to be found or invented, and the patterns they established had to be reproduced without the benefits of consistent resources or conventions. Second, assembeled productions had to become recognizable; they had to be labeled and grouped together according to a consistent symbolism, and that symbolism had to be learned within a broader milieu. Third, after a symbolic index could be taken for granted, disciplines would be stillborn if they could not maintain productivity. Would-be disciples had to produce enough new material to support an audience intially of peers and then of larger publics. Fourth, to emerge as professions, disciples had to have a reasonable chance of being awarded scarce resources within the academy. The ability to attach the disciplinary label to departments and professorships marked the beginning of a viable adolescence. If a discipline could aqcuire the machinery of education it could control the presumption of its own legitimacy, at least among new generations of students.
@@ -100,9 +83,7 @@ Though the kernel of a core set of references may grow this does not imply a ten
 
 ##Relevance
 
-```{r t-relevance,echo=ec}
-kable(t$relevance)
-```
+
 
 #Social Control
 
@@ -141,54 +122,23 @@ This is the process of genre formation. Though the term is sometimes use to refe
 
 ##Typology of Relationships
 
-```{r t-relation,echo=ec}
-kable(t$relation)
-```
+
 
 #Knowledge & Professions
 
 ##Label: The Disciplinary Prefixes
 
-```{r disciplines,eval=T,echo=F,fig.width=7.5,fig.height=7.5/3*2}
-ng<-grep('ng1870-2010.RData',dir(recursive = T),value=T)
-if(!length(ng)){
-    gnq<-strsplit(
-        c('social,sociology,sociological,sociologist'
-            ,'economic,economics,economical,economist'
-            ,'cultural,anthropic,anthropology,anthropological,anthropologist'
-            ,'political,political science,political scientist'
-            ,'mental,psychology,psychological,psychologist'),',')
-    ng<-lapply(gnq,function(x) data.table(ngram(phrases=x,corpus = 'eng_us_2012',year_start=1870,year_end=2010,smoothing=3)))
-    save(ng,file='out/ng1870-2010.RData')} else {load(ng)}
-ng<-rbindlist(ng)
-ng[,stem:=substr(Phrase,0,4)]
-ng[stem=='cult',stem:='anth']
-ng[stem=='ment',stem:='psyc']
-ng[,prewar:=ifelse(Year<2940,1,0)]
-setkey(ng,Phrase)
-#ng[,cat:=NULL]
-ng[c('social','economic','cultural','political','mental'),cat:='1generic']
-ng[c('sociology','economics','anthropology','political science','psychology'),cat:='2discipline']
-ng[c('sociological','economical','anthropological','psychological'),cat:='3technical']
-ng[c('sociologist','economist','anthropologist','political scientist','psychologist'),cat:='4profession']
-setkey(ng,prewar,stem)
-ng[,nminmaxF:=lintran(Frequency,range(Frequency)),by=c('prewar','Phrase')]
-ng[,nmaxF:=lintran(Frequency,c(0,max(Frequency))),by=c('prewar','Phrase')]
-ng[,nmdF:=Frequency/median(Frequency),by=c('prewar','Phrase')]
-ng[,nmnF:=Frequency/mean(Frequency),by=c('prewar','Phrase')]
-qplot(Year,nminmaxF,data=ng[expand.grid(1:0,c('soci','econ','anth','psyc'))],geom='line',color=cat,size=I(1.2))+scale_x_continuous(breaks=seq(1870,2010,10))+facet_wrap(~stem)+scale_y_continuous(name='Scaled Frequency')+scale_colour_grey()+theme_bw()+ theme(axis.text.x = element_text(angle = 90)) 
-
-```
+<img src="Figs/ch0disciplines-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 ## Summary: Cultural and Social Mechanisms
 
-A cultural `r one(1)` is
+A cultural performance is
 teleological,
 autonomously controlled,
 socially neutralized,
 facility constrained, and
 indeterminant.
-A social `r one(1)` is
+A social action is
 teleological,
 heteronomously controlled,
 culturally neutralized,
@@ -196,11 +146,11 @@ constrained
 normatively by prestige, sanctions, and rightness
 or competitively by scarcity, acquisition, and attrition, and
 determinant.
-A sociocultural `r one(1)` is merely an admixture of the two; on
+A sociocultural action is merely an admixture of the two; on
 
 ###Teleology
-####Not all of the things people "do" are `r one(2)` in this sense.
-Teleological `r one(2)` have a goal or end known to the `r ones(1)`
+####Not all of the things people "do" are performances in this sense.
+Teleological actions have a goal or end known to the subject
 
 ####Whether knowledge is found or invented is less important than whether it is addressable; knowledge that is not recoverable might as well not exist.
 Addressing occurs when a source is recoverable via a portable reference to its location. Because using knowledge tends to reinforce rather than deplete it, knowledge is only paradoxically scarce. Knowledge is scarce to the extent that it is easily lost.
@@ -221,7 +171,7 @@ Yet these local communities do not form the larger share of a professor's quotid
 
 #Empirical Foundations
 ####This brief foray into the different sociocultural functions of citations may be demonstrated by the observation of the formative moments of U.S. social science.
-The impressions left by the earliest social scientists became a terrain of disciplines and `r try(onus$sd)` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s?
+The impressions left by the earliest social scientists became a terrain of disciplines and  that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s?
 
 ##A lexical sample
 ####Each study depends on a database of records of the contents of journals.
@@ -267,253 +217,41 @@ Murkier is Bourdieu's notion of relationship. In the field theory relationships 
 ####Unclear what the operational units mean theoretically, cannot be known without direct observation of missing variables.
 
 
-```{r master2wok-f,eval=ev}
-master2wok<-master2wok.f(
-	out='./resources'
-	,detect.language=T
-	,check.for.saved.output = T
-	,grep=c('ANTH', 'SOCI', 'ECON', 'POLI')
-)
-```
 
 
-```{r wok2dbl-f,eval=ev}
-wok2dbl<-wok2dbl.f(
-	dir=inn$wok0041
-	,out=out$wok0041
-	,sample.batches=F
-	,sample.size=50
-	,save=T
-	,verbose=T
-	,check.for.saved.output=c.f.s.o.def
-)
-col.ord<-attributes(wok2dbl)$col.ord
-```
-
-```{r dbl2inspect-f,eval=ev}
-system.time(x<-dbl2inspect.f(wok2dbl))
-```
-
-```{r wok2dbl-cleaning,eval=ev}
-##DROP
-setkey(wok2dbl,field)
-low<-c('C1','CA','DI','EI','ID','PN','RI','RP','SU') # low observation count
-wokfld[low]
-unu<- c('PT','PA','PI','JI','J9','SN','GA') # unuseful or redundant fields
-wokfld[unu]
-wok2dbl<-wok2dbl[!c(low ,unu)] 
 
 
-##RECODE
-setkey(wok2dbl,field)
-invisible(wok2dbl['SO',val:=gsub('(-FIRST SERIES)|(-NEW SERIES)','',val)]);setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('SO','JOURNAL OF SOCIAL FORCES'),val:='SOCIAL FORCES']);setkey(wok2dbl,field,val)
-
-invisible(wok2dbl[list('PU','M I T PRESS'),val:='MIT PRESS']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PU','WILEY-BLACKWELL PUBLISHING, INC'),val:='WILEY-BLACKWELL']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PU','OXFORD UNIV PRESS INC'),val:='OXFORD UNIV PRESS']) ; setkey(wok2dbl,field,val)
-
-invisible(wok2dbl[list('PD','APR-JUN'),val:='APR']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','JAN-APR'),val:='JAN']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','JAN-MAR'),val:='JAN']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','JUL-OCT'),val:='JUL']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','JUL-SEP'),val:='JUL']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','JUN-SEP'),val:='JUN']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','MAY 23'),val:='MAY']) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[list('PD','OCT-DEC'),val:='OCT']) ; setkey(wok2dbl,field,val)
-
-# Variations in page numbers
-invisible(wok2dbl[c('BP','EP'),val:=sub('^[ANPU]','',val)]) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[expand.grid(c('BP'),unique(grep('[A-Za-z]',wok2dbl[c('BP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
-invisible(wok2dbl[expand.grid(c('EP'),unique(grep('[A-Za-z]',wok2dbl[c('EP')]$val,value=T))),val:=as.character(as.numeric(as.roman(val)))]) ; setkey(wok2dbl,field,val)
-
-```
-
-```{r dbl2dbw-f,eval=ev}
-attributes(wok2dbl)$col.ord<-col.ord
-dbl2dbw<-dbl2dbw.f(wok2dbl)
-```
-
-```{r dbl2dbw-imputing,eval=ev}
-# 3% of records are missing a publication month
-dbl2dbw[is.na(dbl2dbw$PD),PD:=sample(na.omit(dbl2dbw$PD),sum(is.na(dbl2dbw$PD)))]
-```
-
-The source data are `r try(nicen(nrow(wok2dbl)))` observations on `r try(nicen(length(unique(wok2dbl[,id]))))` documents spanning `r try(nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)]))))` years.
-
-```{r dbl2dbw-deriv,eval=ev}
-# secondary or derivative measurements
-dbl2dbw[,db:='wok']
-
-## disciplines
-dbl2dbw[,anth:=grepl('anth',SO,ignore.case=T)]
-dbl2dbw[,soci:=grepl('soci',SO,ignore.case=T)]
-dbl2dbw[,econ:=grepl('[eo][ck]on',SO,ignore.case=T)]
-dbl2dbw[,poli:=grepl('poli',SO,ignore.case=T)]
-dc<-dbl2dbw[,.N,by=c('anth','soci','econ','poli')]
-dc[,N:=NULL]
-setkey(dbl2dbw,anth,soci,econ,poli)
-for(i in 1:nrow(dc)) dbl2dbw[dc[i],disc:=paste(colnames(dc)[unlist(dc[i])],collapse='')]
-dbl2dbw[,disc:=factor(disc)]
-
-## publisher private/public
-dbl2dbw[,putyp:=factor(NA,levels=sort(c('University','Private','Professional')))]
-setkey(dbl2dbw,PU)
-dbl2dbw[c('AMER AGRICULTURAL ECONOMICS ASSOC','AMER ECONOMIC ASSOC','AMER SOCIOLOGICAL ASSOC'),putyp:='Professional']
-dbl2dbw[c('MIT PRESS','OXFORD UNIV PRESS','UNIV CHICAGO PRESS','UNIV NORTH CAROLINA PRESS'),putyp:='University']
-dbl2dbw[c('SAGE PUBLICATIONS INC','SPRINGER','WILEY-BLACKWELL'),putyp:='Private']
-
-## age of citations
-
-```
 
 
-```{r wok2dbl-summary1,eval=ev}
-graphics.off()
-setkey(dbl2dbw,PY)
-top5<-unique(dbl2dbw[list(1900),SO])
-setkey(dbl2dbw,DT,SO)
-so_disc_dt_nr_py<-ggplot(data=dbl2dbw[expand.grid(c(
-	'Article'
-	#,'Book Review'
-	,'Review'
-),top5)]
-,mapping = aes(
-	x = PY
-	,y = NR
-	,color=DT)) +
-	geom_jitter(
-		alpha=I(1/3)
-		#		,shape=1
-	) +
-	geom_hline(yintercept = 100,color='darkgray') +
-	facet_grid(disc+SO~.
-						 ,scales='free_y'
-						 ,space='free') +
-	theme(
-		strip.text.y=element_text(angle=0)
-		#	,legend.position="none"
-	)
-so_disc_dt_nr_py
-```
-
-```{r,eval=ev}
-nut<-ggplot(data=dbl2dbw[expand.grid(
-	c('Article'
-		,'Book Review'
-		,'Review'
-	),top5),.N,by=c('SO','disc','DT','PY')]
-,mapping = aes(PY,fill=DT,weight=N)
-) +
-	geom_histogram(binwidth=1) +
-	facet_grid(disc+SO~.
-						# ,scales='free_y'
-						 ,space='free'
-						 ) +
-	theme(
-		strip.text.y=element_text(angle=0)
-		,legend.position="none"
-	)
-nut + scale_fill_brewer(palette='Set1')
-```
-
-```{r jstordfr-0041top5-query,eval=ev}
-dfrcounts<-c('./resources/dfr.jstor.org_AMERICAN-ANTHROPOLOGIST_0041_counts_ameranth.csv'
-,'./resources/dfr.jstor.org_AMERICAN-JOURNAL-OF-SOCIOLOGY_0041_counts_amerjsoci.csv'
-,'./resources/dfr.jstor.org_ECONOMIC-JOURNAL_0041_counts_economicj.csv'
-,'./resources/dfr.jstor.org_JOURNAL-OF-POLITICAL-ECONOMY_0041_counts_jpoliecon.csv'
-,'./resources/dfr.jstor.org_QUARTERLY-JOURNAL-OF-ECONOMICS_0041_counts_quarjecon.csv')
-dfrcs.f<-function(csv,maxbatch=1000,url){
-	require(data.table)
-	dfr<-data.table(read.csv(csv))
-	ret<-list()
-	while(nrow(dfr)>0){
-		w<-which(cumsum(dfr$ARTICLE_COUNT)%/%1000==0)
-		r<-range(dfr$Year_of_Publication[w])
-		ret[[length(ret)+1]]<-data.table(batch=length(ret)+1,beg=r[1],end=r[2],n=sum(dfr$ARTICLE_COUNT[w]))
-		dfr<-dfr[!w]
-	}
-ret<-rbindlist(ret)
-ret[,jour:=sub('^.+_(.+)\\.csv','\\1',csv)]
-ret[,cat(paste('\nhttp://dfr.jstor.org/fsearch/submitrequest?cs=jcode%3A',jour,'%5E1.0%7Cyear%3A%5B',beg,'+TO+',end,'%5D%5E1.0&fs=rtm1%3Ayrm1%3Atym1%3Asnm2&view=text&',collapse='',sep=''))]
-ret
-}
-(batches<-rbindlist(lapply(dfrcounts,dfrcs.f)))
-```
-
-```{r jstor2dbw-f,eval=ev}
-jstor2dbw<-jstor2dbw.f(dir=inn$jstor0041,out=out$jstor0041,sample.batches = F)
-```
-
-```{r jstor2dbw-deriv,eval=ev}
-jstor2dbw[,db:='jstor']
-#to align with WOK codes
-jstor2dbw[,`:=`(
-	PY=as.integer(substr(pubdate,0,4))
-	,SO=toupper(sub('^The ','',journaltitle))
-	,DT=sub('^fla$','Article',sub('^brv$','Book Review',type))
-	)]
-```
-
-```{r jstor2dbw-summary1,eval=ev}
-setkey(jstor2dbw,type)
-jnut<-ggplot(data=jstor2dbw[c('fla'),.N,by=c('journaltitle','type','PY')]
-,mapping = aes(PY,fill=factor(type,levels=c('fla','brv','edi','mis','nws')),weight=N)
-) +
-	geom_histogram(binwidth=1) +
-	facet_grid(journaltitle~.
-						# ,scales='free_y'
-						 ,space='free'
-						 ) +
-	theme(
-		strip.text.y=element_text(angle=0)
-		,legend.position="none"
-	)
-jnut + scale_fill_brewer(palette='Set1')
-```
-
-```{r jstor-wok-comparison,eval=ev}
-setkey(jstor2dbw,SO)
-setkey(dbl2dbw,SO)
-jwc<-rbindlist(list(dbl2dbw[list(top5),list(SO,DT,PY,db)],jstor2dbw[list(top5),list(SO,DT,PY,db)]))
-jwc[,db:=factor(db)]
-jwc[,DT:=factor(DT,levels=c('Article','Review','edi','Book Review','mis','nws'))]
-jwc[,PY:=as.double(PY)]
-setkey(jwc,db,DT)
-```
-
-```{r test1,eval=ev}
-jnut<-ggplot() +
-	geom_bar(data=jwc['jstor',.N,by=c('SO','DT','PY','db')],aes(x = PY-.2,y = N,fill=DT),width=.4,stat='identity') + 
-	geom_bar(data=jwc['wok',.N,by=c('SO','DT','PY','db')],aes(x = PY+.2,y=N,fill=DT),width=.4,stat='identity') + 
-	facet_grid(SO~PY,scales='free',space='free') +
-	theme(
-		strip.text.y=element_text(angle=0)
-		,strip.text.x=element_text(angle=90)
-		,legend.title=element_blank()
-		,axis.text.x=element_blank()
-		,axis.title.x=element_blank()
-		,axis.ticks.x=element_blank()
-		,panel.background=element_blank()
-		#		,legend.position="none"
-	)
-jnut + scale_fill_brewer(palette='Set1')
-```
 
 
-```{r test2,eval=ev}
-dbl2dbw['Article',list(med=quantile(NR,.5),avg=mean(NR)),by=c('PY')]
 
-setkey(dbl2dbw,SO,DT)
-t1<-dbl2dbw[,list(list(data.table(rbind(round(prop.table(table(DT)),3))))),keyby=c('disc','SO')]
-				t1<-data.table(t1[,list(disc,SO)],rbindlist(t1$V1))
-cbind(table(dbl2dbw$NR))
 
-setkey(wok2dbl,id,field)
-invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
-setkey(wok2dbl,field)
-invisible(SO<-wok2dbl['SO',.N,keyby=val])
-SO
-```
+
+
+
+The source data are  observations on  documents spanning  years.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #References
