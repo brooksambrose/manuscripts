@@ -1,12 +1,26 @@
 \begin{table}[]
 \centering
-\caption{My caption}
+\caption{Developmental Stages and their Structural Mechanisms}
 \label{my-label}
 \begin{tabular}{lllll}
-\hline
-                   & \textbf{Aparadigmatic} & \textbf{Transition} & \textbf{Preparadigmatic} & \textbf{Paradigmatic} \\ \hline \hline
-\textbf{Cultural}  & Charisma               & Charisma-Genre      & Genre                    & Paradigm              \\
-\textbf{Cognitive} & Chaos                  & Chaos-Schema        & Schema                   & Schema                \\
-\textbf{Social}    & Autonomy               & Auto-Hetero         & Heteronomy               & Heteronomy            \\ \hline
+\hline \hline
+                   & \textbf{Aparadigmatic} & \textbf{Preparadigmatic} & \textbf{Paradigmatic} \\ \hline
+\textbf{Cultural}  & Charisma               & Genre                    & Paradigm              \\
+\textbf{Cognitive} & Chaos                  & Schema                   & Schema                \\
+\textbf{Social}    & Autonomy               & Heteronomy               & Heteronomy            \\ \hline
 \end{tabular}
+\end{table}
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}}lccccc} 
+\\[-1.8ex]\hline \\[-1.8ex] 
+Mechanism & \multicolumn{1}{l}{Aparadigmatic} & \multicolumn{1}{l}{Preparadigmatic} & \multicolumn{1}{l}{Paradigmatic} \\ 
+\hline \\[-1.8ex] 
+Cultural  & Charisma               & Genre                    & Paradigm              \\
+Cognitive & Chaos                  & Schema                   & Schema                \\
+Social    & Autonomy               & Heteronomy               & Heteronomy            \\
+\hline \\[-1.8ex] 
+\end{tabular} 
 \end{table}

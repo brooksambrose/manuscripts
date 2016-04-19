@@ -66,13 +66,13 @@ While all human behavior can be analyzed as consisting in different ratios of al
 ####A discipline must cohere culturally before it can professionalize, and this process occurs in four stages.
 First, a prototypical set of productions--articles, books and lectures--had either to be found or invented, and the patterns they established had to be reproduced without the benefits of consistent resources or conventions. Second, assembeled productions had to become recognizable; they had to be labeled and grouped together according to a consistent symbolism, and that symbolism had to be learned within a broader milieu. Third, after a symbolic index could be taken for granted, disciplines would be stillborn if they could not maintain productivity. Would-be disciples had to produce enough new material to support an audience intially of peers and then of larger publics. Fourth, to emerge as professions, disciples had to have a reasonable chance of being awarded scarce resources within the academy. The ability to attach the disciplinary label to departments and professorships marked the beginning of a viable adolescence. If a discipline could aqcuire the machinery of education it could control the presumption of its own legitimacy, at least among new generations of students.
 
-```{r,results='asis',eval=F}
+```{r,results='asis',eval=T}
 t.stag<-data.frame(
 	Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
 	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
 	,Control=c('Private','Peer','Provider','Professional')
 	)
-stargazer(t.stag,style='asr')
+stargazer(attitude,style='asr')
 ```
 
 
