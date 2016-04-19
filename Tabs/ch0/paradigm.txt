@@ -1,0 +1,12 @@
+\begin{table}[]
+\centering
+\caption{My caption}
+\label{my-label}
+\begin{tabular}{lllll}
+\hline
+                   & \textbf{Aparadigmatic} & \textbf{Transition} & \textbf{Preparadigmatic} & \textbf{Paradigmatic} \\ \hline \hline
+\textbf{Cultural}  & Charisma               & Charisma-Genre      & Genre                    & Paradigm              \\
+\textbf{Cognitive} & Chaos                  & Chaos-Schema        & Schema                   & Schema                \\
+\textbf{Social}    & Autonomy               & Auto-Hetero         & Heteronomy               & Heteronomy            \\ \hline
+\end{tabular}
+\end{table}

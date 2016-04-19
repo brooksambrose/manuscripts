@@ -1,4 +1,4 @@
-# Chapter 0 - Introduction
+# Chapter 0 - Aparadigmatic Development of Scholarly Disciplines
 Brooks Ambrose  
 October 21, 2015  
 
@@ -25,15 +25,23 @@ October 21, 2015
 | Address   | Influence         | Reference           | Idea                 |
 +-----------+-------------------+---------------------+----------------------+
 
-#Stage-sequential Development of Scholarly Disciplines
+
+
+
+
+#Paradigms: A High Bar for Scholarly Disciplines
+
+Stage-sequential Development of Scholarly Disciplines
 
 ####Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession.
-These battles were hard fought, harder still because each was a contest on cognitive, cultural, and social fronts. 
 
 ####A key component of the establishment of each as a field was the development of a pan-disciplinary convention of citing references.
 We take for granted the use of citations as a currency of information flow and authorial recognition, but early in the century it was not a norm to provide precisely codified descriptions of publications. Citations were often very casual, referencing an author by title and surname only, and referring to an idea and not any work in particular. These proto-citations required a contemporary grasp of context to be intelligible, as do citations today, but they lacked the address-like codification that would allow the unknowing reader to actually locate the source in question. 
 
 ####Signpost b/w E&T
+
+####These battles were hard fought, harder still because each was a contest on cultural, cognitive, and social fronts.
+While all human behavior can be analyzed as consisting in different ratios of all three components, the institutional development of professions procedes in a conditional order. While a ^[In sociology to declare something an institution is to ask how patterns of human behavior became regular and to excavate the hidden mechanisms that maintain that regularity within limits. Religious practice is regulated by the church, political practice by the state [@Sewell:2005vq\:172]. Such large scale organizations eclipse the cultures that provide the content around which they initially organized. They assure their own cultural inputs, and may be open or closed with respect to novel culture.] A proto-institution begins to cohere  Culture preceeds cognition in the sense that practices develop tacitly before they are "recognized" explicitly, and indeed recognition is, while often transformative, not actually necessary. On the contrary a cultural thing, whether an object or a practice, must already exist for it to be recognized. Likewise cognition, especially classification, preceeds social control Cultural processes center on human interaction with meaningfully constituted objects. This far reaching concept is usefully characterized in the tradition of Geertz where culture exists at the intersection of symbolically organized thought and concrete practice. Since Geertz priority has been placed This polarity between real and ideal may be adapted in a tr
 
 ####A discipline must cohere culturally before it can professionalize, and this process occurs in four stages.
 First, a prototypical set of productions--articles, books and lectures--had either to be found or invented, and the patterns they established had to be reproduced without the benefits of consistent resources or conventions. Second, assembeled productions had to become recognizable; they had to be labeled and grouped together according to a consistent symbolism, and that symbolism had to be learned within a broader milieu. Third, after a symbolic index could be taken for granted, disciplines would be stillborn if they could not maintain productivity. Would-be disciples had to produce enough new material to support an audience intially of peers and then of larger publics. Fourth, to emerge as professions, disciples had to have a reasonable chance of being awarded scarce resources within the academy. The ability to attach the disciplinary label to departments and professorships marked the beginning of a viable adolescence. If a discipline could aqcuire the machinery of education it could control the presumption of its own legitimacy, at least among new generations of students.
@@ -53,14 +61,6 @@ First, a prototypical set of productions--articles, books and lectures--had eith
 
 This study is about the second stage of development, recognition. I assume that protoypes of disciplinary knowledge were readily available in the United States by the end of the 19th century, and that the challenge for disciples was to relabel what had already been accomplished in an effort to create an occupation out of what was formally a personal undertaking, an obsession or a pastime.
 
-#Cognition
-
-####Here I attempt to combine internalist and externalist theories of culture.
-"Art for art's sake" characterizes the internalist view; cultural expression is both motivated and regulated by a concept of the object and standards of quality that, no matter how they got there, are autonomously held in the mind of the creator. "Art for the artists's sake" characterizes the externalist view, where the interests of the creator may be multiply determined by a number of social pressures including fame, fortune, fraud, or force. Many couplets of opposing forces--knowledge and professions, culture and society, truth and power--merely replicate this basic distinction.
-
-####Yet the internal/external distinction is generic and restrictive.
-The underlying references concern how a person might orient herself to cultural production, and how such productive activity may be embedded in larger social structures and cultural milieus. I break this distinction into three simple processes that make creative work easier.
-
 #Cultural Sensemaking
 
 ####In order to regulate their own creative activity, disciples curated prototypes into sets that drew a boundary, however roughly, around the tacit definition of what they thought they were doing.
@@ -71,6 +71,8 @@ This tendency to overlap one's personal cultural toolkit with that of others was
 
 ####While new references to the overlapping set reinforced its status they also winnowed its content.
 Paradoxically by begging to peers that they recognize some novel prototype scholars would have to also pay homage to the core. They could not then elevate their own interests above that of the growing stock of taken for granted knowledge, since introducing something could not garner attention without attaching it to something old.
+
+![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.svg) 
 
 ####The rejoinder to the claim that nothing can overtake the core is found in Kuhnian accounts of scientific revolution.
 Yet the theory of referential coherence could not be further from that of paridigmatic coherence. The great advantage of using references as the currency of disciplinary communication and exchange is that their meanings can be assumed, and the inevitable disagreements over interpretation can be easily ignored so long as conversation floats just above matters of substance. Paridigmatic agreement is not culturally, that is autonomously, possible unless one makes a very strong empirical convergence assumption. Exogenous reality must weigh so heavily on the mind that the concept of interpretation can be dismissed. If however interpretive variation is the norm then we can also posit that within limits the same larder satisfies chefs so long as each is free to cook according to her particular tastes.
@@ -85,7 +87,15 @@ Though the kernel of a core set of references may grow this does not imply a ten
 
 
 
-#Social Control
+#Cognition
+
+####Here I attempt to combine internalist and externalist theories of culture.
+"Art for art's sake" characterizes the internalist view; cultural expression is both motivated and regulated by a concept of the object and standards of quality that, no matter how they got there, are autonomously held in the mind of the creator. "Art for the artists's sake" characterizes the externalist view, where the interests of the creator may be multiply determined by a number of social pressures including fame, fortune, fraud, or force. Many couplets of opposing forces--knowledge and professions, culture and society, truth and power--merely replicate this basic distinction.
+
+####Yet the internal/external distinction is generic and restrictive.
+The underlying references concern how a person might orient herself to cultural production, and how such productive activity may be embedded in larger social structures and cultural milieus. I break this distinction into three simple processes that make creative work easier.
+
+#Social Structures
 
 ####It is during the period where recognition develops that social control begins to collide with personal sensemaking.
 This control may at first go no further than a group of peers beginning to enforce conventions of practice or symbolism by asking or demanding that a concept be manifest in this way and not that way, or that it not be expressed at all. If the chief mode of personal sensemaking is sorting objects into sets of similarity or difference, the  nascent form of social intrusion on cultural sensemaking is attaching labels to the sets of others. If a sensemaker is exposed to sets with the same label and different contents then any attending pressure of contradiction would be most easily resolved by direct interference with someone else's process of personal sensemaking. Disengaging from the contradiction is certainly an option, but it is likely that the dopplegangers would find themselvs at odds again if they inhabit the same milieu.
@@ -128,7 +138,7 @@ This is the process of genre formation. Though the term is sometimes use to refe
 
 ##Label: The Disciplinary Prefixes
 
-<img src="Figs/ch0disciplines-1.png" title="" alt="" style="display: block; margin: auto;" />
+<img src="Figs/ch0/disciplines-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 ## Summary: Cultural and Social Mechanisms
 
@@ -146,11 +156,11 @@ constrained
 normatively by prestige, sanctions, and rightness
 or competitively by scarcity, acquisition, and attrition, and
 determinant.
-A sociocultural action is merely an admixture of the two; on
+A sociocultural performance is merely an admixture of the two; on
 
 ###Teleology
-####Not all of the things people "do" are performances in this sense.
-Teleological actions have a goal or end known to the subject
+####Not all of the things people "do" are behaviors in this sense.
+Teleological actions have a goal or end known to the performer
 
 ####Whether knowledge is found or invented is less important than whether it is addressable; knowledge that is not recoverable might as well not exist.
 Addressing occurs when a source is recoverable via a portable reference to its location. Because using knowledge tends to reinforce rather than deplete it, knowledge is only paradoxically scarce. Knowledge is scarce to the extent that it is easily lost.

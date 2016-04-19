@@ -20,6 +20,9 @@ require(knitr,quietly=T)
 source('../pack-dev/dissertation_source.R')
 source('d2016-glossary.R')
 
+#knitr options
+knitr::opts_chunk$set(fig.align='center')
+
 # data sources / sinks
 inn<-list()
 out<-list()
