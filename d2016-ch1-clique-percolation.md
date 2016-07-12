@@ -14,24 +14,48 @@ bibliography: d2016.bib
 ```{r init,echo=FALSE}
 cat('\014')
 rm(list=ls())
-source('d2016-init.R')
+require(data.table)
+nicen<-function(x) format(x,big.mark=',',big.interval=3,nsmall=3)
+```
+```{r terms,echo=FALSE}
+onu<-list(
+sf='subfield'
+,sd='subdiscipline'
+,ic='invisible college'
+,fp='field position'
+,sp='specialty'
+,fi='field of inquiry'
+,sc='subculture'
+) # interchangeable ontological units
+onus<-list(
+sf='subfields'
+,sd='subdisciplines'
+,ic='invisible colleges'
+,fp='field positions'
+,sp='specialties'
+,fi='fields of inquiry'
+,sc='subcultures'
+) # interchangeable ontological units
 
-
-knitr::opts_chunk$set(error=T,eval=FALSE,fig.path='Figs/ch1') #local defaults
-c.f.s.o.def=TRUE
+opu<-list(
+kcc='k-clique community'
+,kca='kcc'
+) # interchangeable operational units
+opus<-list(
+,kcc='k-clique communities'
+,kca='kccs'
+) # interchangeable operational units
 ```
 
 #Abstract
 
-What is the role of knowledge in the closure of professions? [STRAW MAN] contends that specialized knowledge forms the standards against which professional memberships and authorities are regulated, even prior to the development of trade associations. On the contrary, it is argued that knowledges are consequences rather than causes of professional closure. Closure mechanisms are likely to develop not as cultural structures defining correct knowledge, but as socio-categorical structures defining correct association. Sociocultural structures are hybrids between cultural know-how and social categorization. 'what you know/who you know'.  Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession, yet each did so without also establishing an orthodoxy. Rather than 
+Have sociologists been more eclectic than economists?
 
 #Introduction
 
-Between 1900 and 1925 each American social science discipline distinguished itself as an autonomous profession. A key component of the establishment as a field involved the development of the use of references as a currency of information flow and authorial recognition. Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. As these locations became precisely codified, especially in the journal space, it became possible to use references both as a set of resources for sustained cultural production and as a set of credentials for membership in social science specialties and disciplines. The impressions left by the earliest social scientists became a landscape of disciplines and `r try(onus$sd)` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. What was really different about the 1960s? Great stuff.
+
 
 #Theory
-
-In this paper we observe the generation, duration, and decline of `r try(sample(onus,1))` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG; @Brubaker:2004vh] that `r try(sample(onus,3))` are internally cohesive groups closed by clear boundaries of inclusion, yet in reality `r try(onus$sc)` may be difficult to distinguish looking only at the flow of culture between them. Sometimes quite a bit of work has been done to craft the culture itself to naturalize social distinctions.
 
 ##Cultural vs. Social Hierarchy
 
@@ -47,7 +71,7 @@ between in a telling conflict between the content of fascinating if unresolved t
 
 The first 
 
-In this paper we observe the generation, duration, and decline of `r try(sample(onus,1))` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r try(sample(onus,3))` are internally cohesive groups closed by clear boundaries of inclusion and exclusion, yet in reality `r try(onus$sc)` may be difficult to distinguish looking only at the flow of culture between them. When the culture between two groups is the same, the division between them must be entirely social; such arbitrary distinctions however are bound to guide cultural development along different tracks.
+In this paper we observe the generation, duration, and decline of `r sample(onus,1)` in the social sciences. To do so requires a very rigid assumption, but one that is routinely made in our folk theories of intellectual history. This is the substantialist assumption [@Bourdieu:1985wh; @Brubaker:2004nG] that `r sample(onus,3)` are internally cohesive groups closed by clear boundaries of inclusion and exclusion, yet in reality `r onus$sc` may be difficult to distinguish looking only at the flow of culture between them. When the culture between two groups is the same, the division between them must be entirely social; such arbitrary distinctions however are bound to guide cultural development along different tracks.
 
 Sometimes quite a bit of work is done to craft the culture itself to naturalize social distinctions. We may preliminarily say that two dimensions of culture may develop quasi independently, the message and the codification. Just as it is possible to say the same thing in two different languages, disciplines may explore the same ideas and call them by different names. When social dynamics require tension among authors who are discussing the same thing, groups may form on the basis of a difference in codification alone. By the force of separation, however, shallow differences may deepen, and the underlying cultural meaning of the discourses my diverge.
 
@@ -55,7 +79,7 @@ When this kind of formation is done in the humanities, there may be a closed cir
 
 Self consistent activity could not exist without its secure footing both in social interests and cultural meanings, and in this way the developmental model may be epigenetic for those cultures that have stood the test of time. What is great about looking at cultural commodity production, whether in art, science, or the rest of the human-made world, is that many new forms are tried out all the time, forms that may have no hope of success.
 
-Indeed, the task at hand is to test construct validity; we hypothesize that there is a real, historical, and observable unit that conforms to our commonsense and theoretical notions of `r try(do.call(cat,onus[-length(onus)]))` or `r try(onus[[length(onus)]])`. Insofar as reality deviates from this assumption it means that producers of culture are embedded deeply in the cultures they produce and that we treat them independently at our peril.
+Indeed, the task at hand is to test construct validity; we hypothesize that there is a real, historical, and observable unit that conforms to our commonsense and theoretical notions of `r do.call(cat,onus[-length(onus)])` or `r onus[[length(onus)]]`. Insofar as reality deviates from this assumption it means that producers of culture are embedded deeply in the cultures they produce and that we treat them independently at our peril.
 
 ##Boundaries
 
@@ -98,7 +122,7 @@ All community detection methods assumes that ties are driven by an unobserved se
 
 ##Clique Percolation Method
 
-Clique percolation generalizes the concept of k-core cohesion, where a k-core is a clique of size k. Because total connectedness is a high standard for defining a subgraph, k-cores with a higher k is both larger in membership and less expected to be observed since every new member requires an exponential step in the number of ties. Th k-clique community concept relaxes the standard. Whereas a k-core is completely connected, members of a k-clique community need not be tied to every other member. What is required is that they be reachable via a set of overlapping cliques of size k. Where by definition the diameter or the longest shortest path of a k-core is one, in a k-clique community it is theoretically possible though empirically unlikely 3for members to be distant, especially when k is much smaller than the size of the subgraph.
+# k-clique percolation -201-.md
 
 k-clique percolation, which has several advantages. First, unlike modularity-based methods that use randomization, clique percolation is determinate and reproducible, like the link-community method utilizing the tanimoto coefficient. It is reasonably fast on large networks. It is also well-suited to the design of a co-reference network, in which the reference page of an article is represented as a k-clique of citations where k is equal to the number of references.
 
@@ -136,70 +160,15 @@ As one jostles for a position nearer to the cores, crowds turn to cliques. They 
 
 #Social Science Article Network, 1900-1949
 
-```{r dbl2bel-f}
-load(paste(out$wok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
-dbl2bel<-dbl2bel.f(
-	wok2dbl
-	,out=out$wok0041
-	,check.for.saved.output=c.f.s.o.def
-	,saved_recode=fuzzy.sets
-	)
-dbl2bel
-```
-
-```{r bel2mel-f}
-dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
-bel2mel<-bel2mel.f(
-	dbl2bel
-	,out=out$wok0041
-	,check.for.saved.output=c.f.s.o.def
-	,type='crel'
-	,write2disk=F
-)
-bel2mel
-```
-
-```{r mel2comps-f,include=FALSE}
-mel2comps<-mel2comps.f(bel2mel,out=out$wok0041)
-```
-
-```{r comps2cos-f}
-invisible(comps2cos.f(
-	mel2comps.dir=paste(out$wok0041,'mel2comps',sep=.Platform$file.sep)
-	,cosparallel.path='~/cosparallel-code/cos'
-	,threads=3
-	))
-```
-
-```{r cos2kcliqdb-f}
-cos<-cos2kcliqdb.f(
-	mel2comps.dir=paste(out$wok0041,'mel2comps',sep=.Platform$file.sep)
-	,out=out$wok0041
-	)
-```
-
-```{r kcliqdb2flat.f}
-cliqdb2flat.f<-function(kcliqdb,type=c('utel','crel')){
-	require(data.table)
-	ret<-list()
-for(i in type)	if(i%in%names(kcliqdb)) {
-	ret[[i]]<-data.table(id=unique(unlist(kcliqdb[[i]]$orig)),vlo=0,hlo=0,key='id')
-	ret[[i]][,vlo:=table(unlist(lapply(kcliqdb[[i]]$orig,function(x) unique(unlist(x)))))]
-	for(j in names(kcliqdb[[i]]$orig)) {
-		t<-table(unlist(kcliqdb[[i]]$orig[[j]]))
-		ret[[i]][list(as.integer(names(t))),hlo:=hlo+t]
-	}
-	ret[[i]][,hlo:=hlo-vlo]
-	ret[[i]][,tlo:=table(unlist(kcliqdb[[i]]$orig))]
-}
-	ret
-}
-cliqdb2flat<-cliqdb2flat.f(cos)
-```
-
-
 ##Data
 
+The raw data for this analysis are from the Thompson Reuters Web of Knowledge Social Science Citation Index. Ideally, we would analyze the entire stock of recorded publication material to give the best chance of observing when authors contravene institutional boundaries. Practically, we must take a sample, however sampled networks are not small versions of the population network [@Handcock:2010iw]. Sampling may have the effect of degrading the network cohesion on which community detection methods depend, such that a method will not detect the same boundaries in a sample as it would in the population. To avoid a sampling effect on network cohesion, we draw a full census of articles, reviews, and book reviews from each journal selected.
+
+Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, we should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, we use Leydesdorff's [-@Leydesdorff:2010ci]
+
+We should also expect to observe boundaries due to several other institutional levels higher than journals, like publishers, disciplines, or national and language groups. which is  To provide ample opportunity to observe boundaries existing in the space between journals and between academic disciplines, we also take a large sample of journals
+
+To observe some of these high level institutions, we draw sets of journals from four social science disciplines–anthropology, sociology, economics, and political science–and we draw these in blocks from the same publisher. Journals were selected from the disciplinary affiliations signaled in their titles. From a JSTOR master list of archived materials, journals were selected if they contained any of the disciplinary prefixes anth-, soci-, e[ck]on-, and poli-. {{Though not all journals that are affiliated with a discipline signal this with a word containing the signature prefix, those that do are affiliated with a high degree of accuracy. Soci is an exception, and journals like the Royal Society of Statistics [madeup] are excluded.}} This list was cross referenced with the TR WOK database.
 
 ### Coding Variations -214-.md
 
@@ -292,12 +261,72 @@ We have described population characteristics of four kinds of cultural units tha
 A second criterion of selection concerns the status of references that are only cited once, which are the vast majority (94 percent) of references. As a statement about the boundary between personal and cultural meaning, we may note that nineteen in twenty resources are meaningful to individuals and yet are so much flotsam and jetsam to the projected culture of a community. We omit this large body of references both because as meaningful objects they are idiosyncratic, meaning something to only one project, and because they do not provide information in a network sense. This carries a risk of selecting against citations that were culturally relevant and yet were not picked up by the community, but many of these singletons are citations to data rather than to scholarship of general significance [@Cole:1983vd:127]. In a secondary analysis, we will predict the relative prevalence of (culturally) meaningful and meaningless singletons by making assumptions about the distribution of citation counts. We will however be unable to distinguish which singletons are in which category, so the relational information they would add to a network analysis is lost with or without this exercise.
 
 
-
-```{r kcliqdb2viz-f,eval=FALSE}
-kcliqdb2viz.f(cos,paste(out$wok0041,'mel2comps',sep=.Platform$file.sep),out=out$wok0041)
+```{r wok2dbl-f, echo=F,results='asis'}
+inwok0041<-'../knowledge-survival/inwok/1900-1941'
+outwok0041<-'../knowledge-survival/outwok0041'
+outwok0099<-'../knowledge-survival/outwok0099'
+source('../pack-dev/dissertation_source.R')
+wok2dbl<-wok2dbl.f(
+	dir=inwok0041
+	,out=outwok0041
+	,sample.batches=F
+	,sample.size=50
+	,save=T
+	,verbose=T
+	,check.for.saved.output=T
+)
+invisible(wok2dbl[list(unique(id),'PY'),plot(table(val),xlab='Publication Year',ylab='Frequency',type='l')])
 ```
 
-```{r unorganized, eval=F}
+The source data is `r nicen(nrow(wok2dbl))` observations on `r nicen(length(unique(wok2dbl[,id])))` documents spanning `r nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)])))` years.
+
+```{r dbl2bel-f,echo=F}
+load(paste(outwok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
+dbl2bel<-dbl2bel.f(
+	wok2dbl
+	,out=outwok0041
+	,check.for.saved.output=T
+	,saved_recode=fuzzy.sets
+	)
+dbl2bel
+```
+
+```{r bel2mel-f,echo=F}
+dbl2bel<-dbl2bel[!(zpend|zdup|zloop),list(ut,zcr)]
+bel2mel<-bel2mel.f(
+	dbl2bel
+	,out=outwok0041
+	,check.for.saved.output=T
+	,type='crel'
+	,write2disk=F
+)
+bel2mel
+```
+
+```{r mel2comps-f,echo=FALSE}
+mel2comps<-mel2comps.f(bel2mel,out=outwok0041)
+```
+
+```{r comps2cos-f,echo=FALSE}
+comps2cos.f(
+	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
+	,cosparallel.path='~/cosparallel-code/cos'
+	,threads=3
+	)
+```
+
+```{r cos2kcliqdb-f,echo=FALSE}
+cos<-cos2kcliqdb.f(
+	mel2comps.dir=paste(outwok0041,'mel2comps',sep=.Platform$file.sep)
+	,out=outwok0041
+	)
+```
+
+```{r kcliqdb2viz-f,echo=FALSE,eval=FALSE}
+kcliqdb2viz.f(cos,paste(outwok0041,'mel2comps',sep=.Platform$file.sep),out=outwok0041)
+```
+
+```{r unorganized, eval=F,echo=F}
 hulls1<-list()
 for(i in unique(unlist(gut4_1$crel$ut))) hulls1[[i]]<-which(V(gut4_1g)$name%in%sort(unique(unlist(gut4_1$crel[sapply(gut4_1$crel$ut,function(x) i%in%x),list(cr1,cr2)]))))
 
@@ -347,7 +376,7 @@ dev.off()
 write.table(matrix(as.integer(factor(get.edgelist(gut4_2g))),ncol=2),file='out/mel/test/2/2.txt',sep='\t',quote=F,na='',row.names=F,col.names=F)
 ```
 
-```{r plot_cosresults, eval=F}
+```{r plot_cosresults, eval=F,echo=F}
 lout<-layout.auto(gut4_1g,repulserad=(vcount(gut4_1g)^3))
 pdf('out/mel/test/gut4_1g-zcr-cos.pdf')
 mxcol<-max(as.integer(sub('k([0-9]+).*','\\1',names(cos$orig))))
@@ -410,7 +439,7 @@ plot(
 dev.off()
 ```
 
-```{r 3d-test, eval=F}
+```{r 3d-test, eval=F,echo=F}
 z<-do.call(rbind,mapply(function(k,c,l) cbind(k,c,l),k=as.integer(sub('k([0-9]+).*','\\1',names(cos$strict))),c=as.integer(factor(names(cos$strict))),l=cos$strict))
 V(gut4_1g)$maxc<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'c']
 V(gut4_1g)$maxk<-z[order(sapply(z[,'l'],function(i) which(V(gut4_1g)$name%in%levels(cos)[i]))),'k']

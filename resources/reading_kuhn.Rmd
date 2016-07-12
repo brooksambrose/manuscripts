@@ -1,0 +1,22 @@
+---
+title: "Reading Kuhn"
+author: "Brooks Ambrose"
+date: "April 30, 2016"
+output: html_document
+---
+
+#Choose a term
+
+```{r chosen-term}
+st
+```
+
+#Rank topics in order of term proportion
+
+`r round(pt[1,value]*100,2)`% of instances of paradigm are embedded in the context of topic `r pt[1,variable]`. Common terms here are paradigm, new, argument, problem, and will. Exclusive terms are circular (anchor), allegi, oppon, persuas, and met. Middle terms are argument, circular, paradigm, persuas, candid.
+
+Topic `r pt[1,variable]` is also highly correlated with topic 34, which accounts for `r round(pt['V34',value]*100,2)`% of instances. There scaled correlation is `r lintran(tc$cor[7,34],range(tc$cor))`. Common terms here are crisis, theory, prior, may, and new. Exclusive terms are prior (anchor), evok, battle, appeal, and happen. Middle terms are prior, crisis, evok, may, anomali. Inspection of the scatterplot of the these two topics indicates that the correlation is not a good measure of association.
+
+#snippet
+
+Topic `r pt[1,variable]` is also highly correlated with topic 34, which accounts for `r round(pt['V34',value]*100,2)`% of instances. Common terms here are , , , , and . Exclusive terms are  (anchor), , , , and . Middle terms are , , , , .

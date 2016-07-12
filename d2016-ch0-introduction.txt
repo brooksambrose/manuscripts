@@ -1,8 +1,6 @@
-# Chapter 0 - Aparadigmatic Development of Scholarly Disciplines
+#Chapter 0 - Aparadigmatic Development of Scholarly Disciplines
 Brooks Ambrose  
 October 21, 2015  
-
-
 
 #Paradigms are Merely a Moment in the Development of Scholarly Disciplines
 
@@ -23,11 +21,9 @@ A proto-institution begins to cohere  Culture preceeds cognition in the sense th
 A discipline must cohere culturally before it can professionalize, and this process occurs in four stages. First, a prototypical set of productions--articles, books and lectures--had either to be found or invented, and the patterns they established had to be reproduced without the benefits of consistent resources or conventions. Second, assembeled productions had to become recognizable; they had to be labeled and grouped together according to a consistent symbolism, and that symbolism had to be learned within a broader milieu. Third, after a symbolic index could be taken for granted, disciplines would be stillborn if they could not maintain productivity. Would-be disciples had to produce enough new material to support an audience intially of peers and then of larger publics. Fourth, to emerge as professions, disciples had to have a reasonable chance of being awarded scarce resources within the academy. The ability to attach the disciplinary label to departments and professorships marked the beginning of a viable adolescence. If a discipline could aqcuire the machinery of education it could control the presumption of its own legitimacy, at least among new generations of students.
 
 
-
-\input{Tabs/ch0/devstages.tex}
-
+#Mechanisms
 This study is about the second stage of development, recognition. I assume that protoypes of disciplinary knowledge were readily available in the United States by the end of the 19th century, and that the challenge for disciples was to relabel what had already been accomplished in an effort to create an occupation out of what was formally a personal undertaking, an obsession or a pastime.
-
+ 
 #Cultural Sensemaking
 
 In order to regulate their own creative activity, disciples curated prototypes into sets that drew a boundary, however roughly, around the tacit definition of what they thought they were doing. These acts of sorting allowed prototypes to be organized without requiring the organizer to explain the rules of their order. 
@@ -36,7 +32,7 @@ Wherever personal sets overlapped the intersection would form a smaller set of h
 
 While new references to the overlapping set reinforced its status they also winnowed its content. Paradoxically by begging to peers that they recognize some novel prototype scholars would have to also pay homage to the core. They could not then elevate their own interests above that of the growing stock of taken for granted knowledge, since introducing something could not garner attention without attaching it to something old.
 
-![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf) 
+![Sensemaking entails discriminating first between relevant and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf) 
 
 The rejoinder to the claim that nothing can overtake the core is found in Kuhnian accounts of scientific revolution. Yet the theory of referential coherence could not be further from that of paradigmatic coherence. The great advantage of using references as the currency of disciplinary communication and exchange is that their meanings can be assumed, and the inevitable disagreements over interpretation can be easily ignored so long as conversation floats just above matters of substance. Paradigmatic agreement is not culturally, that is autonomously, possible unless one makes a very strong empirical convergence assumption. Exogenous reality must weigh so heavily on the mind that the concept of interpretation can be dismissed. If however interpretive variation is the norm then we can also posit that within limits the same larder satisfies many chefs so long as each is free to cook according to her particular tastes.
 
@@ -45,8 +41,6 @@ Such tastes are not merely metaphorical; an important feature of this conceptual
 If cultural sensemaking were the only mechanism of disciplinary coherence then it would draw people together but only weakly. Though the kernel of a core set of references may grow this does not imply a tendency for disciplines to become closed culturally. What truly bonds scholars is the opportunity to stand up and be seen through ceremonies around the core while being otherwise totally invisible when pursuing idiosyncratic interests.
 
 ##Relevance
-
-
 
 #Cognition
 
@@ -82,13 +76,9 @@ Tendencies leading to each of these thresholds followed different yet often inte
 
 ##Typology of Relationships
 
-
-
 #Knowledge & Professions
 
 ##Label: The Disciplinary Prefixes
-
-<img src="Figs/ch0/disciplines-1.png" title="" alt="" style="display: block; margin: auto;" />
 
 ## Summary: Cultural and Social Mechanisms
 
@@ -151,42 +141,6 @@ Rise and fall of cultural objects as operationalized, not theorized.
 
 Unclear what the operational units mean theoretically, cannot be known without direct observation of missing variables.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 The source data are  observations on  documents spanning  years.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #References
