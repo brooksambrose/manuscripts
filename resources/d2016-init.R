@@ -18,7 +18,7 @@ require(knitr,quietly=T)
 
 # code sources
 source('../pack-dev/dissertation_source.R')
-source('d2016-glossary.R')
+source('resources/d2016-glossary.R')
 
 #knitr options
 knitr::opts_chunk$set(fig.align='center')

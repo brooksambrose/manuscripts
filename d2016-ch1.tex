@@ -9,11 +9,10 @@
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
   \else
     \usepackage{fontspec}
   \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
   \newcommand{\euro}{€}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
@@ -24,7 +23,15 @@
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
 \usepackage[margin=1in]{geometry}
-\usepackage{graphicx}
+\usepackage{hyperref}
+\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
+\hypersetup{unicode=true,
+            pdftitle={Development of Scholarly Disciplines},
+            pdfauthor={Brooks Ambrose},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
 \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
@@ -33,26 +40,11 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={Brooks Ambrose},
-            pdftitle={Chapter 0 - Aparadigmatic Development of Scholarly Disciplines},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
 
 %%% Use protect on footnotes to avoid problems with footnotes in titles
@@ -70,7 +62,7 @@
 }
 
 \setlength{\droptitle}{-2em}
-  \title{Chapter 0 - Aparadigmatic Development of Scholarly Disciplines}
+  \title{Development of Scholarly Disciplines}
   \pretitle{\vspace{\droptitle}\centering\huge}
   \posttitle{\par}
   \author{Brooks Ambrose}
@@ -80,36 +72,308 @@
   \postdate{\par}
   \date{October 21, 2015}
 
+
 \usepackage{dcolumn}
 
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
 \begin{document}
-
 \maketitle
 
-
 {
-\hypersetup{linkcolor=black}
 \setcounter{tocdepth}{2}
 \tableofcontents
 }
-\section{Paradigms are Merely a Moment in the Development of Scholarly
-Disciplines}\label{paradigms-are-merely-a-moment-in-the-development-of-scholarly-disciplines}
+\section{References and the Development of Scholarly
+Disciplines}\label{references-and-the-development-of-scholarly-disciplines}
 
 Between 1900 and 1925 each American social science discipline
-distinguished itself as an autonomous profession.
+distinguished itself as an autonomous profession. .
 
 A key component of the establishment of each as a field was the
 development of a pan-disciplinary convention of citing references. We
 take for granted the use of citations as a currency of information flow
 and authorial recognition, but early in the century it was not a norm to
-provide precisely codified descriptions of publications. Citations were
-often very casual, referencing an author by title and surname only, and
-referring to an idea and not any work in particular. These
-proto-citations required a contemporary grasp of context to be
+provide precisely codified descriptions of consulted publications.
+Citations were often very casual, referencing an author by title and
+surname only, and referring to an idea and not any work in particular. .
+These proto-citations required a contemporary grasp of context to be
 intelligible, as do citations today, but they lacked the address-like
 codification that would allow the unknowing reader to actually locate
 the source in question.
+
+Over several decades however the act of referencing became both more
+common and more consistently codified. Whereas in 1900 the average
+number of references in an article bibliography for the journal
+\textless{}\textgreater{} was \textless{}\textgreater{}, by 1925 it had
+grown to \textless{}\textgreater{} and by 1940 to
+\textless{}\textgreater{}.
+
+These references indicate the general technical upgrading of scholarly
+rigor. Scholars were, especially among peers, expected to be transparent
+about their influences, to be deferent to their predecessors and fair to
+their opponents, and to provide readers with the means to follow up on
+claims made about sources.
+
+But what had scholars been doing previously if not scholarship? If
+disciplinary conventions were not solid, was their work undisciplined?
+The answers are not merely semantic; they involve the task of
+disentangling the relationship between two very different aspects of
+creative occupations. On one hand, scholars have always struggled to
+make sense in public about what they have struggled to make sense of in
+private. However we conceptualize the basis of thought and expression,
+internal and external representations are ontologically distinct
+processes and the mechanisms of translation between them are
+nontrivially constructed and maintained. What distinguishes early
+scholars from the inheritors of their craft is a difference of
+proportion between internal and external requirements; beset by a
+smaller and less powerful audience early scholars were more free to
+engage in idiosyncrasy, to commit their energy to an internal struggle
+of making sense of their own ideas and those cast in front of them. This
+did not mean that they worked in isolation; insofar as they were
+required to meet heteronomous standards these were content standards,
+either defined by peer pressure, by the personal relationships of
+rivalry and comraderie (c.f. restricted fields of cultural production
+{[}\href{mailto:/@Bourdieu}{\nolinkurl{/@Bourdieu}}:1993vo/ :39{]}) or
+by the tastes of lay audiences who mattered for the scholar's
+livelihood.
+
+The relationships defining these content standards were institutions
+like any other mechanisms restricting what scholars might otherwise do
+if left alone. However they were not disciplinary standards. Adherence
+to them did not signal membership in the profession of scholarship.
+Instead content standards signaled their intellectual location directly;
+recognizing scholars required understanding the content of what they
+were speaking.
+
+As scholarship grew in published work and personnel, references also
+became a sign of dependence, since one scholar could not be expected to
+master more than a component of her milieu.
+
+References then constitute an important element of not only scholarly
+practice, but after a period of institutional development, scholarly
+orthopraxy. It is only in the narrowest sense of a subfield that
+normativity can be characterized as a form of orthodoxy, or correct
+thought. The normative power of a profession can at best be a form of
+correct practice that puts only very weak restrictions on correct
+cultural or intellectual content. But differently, two scholars on equal
+footing may consider each other's substantive work profane, but this
+mere fact of heterodoxy would not normally disqualify either of them
+from membership in the profession. The submission of an
+``unprofessional'' manuscript, one that, for instance, did not adhere to
+citation conventions, would bar the work from publication.
+
+Scholarship then is a cultural lifeworld steered by a professional
+system {[}@Habermas:1987{]}. Habermas's concepts provide a more precise
+forumulation of the familar embeddeness concept in sociology. The
+metaphorical content of embeddeness suggests close contact between the
+focal field of practice and the more or less hidden mechanisms that
+support it. However, these supporting mechanisms often stand at arms
+length from the practices of, for instance, scholarly discourse. If we
+presume that scholarly discourse is exemplifed by verbal exchanges, for
+instance, among students in a seminar or symposium, between a reader and
+the written words of a reference, or between a writer and her own
+consciousness, then by mechanisms of discourse we must mean the ways
+that proximate utterances shape their antecedeants in streams of
+discourse @CA, @CommunitiesOfPractice, @Wittgenstein{]}. Professions
+then are embedded much like pylons struck into the shifting sands of
+language. However this reverses the embeddeness metaphor. Scholarly
+discourse is not supported by the unseen mechanisms of the profession,
+rather the profession is supported by the unseen mechanisms of the
+discourse. Without the churn of language and thought, editors and
+reviewers would have no content to split and bolster, and no audience to
+serve the cream to. We might say that system and lifeworld have an
+epigenetic relationship. However what we are uncovering here is not the
+hierarchy between professions and culture, but the lack thereof.
+Professions and culture are interpenetrating; the resources and chance
+opportunities determining one's control over the other turnover to such
+an extent that we might as well accept Sewell's anti theory of
+structural multiplicity @Sewell?:{]}.
+
+Abbott calls culture or lifeworld an interactional field. Cf abbots
+basketweave
+
+@Abbott:2001uy{]}
+
+\subsection{Study 1: The Transition from Extensive to Intensive
+Development}\label{study-1-the-transition-from-extensive-to-intensive-development}
+
+Growth in the number of scholars and the number of published scholarly
+works is attended by a qualitative transitions between extensive and
+intensive patterns of citation. When disciplines are very young scholars
+are almost always exploring new or at least unclaimed terrain with
+little interest in covering the same ground twice. As disciplines
+develop a transition invariably occurs; scholars become much more likely
+to retrace familiar ground. Much of the work of this study aims to
+understand the significance of this fact.
+
+First the fact must be established. Intellectual terrain is often
+imagined as a space of meaning or a population meaningfully
+distinguishable ideas. Because ideas cannot be directly observed,
+several indicators of their presence have been used, citations chief
+among them. Empirically, then, we will start on the basis of the
+citations as a useful indicator of ideas. Later we will discuss the
+limitations of the ideational theory, and we will present an alternative
+interpretation of a citation space. Luckily the facts at issue will not
+change.
+
+So, then, it will be useful to treat the terrain of scholarship as the
+accumulating stock of already cited references. The act of exploration,
+so to speak, of this space consists in the inclusion, in the reference
+list of a scholarly publication, of a particular set of citations and
+not another. A footprint in this space, left by one publication, may be
+represented as a count of each citation pair in the list of references.
+This operationalization allows footprints to overlap completely,
+partially, or not at all. By enumerating citation pairs or co-citations
+instead of their individual counts, we also claim that the meaning of a
+reference may vary in combination with other references.
+
+A more empiricist and less theory laden interpretation is to claim that
+we may identify how disparate acts of cultural production hang together,
+without knowing why they do so. Citations provide merely one kind of
+thread, but were we to trace out several more modes of relatedness then
+we might provide a fuller picture of the sociocultural structure
+underpinning scholarship. Such a task is beyond scope for the present
+study, but we can at least specify ignorance {[}@Merton1987:vi{]}.
+Clearly there is much more to the content of a publication than its list
+of references. But even considering this narrow slice of its meaningful
+content, we are already at pains to generalize from the observation of a
+citation pattern to the cause of that pattern appearing in a particular
+time and place. It will be difficult, for instance, to posit a choice
+mechanism, for we cannot discern whether the inclusion of a reference
+was the choice of the author, the editor of a journal, the reviewers
+refereeing the manuscript, a colleague listed in the acknowledgements,
+an uncredited inspiration, etc. I therefore make no effort to identify
+an actor responsible for an included reference, but rather consider it
+the outcome of the local art world surrounding the production of that
+piece of scholarship {[}c.f. theories of authorship @ ;@ {]}. What is a
+critical problem to solve for the intellectual historian may a fool's
+errand for the population researcher. It is a mistake to treat any
+particular citation, and especially to treat the entire reference list,
+as reflective of the choice of the author. Indeed this mystifies the
+production process behind scholarship.
+
+An extensive pattern of citation then is one that both introduces never
+before cited references and one that favors those extant references that
+have been cited the least by others. A Poisson distribution is a simple
+first approximation of a random search in this space, and observed
+citation counts with a mean below the random pattern (underdispersion)
+can be considered to represent the extensive pattern, while means above
+the same (overdispersion) may represent the intensive pattern.
+
+This extensive pattern of development may be compared to the
+paradigmatic model described by Kuhn
+{[}-@Kuhn:1970vn\textbackslash{}:10{]}. Once a paradigm, in the sense of
+a model to be extended, takes hold among a community of scholars, normal
+science ensues as a process of narrowing the range of possibilities
+opened by the paradigm. The specifically scientific pattern of
+development is to retrace familiar problems until they are solved, and
+then to relegate the solution to one or another form of black box, such
+as mathematical codification, textbook explication, or codification in
+technology. Familiar ground is in one moment intensely retraced, and in
+the next systematically forgotten. Indeed Kuhn aims to demonstrate that
+the ideology of cumulative development in the sciences is a consequence
+of black boxing, which serves to render subsequent generations of
+scientists ignorant of a history better described by a cyclical or
+sinusoidal trend.
+
+While pre-history of disciplines are beyond Kuhn's scope, here they are
+paramount. This emphasis is based in a hunch that the mechanisms that
+govern the genesis of disciplines may be implicated in their ongoing
+development.
+
+\section{Paradigms, Structural Mechanisms, and Stage-sequential
+Development}\label{paradigms-structural-mechanisms-and-stage-sequential-development}
+
+It is the contention of this study that this transition in scholarly
+practice between casual and informal citation behavior is both a cause
+and a consequence of a developmental transition in the social an
+cultural structures of scholarly fields.
+
+A substantive theory of such structures was introduced by Kuhn in the
+\emph{The Structure of Scientific Revolutions} {[}-@Kuhn:1970vn{]}.
+Rather than reproducing Kuhn's theory, my aim here is to generalize his
+model--which was intended for application to the natural sciences
+especially prior to the maturation of the university system in the
+twentieth century--to scholarship in general, in the United States, and
+in the first half of the twentieth century. Though my theoretical scope
+aims to be inclusive all disciplines finding a support in the U.S.
+university system, I will restrict my empirical investigations to
+selected disciplines in the social sciences.
+
+To generalize Kuhn I draw on more recent work in the sociologies of
+knowledge, of cultural production, and of professions. Whereas Kuhn
+focused intently on three relationships, of scientists to paradigmatic
+works, to their peer scientists in the narrowest sense, and to their own
+direct labor of scientists to
+
+Citation practices however did not necessarily represent better
+scholarly practice, in the sense of a capacity to communicate more
+clearly and with fewer errors of fact or interpretation. These different
+possible meanings of a reference made them polysemic in a way that
+belied a ``disciplined'' discourse. Rather than trying to ``get Kuhn
+right'', I will draw selectively to fill out the conceptual matrix
+outlined below.
+
+A lacuna in Kuhn's model of scientific development concerns a clear
+conceptual model of what might be called non-cyclical or
+original/genetic development. The basic cyclical pattern is between
+revolutionary and normal science, where each is always a prerequisite
+for the other. This poses a chicken and egg question; presumably a
+different process explains an ``original'' revolution developing out of
+no prior paradigm. Kuhn is able to forestall this question through an
+historical approach where antecedent moments in historical (not
+analytical) development are always at hand for the researcher who has
+done her homework.
+
+\subsection{Kuhn's uses of the term}\label{kuhns-uses-of-the-term}
+
+\subsection{A reconceptualization}\label{a-reconceptualization}
+
+Paradigm has at least two referents, one concerning the process of
+cultural production which emphasizes the relationship of creators to
+their craft, and the other concerning the normative regimes within the
+community of craftspeople. The cultural reference is embedded in the
+eytemology of the term; a paradigm is a prototypical cultural product
+that serves as a model or basis of comparison for the reproduction and
+extension of knowledge, either that gleaned from the lesson of the
+object or knolwedge about the process of creation. Not all objects are
+good paradigms in this sense; a paradigm has staying power if it poses
+problems without answering them, and if the solutions are partially but
+not fully explicated.
+
+The pattern of oscillation between normal and revolutionary science in
+Kuhnian theory can be thought of as recurring moments in the continuous
+development of a stable thing (professional science), or it can treated
+as a very simple ecological model with only two things (rival paradigms)
+drawing on the same scarce resource base (professional science).
+
+In the sociology of music a very different developmental theory has been
+proposed centering on the concept of genre {[}-@Lena:2008er{]}. Genres
+differ significantly from paradigms in that they do not require a strong
+cultural consensus to be reproduced. Disparate cultural objects and
+practices may be united under a genre if similarities are successfully
+socially constructed. While genre classifications may become normative
+they are usually difficult to enforce; exogenous pressure is usually
+required to condemn something as violate. This is because genre
+inclusion tends to occur when a threshold of similarity is crossed by,
+so to speak, checking of enough boxes on a checklist of attributes,
+while remaining unclassified features of the object are ignorable if a
+preponderance evidence in favor of inclusion is established.
+
+Not so with paradigms; a novel object must be thoroughly vetted to be
+considered relevant to the cause of normal science. If it does not pass
+a sniff test it will be ignored, and if it insists on being recognized
+and remains incommensurate with extant expectations then the familiar
+revolutionary crisis ensues.
 
 \section{Mechanisms}\label{mechanisms}
 
@@ -122,29 +386,28 @@ of professions procedes in a conditional order.
 In sociology to declare something an institution is to ask how patterns
 of human behavior became regular and to excavate the hidden mechanisms
 that maintain that regularity within limits. Religious practice is
-regulated by the church, political practice by the state (Sewell
-2005:172). Such large scale organizations eclipse the cultures that
-provide the content around which they initially organized. They assure
-their own cultural inputs, and may be open or closed with respect to
-novel culture.
+regulated by the church, political practice by the state
+{[}@Sewell:2005vq\textbackslash{}:172{]}. Such large scale organizations
+eclipse the cultures that provide the content around which they
+initially organized. They assure their own cultural inputs, and may be
+open or closed with respect to novel culture.
 
 Paradigms reflect an advanced stage of institutional development in the
 history of disciplines. They presuppose professions, which provide the
 organizational resources necessary to enforce conventions. Though
-paradigms are often associated eight ideas.
+paradigms are often associated with ideas.
 
-A proto-institution begins to cohere Culture preceeds cognition in the
-sense that practices develop tacitly before they are ``recognized''
-explicitly, and indeed recognition is, while often transformative, not
-actually necessary. On the contrary a cultural thing, whether an object
-or a practice, must already exist for it to be recognized. Likewise
-cognition, especially classification, preceeds social control Cultural
-processes center on human interaction with meaningfully constituted
-objects. This far reaching concept is usefully characterized in the
-tradition of Geertz where culture exists at the intersection of
-symbolically organized thought and concrete practice. Since Geertz
-priority has been placed This polarity between real and ideal may be
-adapted in a tr
+Culture preceeds cognition in the sense that practices develop tacitly
+before they are ``recognized'' explicitly, and indeed recognition is,
+while often transformative, not actually necessary. On the contrary a
+cultural thing, whether an object or a practice, must already exist for
+it to be recognized. Likewise cognition, especially classification,
+preceeds social control Cultural processes center on human interaction
+with meaningfully constituted objects. This far reaching concept is
+usefully characterized in the tradition of Geertz where culture exists
+at the intersection of symbolically organized thought and concrete
+practice. Since Geertz priority has been placed This polarity between
+real and ideal may be adapted in a tr
 
 A discipline must cohere culturally before it can professionalize, and
 this process occurs in four stages. First, a prototypical set of
@@ -281,8 +544,10 @@ again if they inhabit the same milieu.
 If there is a weak social force drawing thinkers together at the overlap
 of their sensemaking, it will pale in comparison to exogenous sources of
 social control that can define cultural relevance by fiat, force, fame,
-or facilitation. Even politically motivated ideologies require constant
-social control to combat the drift in personal sensemaking.
+or facilitation.
+
+Even politically motivated ideologies require constant social control to
+combat the drift in personal sensemaking.
 
 If a person seeks out social control over their own sensemaking then
 they are thoroughly socialized. This tautology may describe some people
@@ -341,11 +606,11 @@ growth of disciplines.
 Recognition, a process that amounts to the social organization of
 existing cultural material. This is the process of genre formation.
 Though the term is sometimes use to refer to the entire developing art
-world or field of cultural production (Lena and Peterson 2008),
-\emph{genre} is better reserved to refer to the development of the
-cognitive institution alone. Here genres represent the collision of
-social constraints with cultural production.\footnote{In Habermas's
-  terms, genres represent a development of system against lifeworld. In
+world or field of cultural production {[}@Lena:2008er{]}, \emph{genre}
+is better reserved to refer to the development of the cognitive
+institution alone. Here genres represent the collision of social
+constraints with cultural production. \footnote{In Habermas's terms,
+  genres represent a development of system against lifeworld. In
   Bourdieu's terms, genres are fields, specifically the definition of
   positions to be taken.} The initial symbols were indexical, allowing
 productions to be labeled according to a cogntive categories
@@ -363,8 +628,6 @@ often intersecting developmental logics.
 
 \subsection{Label: The Disciplinary
 Prefixes}\label{label-the-disciplinary-prefixes}
-
-\begin{center}\includegraphics{Figs/ch0/disciplines-1} \end{center}
 
 \subsection{Summary: Cultural and Social
 Mechanisms}\label{summary-cultural-and-social-mechanisms}
@@ -422,10 +685,10 @@ reward is membership in the professorial occupation. Given the first,
 the second reward is prority ranking. This is the formal recognition
 that accrues to legendary individuals. A horizontal stratification
 attends the segmentation of disciplines--subdivisions allowing more
-space for local heroes.\footnote{Except for rare celebrities that a
+space for local heroes. \footnote{Except for rare celebrities that a
   discipline would honor beyond its own boundaries, but again this is a
   cultural gesture whose tangible rewards are irrelevant to the
-  recipient.} (Gustin 1973)
+  recipient.} {[}@Gustin:1973ul{]}
 
 It is only within these subdivisions--including the power elite as a
 small and local community of its own--that Bourdieu's fields of cultural
@@ -442,14 +705,14 @@ boundaries without fear of competition.
 This brief foray into the different sociocultural functions of citations
 may be demonstrated by the observation of the formative moments of U.S.
 social science. The impressions left by the earliest social scientists
-became a terrain of disciplines and that could be landscaped but not
-easily turned over by future generations. Paradigms or hegemonic
-cultures developed in the first half of the 20th century. These
-paradigms endured even during times of social upheaval such as the Great
-Depression and WWII. However, at the dawn of the 1960s, such monoliths
-were toppled in quick succession. For the first time in American
-history, the cultural heritage was treated in an a la carte fashion by
-new generations. What was really different about the 1960s?
+became a terrain of disciplines and \texttt{try(onus\$sd)} that could be
+landscaped but not easily turned over by future generations. Paradigms
+or hegemonic cultures developed in the first half of the 20th century.
+These paradigms endured even during times of social upheaval such as the
+Great Depression and WWII. However, at the dawn of the 1960s, such
+monoliths were toppled in quick succession. For the first time in
+American history, the cultural heritage was treated in an a la carte
+fashion by new generations. What was really different about the 1960s?
 
 \subsection{A lexical sample}\label{a-lexical-sample}
 
@@ -461,7 +724,7 @@ Ideally, I would analyze the entire stock of recorded publication
 material to give the best chance of observing when authors contravene
 institutional boundaries. Practically, I must take a sample, however
 sampled networks are not small versions of the population network
-(Handcock and Gile 2010). Sampling may have the effect of degrading the
+{[}@Handcock:2010iw{]}. Sampling may have the effect of degrading the
 network cohesion on which community detection methods depend, such that
 a method will not detect the same boundaries in a sample as it would in
 the population. To avoid a sampling effect on network cohesion, I draw a
@@ -476,7 +739,7 @@ authors, editors, and reviewers always obey these distinctions. If a
 scholarly field exists with a grounding in two or more journals, the
 omission of one may also degrade its cohesion to the point of rendering
 its boundaries undetectable. As an indicator of affiliation among
-journals, I use Leydesdorff's (2010)
+journals, I use Leydesdorff's {[}-@Leydesdorff:2010ci{]}
 
 I should also expect to observe boundaries due to several other
 institutional levels higher than journals, like publishers, disciplines,
@@ -517,10 +780,11 @@ their holding defines their distance along one dimension of that space.
 cultural capital (the same thing would be true, mutatis mutandis, of the
 economic game) determines the aggregate chances of profit in all the
 games in which cultural capital is effective, thereby helping to
-determine position in social space" (1985:724) Murkier is Bourdieu's
-notion of relationship. In the field theory relationships tend to be
+determine position in social space"
+{[}-@Bourdieu:1985wh\textbackslash{}:724{]} Murkier is Bourdieu's notion
+of relationship. In the field theory relationships tend to be
 competitive bids for profit in a field constituted by a form of capital.
-(Shwed and Bearman 2012)
+{[}@Shwed:2012wt{]}
 
 \section{A Realist Epistemology}\label{a-realist-epistemology}
 
@@ -548,32 +812,22 @@ Unclear what the operational units mean theoretically, cannot be known
 without direct observation of missing variables.
 
 The source data are observations on documents spanning years.
+Aparadigmatic Development of Scholarly Disciplines Paradigms are Merely
+a Moment in the Development of Scholarly Disciplines A proto-institution
+begins to cohere \#References
 
-\section*{References}\label{references}
-\addcontentsline{toc}{section}{References}
+\input{Tabs/ch0/devstages.tex}
 
-Bourdieu, Pierre. 1985. ``The Social Space and the Genesis of Groups.''
-\emph{Theory and Society} 14(6):723--44.
+\begin{figure}[htbp]
+\centering
+\includegraphics{/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf}
+\caption{Sensemaking entails discriminating first between relevent and
+irrelevant material, and second between relevant and productive
+resources.}
+\end{figure}
 
-Gustin, Bernard H. 1973. ``Charisma, Recognition, and the Motivation of
-Scientists.'' \emph{The American Journal of Sociology} 78(5):1119--34.
+\begin{center}\includegraphics{Figs/ch0/disciplines-1} \end{center}
 
-Handcock, Mark S. and Krista J. Gile. 2010. ``Modeling social networks
-from sampled data.'' \emph{arXiv} stat.AP.
-
-Lena, Jennifer C. and Richard A. Peterson. 2008. ``Classification as
-Culture: Types and Trajectories of Music Genres.'' \emph{American
-Sociological Review} 73(5):697--718.
-
-Leydesdorff, Loet, Felix de Moya-Anegon, and Vicente P. Guerrero-Bote.
-2010. ``Journal Maps on the Basis of Scopus Data: A Comparison with the
-Journal Citation Reports of the ISI.'' \emph{Journal Of The American
-Society For Information Science And Technology} 61(2):352--69.
-
-Sewell, William H. Jr. 2005. ``The Concept(s) of Culture.'' Pp. 152--74
-in \emph{Logics of history}. Chicago: University of Chicago Press.
-
-Shwed, Uri and Peter S. Bearman. 2012. ``Symmetry Is Beautiful.''
-\emph{American Sociological Review} 77(6):1064--69.
+The source data are observations on documents spanning years.
 
 \end{document}

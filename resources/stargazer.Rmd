@@ -1,0 +1,54 @@
+---
+title: "Stargazer Tests"
+author: "Brooks Ambrose"
+date: "August 15, 2016"
+output:
+  html_document: default
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+---
+
+```{r init,include=F,eval=T}
+#csl: asa.csl
+#bibliography: d2016.bib
+#documentclass: uclathes
+#classoption: PhD
+#cls: uclathes.cls
+#bibliography: d2016-.bib
+
+
+#\usepackage[labelfont=bf,justification=justified,singlelinecheck=false]{caption}
+cat('\014')
+rm(list=ls())
+#source('/Users/bambrose/Dropbox/GitHub/manuscripts/resources/d2016-init.R')
+source(dir(pattern='d2016-glossary.R',recursive=T))
+require(ngramr)
+require(ggplot2)
+require(stargazer)
+require(magrittr)
+ev=F
+ec=F
+fig='Figs/ch0/'
+tab='Tabs/ch0/'
+knitr::opts_chunk$set(eval=T,fig.path=fig,fig.align='center',comment=NA)
+c.f.s.o.def=T #check for saved output
+```
+
+
+
+```{r t-stages,results='asis',eval=T,}
+t.stag<-data.frame(
+	Stage=bold(c('1 Prototyping','2 Assemblage','3 Facilitation','4 Accumulation'))
+	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
+	,Control=c('Private','Peer','Provider','Professional')
+	)
+
+sg(t.stag,col.align=c('ccc','lll'))
+```
+
+
+```{r}
+print(getwd())
+```
+

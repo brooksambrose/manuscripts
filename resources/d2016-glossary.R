@@ -1,9 +1,25 @@
 require(data.table)
 
+# text formatting functions
 nicen<-function(x) format(x,big.mark=',',big.interval=3,nsmall=3)
 
+bold<-function(x) paste(' \\textbf{',x,'}',sep='')
+ital<-function(x) paste(' \\textit{',x,'}',sep='')
+undr<-function(x) paste(' \\underline{',x,'}',sep='')
+
+sg<-function(x,sum=F,col.align=c(old='',new=''),...) {
+	require(stargazer)
+	require(magrittr)
+	x<-capture.output(stargazer(x,style='ajs',summary=sum,header=F,rownames=F,...)) %>%
+		gsub(pattern='\\textbackslash ',replacement='\\',fixed=T) %>%
+		gsub(pattern='\\}',replacement='}',fixed=T) %>%
+		gsub(pattern='\\{',replacement='{',fixed=T) %>%
+		sub(pattern=col.align[1],replacement=col.align[2])
+	cat(x,sep='\n')
+}
+
 #WOK Field Tags, https://images.webofknowledge.com/WOKRS58B4/help/WOK/hs_wos_fieldtags.html
-wokfld<-data.table(read.table('resources/wokfields.txt',sep = '\t',header = TRUE),key='field')
+wokfld<-data.table(read.table(dir(pattern='wokfields.txt'),sep = '\t',header = TRUE),key='field')
 
 # While silly, we'll use chemistry's particles, elements, compounds, and mixtures
 
@@ -71,7 +87,7 @@ typ<-function(){
 	d$relation[throw='super',catch='sub']<-'subject' # stable
 	d$relation[throw='par',catch='par']<-'citizen' # stable
 	d$relation[throw='sub',catch='super']<-'subject' # stable
-	
+
 	d$relation[throw='super',catch='super']<-'contest' # strained
 	d$relation[throw='super',catch='par']<-'challenge' # strained
 	d$relation[throw='par',catch='super']<-'challenge' # strained
