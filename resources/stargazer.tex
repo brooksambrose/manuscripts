@@ -129,73 +129,13 @@
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{t.stag<-}\KeywordTok{data.frame}\NormalTok{(}
+\NormalTok{t.stag1<-}\KeywordTok{data.frame}\NormalTok{(}
     \DataTypeTok{Stage=}\KeywordTok{bold}\NormalTok{(}\KeywordTok{c}\NormalTok{(}\StringTok{'1 Prototyping'}\NormalTok{,}\StringTok{'2 Assemblage'}\NormalTok{,}\StringTok{'3 Facilitation'}\NormalTok{,}\StringTok{'4 Accumulation'}\NormalTok{))}
     \NormalTok{,}\DataTypeTok{Sensemaking=}\KeywordTok{c}\NormalTok{(}\StringTok{'Obsession'}\NormalTok{,}\StringTok{'Recognition'}\NormalTok{,}\StringTok{'Mastery'}\NormalTok{,}\StringTok{'Competition'}\NormalTok{)}
     \NormalTok{,}\DataTypeTok{Control=}\KeywordTok{c}\NormalTok{(}\StringTok{'Private'}\NormalTok{,}\StringTok{'Peer'}\NormalTok{,}\StringTok{'Provider'}\NormalTok{,}\StringTok{'Professional'}\NormalTok{)}
     \NormalTok{)}
 
-\NormalTok{t<-}\KeywordTok{stargazer}\NormalTok{(t.stag,}\DataTypeTok{style=}\StringTok{'ajs'}\NormalTok{,}\DataTypeTok{summary=}\NormalTok{F,}\DataTypeTok{header=}\NormalTok{F,}\DataTypeTok{rownames=}\NormalTok{F) %>%}
-\StringTok{    }\KeywordTok{gsub}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{'}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{textbackslash '}\NormalTok{,}\DataTypeTok{replacement=}\StringTok{'}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{'}\NormalTok{,}\DataTypeTok{fixed=}\NormalTok{T) %>%}
-\StringTok{    }\KeywordTok{gsub}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{'}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{\}'}\NormalTok{,}\DataTypeTok{replacement=}\StringTok{'\}'}\NormalTok{,}\DataTypeTok{fixed=}\NormalTok{T) %>%}
-\StringTok{    }\KeywordTok{gsub}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{'}\CharTok{\textbackslash{}\textbackslash{}}\StringTok{\{'}\NormalTok{,}\DataTypeTok{replacement=}\StringTok{'\{'}\NormalTok{,}\DataTypeTok{fixed=}\NormalTok{T) %>%}
-\StringTok{    }\KeywordTok{gsub}\NormalTok{(}\DataTypeTok{pattern=}\StringTok{'ccc'}\NormalTok{,}\DataTypeTok{replacement=}\StringTok{'lll'}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{table}[!htbp] \centering 
-  \caption{} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} ccc} 
-\\[-1.8ex]\hline 
-\hline \\[-1.8ex] 
-Stage & Sensemaking & Control \\ 
-\hline \\[-1.8ex] 
- \textbackslash textbf\{1 Prototyping\} & Obsession & Private \\ 
- \textbackslash textbf\{2 Assemblage\} & Recognition & Peer \\ 
- \textbackslash textbf\{3 Facilitation\} & Mastery & Provider \\ 
- \textbackslash textbf\{4 Accumulation\} & Competition & Professional \\ 
-\hline \\[-1.8ex] 
-\end{tabular} 
-\end{table}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{t}
-\end{Highlighting}
-\end{Shaded}
-
-{[}1{]} ``''\\
- {[}2{]} ``\textbackslash{}begin\{table\}{[}!htbp{]}
-\textbackslash{}centering''\\
- {[}3{]} " \textbackslash{}caption\{\} "\\
- {[}4{]} " \textbackslash{}label\{\} "\\
- {[}5{]}
-``\textbackslash{}\href{mailto:begin\%7Btabular\%7D\%7B@\%7B}{\nolinkurl{begin\{tabular\}\{@\{}}\textbackslash{}extracolsep\{5pt\}\}
-lll\}''\\
- {[}6{]}
-``\textbackslash{}\textbackslash{}{[}-1.8ex{]}\textbackslash{}hline''\\
- {[}7{]} ``\textbackslash{}hline
-\textbackslash{}\textbackslash{}{[}-1.8ex{]}''\\
- {[}8{]} ``Stage \& Sensemaking \& Control
-\textbackslash{}\textbackslash{}''\\
- {[}9{]} ``\textbackslash{}hline
-\textbackslash{}\textbackslash{}{[}-1.8ex{]}''\\
-{[}10{]} " \textbackslash{}textbf\{1 Prototyping\} \& Obsession \&
-Private \textbackslash{}\textbackslash{} "\\
-{[}11{]} " \textbackslash{}textbf\{2 Assemblage\} \& Recognition \& Peer
-\textbackslash{}\textbackslash{} "\\
-{[}12{]} " \textbackslash{}textbf\{3 Facilitation\} \& Mastery \&
-Provider \textbackslash{}\textbackslash{} "\\
-{[}13{]} " \textbackslash{}textbf\{4 Accumulation\} \& Competition \&
-Professional \textbackslash{}\textbackslash{} " {[}14{]}
-``\textbackslash{}hline \textbackslash{}\textbackslash{}{[}-1.8ex{]}''\\
-{[}15{]} ``\textbackslash{}end\{tabular\}''\\
-{[}16{]} ``\textbackslash{}end\{table\}''
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{cat}\NormalTok{(t,}\DataTypeTok{sep=}\StringTok{'}\CharTok{\textbackslash{}n}\StringTok{'}\NormalTok{)}
+\KeywordTok{sg}\NormalTok{(t.stag1,}\DataTypeTok{col.align=}\KeywordTok{c}\NormalTok{(}\StringTok{'ccc'}\NormalTok{,}\StringTok{'lll'}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
@@ -217,12 +157,48 @@ Stage & Sensemaking & Control \\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{print}\NormalTok{(}\KeywordTok{getwd}\NormalTok{())}
+\NormalTok{t.stag2<-}\KeywordTok{data.frame}\NormalTok{(}
+    \DataTypeTok{Mechanism=}\KeywordTok{c}\NormalTok{(}\StringTok{'Cultural'}\NormalTok{,}\StringTok{'Cognitive'}\NormalTok{,}\StringTok{'Social'}\NormalTok{)}
+    \NormalTok{,}\DataTypeTok{Aparadigmatic=}\KeywordTok{c}\NormalTok{(}\StringTok{'Charisma [@Gustin:1973ul]'}\NormalTok{,}\StringTok{'Chaos'}\NormalTok{,}\StringTok{'Autonomy'}\NormalTok{)}
+    \NormalTok{,}\DataTypeTok{Preparadigmatic=}\KeywordTok{c}\NormalTok{(}\StringTok{'Genre'}\NormalTok{,}\StringTok{'Schema'}\NormalTok{,}\StringTok{'Heteronomy'}\NormalTok{)}
+    \NormalTok{,}\DataTypeTok{Paradigmatic=}\KeywordTok{c}\NormalTok{(}\StringTok{'Paradigm'}\NormalTok{,}\StringTok{'Schema'}\NormalTok{,}\StringTok{'Heteronomy'}\NormalTok{)}
+    \NormalTok{,}\DataTypeTok{Postparadigmatic=}\KeywordTok{c}\NormalTok{(}\StringTok{''}\NormalTok{,}\StringTok{''}\NormalTok{,}\StringTok{''}\NormalTok{)}
+\NormalTok{)}
+
+\KeywordTok{sg}\NormalTok{(t.stag2) }
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-[1] "/Users/bambrose/Dropbox/GitHub/manuscripts/resources"
-\end{verbatim}
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{} 
+\begin{tabular}{@{\extracolsep{5pt}} ccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Mechanism & Aparadigmatic & Preparadigmatic & Paradigmatic & Postparadigmatic \\ 
+\hline \\[-1.8ex] 
+Cultural & Charisma [@Gustin:1973ul] & Genre & Paradigm &  \\ 
+Cognitive & Chaos & Schema & Schema &  \\ 
+Social & Autonomy & Heteronomy & Heteronomy &  \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+\begin{table}[!htbp]
+  \centering
+  \caption{Mechanisms Operating at each Stage of Development}
+  \label{}
+\begin{tabular}{@{\extracolsep{5pt}}llll}
+\\[-1.8ex] \hline \\[-1.8ex] 
+          & \multicolumn{3}{c}{Stage}                                       \\ \\[-1.8ex] \cline{2-4} \\[-1.8ex]
+Mechanism & Aparadigmatic & Preparadigmatic & Paradigmatic \\ \\[-1.8ex] \hline \\[-1.8ex]
+Cultural  & Charisma \cite{Gustin:1973ul} [@Gustin:1973ul]      & Genre           & Paradigm     \\
+Cognitive & Chaos         & Schema          & Schema       \\
+Social    & Autonomy      & Heteronomy      & Heteronomy   \\ \\[-1.8ex] \hline \\[-1.8ex]
+\multicolumn{4}{l}{}                                                       
+\end{tabular}
+\end{table}
+
+\hypertarget{refs}{}
 
 \end{document}

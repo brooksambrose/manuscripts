@@ -21,7 +21,6 @@ knitr::opts_chunk$set(error=T,eval=FALSE,fig.path='Figs/ch1') #local defaults
 c.f.s.o.def=TRUE
 ```
 
-
 ```{r dbl2bel-f}
 load(paste(out$wok0099,'fuzzy-sets.RData',sep=.Platform$file.sep))
 dbl2bel<-dbl2bel.f(
