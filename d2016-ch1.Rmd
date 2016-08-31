@@ -3,15 +3,15 @@ title: "Development of Scholarly Disciplines"
 author: "Brooks Ambrose"
 date: "October 21, 2015"
 output:
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    toc: yes
   html_document:
     fig_caption: yes
     highlight: textmate
     keep_md: yes
     number_sections: yes
-    toc: yes
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
     toc: yes
 header-includes: \usepackage{dcolumn}
 ---
@@ -32,9 +32,7 @@ require(ggplot2)
 require(stargazer)
 ev=F
 ec=F
-fig='Figs/ch0/'
-tab='Tabs/ch0/'
-knitr::opts_chunk$set(eval=F,echo=F,fig.path=fig,fig.align='center',comment=NA)
+knitr::opts_chunk$set(eval=ev,echo=ev,fig.align='center',comment=NA,results='asis')
 c.f.s.o.def=T #check for saved output
 ```
 
@@ -98,6 +96,19 @@ stargazer(
 )
 
 ```
+
+```{r t-stages,eval=ev,echo=ec}
+t.stag<-data.frame(
+	Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
+	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
+	,Control=c('Private','Peer','Provider','Professional')
+	)
+
+sg(t.stag)
+```
+
+
+![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf) 
 
 Struggles to establish disciplines as professions were hard fought, harder still because each was a contest on cultural, cognitive, and social fronts. While all human behavior can be analyzed as consisting in different ratios of all three components, the institutional development of professions procedes in a conditional order.
 
@@ -182,82 +193,26 @@ What was really different about the 1960s?
 
 ##Study 1: Labels: Diffusion of Disciplinary Prefix
 
+There may not be a formative moment for disciplines, but there are tendencies of development that when compared are relatively large times scales show transitions into institutional relationships. Nothing forbids creators from inventing knoweldge about the world before it is clear how to label that knowledge. The organization of one's work along disciplinary lines does however tend to make one more productive. Audience and contemporary may become obvious, and paths of influence may present themselves as stimulating creative opportunities. Ultimately disciplines intersect with organizational resources, first as a market for tutorship and ultimately as a professorship (c.f. Weber's description of prebends  [/@Weber:1917wi/:343]). The development of such social structures is necessarily endogenous to the recognition of particular forms of cultural production as belonging to a category.
+
+Categories then are not the foundation of institutionalizations, but rather they serve as a hinge between cultural and social phases of institutional development. In real historical situations an author cannot wait for her chosen obsession to become institutionalized, and indeed the likilihood of this happening for her is slim given the rate of cultural survival. On the contrary she will try to master whatever extant opportunities exist, then using the traditional production as a security base, delve into her idiosyncratic persuit with whatever resources are left over. The stereotype of the artists who suffers for her craft and dies young and consumed by her obsession is the exception that proves the rule. What is more likely is a shifting of resource deployment, first with an investment in the aqcuisition of an income generating activity and secondly with a shift of attention to the obsession for as long as neglect of the day job can be tolerated.
+
+What interests us presently is to trace the development of scholarly disciplines back to a point where they were weakly recognized even if they were already culturally prolific. We submit that recognition is empirically identifiable if there exists a flag around which categorizing coalesces. Categorization can be said to completed when the set of possible labels for the same cultural object shrinks to a short and ranked list. The position at the top of that list will be occupied by what we call the disciplinary prefix, and below it variations on nouns used to capture different aspects of cultrual content from created work to the authors themselves.
+
+Consider four social science disciplines--anthropology, economics, psychology, and sociology. In english the flag uniting the concept of discipline are the prefixes anth-, econ-, psyc-, and soci-. We contend that these prefixes will diffuse first as generic and weakly categorical terms ()
+
+#TODO reshape data.table for nice table of flagbearers
+```{r t-dprefixes,eval=T,echo=ec}
+gng2tts<-gng2tts.f()
+sg(gng2tts$ts[,.N,by=c('stem','cat','Phrase')],title = 'Flagbearers',col.align=c(old='cccc',new='llll'))
+```
+
 ```{r f-disciplines,eval=T,echo=ec,fig.height=10,fig.width=7.5,fig.cap='Disciplinary Prefixes'}
 # #chunk options
-gng2tts<-gng2tts.f()
 gng2tts$p
 ```
 
 ##A lexical sample
-
-Each study depends on a database of records of the contents of journals. This database is compiled from two sources, JSTOR and the Thompson Reuters Web of Knowledge Social Science Citation Index (WOK).
-
-Ideally, I would analyze the entire stock of recorded publication material to give the best chance of observing when authors contravene institutional boundaries. Practically, I must take a sample, however sampled networks are not small versions of the population network [@Handcock:2010iw]. Sampling may have the effect of degrading the network cohesion on which community detection methods depend, such that a method will not detect the same boundaries in a sample as it would in the population. To avoid a sampling effect on network cohesion, I draw a full census of articles, reviews, and book reviews from each journal selected.
-
-Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, I should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two or more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, I use Leydesdorff's [-@Leydesdorff:2010ci]
-
-I should also expect to observe boundaries due to several other institutional levels higher than journals, like publishers, disciplines, or national and language groups. To provide ample opportunity to observe boundaries existing in the space between journals and between academic disciplines, I also take a large sample of journals
-
-To observe some of these high level institutions, I draw sets of journals from four social science disciplines–anthropology, sociology, economics, and political science–and I draw these in blocks from the same publisher. Journals were selected from the disciplinary affiliations signaled in their titles. From a JSTOR master list of archived materials, journals were selected if they contained any of the disciplinary prefixes anth-, soci-, econ-, and poli-. {{Though not all journals that are affiliated with a discipline signal this with a word containing the signature prefix, those that do are affiliated with a high degree of accuracy. Soci is an exception, and journals like the Royal Society of Statistics [madeup] are excluded.}} This list was cross referenced with the TR WOK database.
-
-To begin it will be useful to consider a theory that is diametrically opposed to the classification of groups. I find one in Bourdieu's essay, *The Social Space and the Genesis of Groups* {*Bourdieu:1985wh}. Bourdieu claims that marxian social class categories, and their implied boundaries, are analytical constructs with no real referent in the world. The rules for placing an uncategorized actor into a class are well established in any number of class theory traditions. The rules relate to attributes of the actor which may be independently measured, e.g. does she sell labor or buy it? If she sells it, she is a proletarian, if she buys it she is a bourgeoise. Because these categorical rules are the analyst's, Bourdieu decries the reification of the boundary between classes so constituted. Rather than a multidimensional multinomial space, Bourdieu argues that people actually exist in the world in a multidimensional euclidean space, where, in capitalism at least, each dimension is a form of capital. Money, for instance, may be used to place people on a scale and the difference in their holding defines their distance along one dimension of that space. cultural capital (the same thing would be true, mutatis mutandis, of the economic game) determines the aggregate chances of profit in all the games in which cultural capital is effective, thereby helping to determine position in social space" [-@Bourdieu:1985wh\:724] Murkier is Bourdieu's notion of relationship. In the field theory relationships tend to be competitive bids for profit in a field constituted by a form of capital. [@Shwed:2012wt]
-
-##Study 2: The Transition from Extensive to Intensive Development
-
-Growth in the number of scholars and the number of published scholarly works is attended by a qualitative transitions between extensive and intensive patterns of citation. When disciplines are very young scholars are almost always exploring new or at least unclaimed terrain with little interest in covering the same ground twice. As disciplines develop a transition invariably occurs; scholars become much more likely to retrace familiar ground. Much of the work of this study aims to understand the significance of this fact.
-
-First the fact must be established. Intellectual terrain is often imagined as a space of meaning or a population meaningfully distinguishable ideas. Because ideas cannot be directly observed, several indicators of their presence have been used, citations chief among them. Empirically, then, we will start on the basis of the citations as a useful indicator of ideas. Later we will discuss the limitations of the ideational theory, and we will present an alternative interpretation of a citation space. Luckily the facts at issue will not change.
-
-So, then, it will be useful to treat the terrain of scholarship as the accumulating stock of already cited references. The act of exploration, so to speak, of this space consists in the inclusion, in the reference list of a scholarly publication, of a particular set of citations and not another. A footprint in this space, left by one publication, may be represented as a count of each citation pair in the list of references. This operationalization allows footprints to overlap completely, partially, or not at all. By enumerating citation pairs or co-citations instead of their individual counts, we also claim that the meaning of a reference may vary in combination with other references.
-
-A more empiricist and less theory laden interpretation is to claim that we may identify how disparate acts of cultural production hang together, without knowing why they do so. Citations provide merely one kind of thread, but were we to trace out several more modes of relatedness then we might provide a fuller picture of the sociocultural structure underpinning scholarship. Such a task is beyond scope for the present study, but we can at least specify ignorance [@Merton1987:vi]. Clearly there is much more to the content of a publication than its list of references. But even considering this narrow slice of its meaningful content, we are already at pains to generalize from the observation of a citation pattern to the cause of that pattern appearing in a particular time and place. It will be difficult, for instance, to posit a choice mechanism, for we cannot discern whether the inclusion of a reference was the choice of the author, the editor of a journal, the reviewers refereeing the manuscript, a colleague listed in the acknowledgements, an uncredited inspiration, etc. I therefore make no effort to identify an actor responsible for an included reference, but rather consider it the outcome of the local art world surrounding the production of that piece of scholarship [c.f. theories of authorship @ ;@ ]. What is a critical problem to solve for the intellectual historian may a fool's errand for the population researcher. It is a mistake to treat any particular citation, and especially to treat the entire reference list, as reflective of the choice of the author. Indeed this mystifies the production process behind scholarship.
-
-An extensive pattern of citation then is one that both introduces never before cited references and one that favors those extant references that have been cited the least by others. A Poisson distribution is a simple first approximation of a random search in this space, and observed citation counts with a mean below the random pattern (underdispersion) can be considered to represent the extensive pattern, while means above the same (overdispersion) may represent the intensive pattern.
-
-This extensive pattern of development may be compared to the paradigmatic model described by Kuhn [-@Kuhn:1970vn\:10]. Once a paradigm, in the sense of a model to be extended, takes hold among a community of scholars, normal science ensues as a process of narrowing the range of possibilities opened by the paradigm. The specifically scientific pattern of development is to retrace familiar problems until they are solved, and then to relegate the solution to one or another form of black box, such as mathematical codification, textbook explication, or codification in technology. Familiar ground is in one moment intensely retraced, and in the next systematically forgotten. Indeed Kuhn aims to demonstrate that the ideology of cumulative development in the sciences is a consequence of black boxing, which serves to render subsequent generations of scientists ignorant of a history better described by a cyclical or sinusoidal trend.
-
-While pre-history of disciplines are beyond Kuhn's scope, here they are paramount. This emphasis is based in a hunch that the mechanisms that govern the genesis of disciplines may be implicated in their ongoing development.
-
-
-#Knowledge & Professions (900)
-
-## Summary: Cultural and Social Mechanisms
-
-A cultural action is teleological, autonomously controlled, socially neutralized, facility constrained, and indeterminant. A social action is
-teleological, heteronomously controlled, culturally neutralized, constrained normatively by prestige, sanctions, and rightness or competitively by scarcity, acquisition, and attrition, and determinant. A sociocultural behavior is merely an admixture of the two.
-
-##Teleology
-
-Not all of the things people "do" are behaviors in this sense. Teleological behaviors have a goal or end known to the subject
-
-Whether knowledge is found or invented is less important than whether it is addressable; knowledge that is not recoverable might as well not exist. Addressing occurs when a source is recoverable via a portable reference to its location. Because using knowledge tends to reinforce rather than deplete it, knowledge is only paradoxically scarce. Knowledge is scarce to the extent that it is easily lost.
-
-Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. When for whatever reason citations became precisely codified, especially in the journal space, it became possible to use references as a form of currency in the profession. Here the function of citations became something more than an aide to understanding the text; they became on one hand raw material for sustained cultural production and on the other a set of credentials for membership in social science disciplines and their specialties.
-
-Citations now play several roles, some of which are largely decoupled from the underlying cultural content to which the citation ostensibly points. The role of citations at the center of this article concerns how they are used by researchers to jockey for legitimacy in a competitive professional field. Citations in this sense are neither forms of cultural capital, for they may be used without understanding their significance, nor forms of social capital, because they rarely connote personal ties among the authors. Instead I consider the claim that citations are adoptable traits which refer to the abstract social categories of inclusion and exclusion that form one of the institutional bases of the academic profession. Insofar as particular lists of references must be cited to request or signal membership in an extant professional club, citations become a currency of status exchange.
-
-If a list of citations acts as a credential, there is variability in the length and content of the list, and this variability may become the basis of esoteric hierarchies within disciplines.
-
-Rewards are stratified into two tiers, the first of which is socially dominant and the second culturally dominant. In the first tier the reward is membership in the professorial occupation. Given the first, the second reward is prority ranking. This is the formal recognition that accrues to legendary individuals. A horizontal stratification attends the segmentation of disciplines--subdivisions allowing more space for local heroes. ^[Except for rare celebrities that a discipline would honor beyond its own boundaries, but again this is a cultural gesture whose tangible rewards are irrelevant to the recipient.] [@Gustin:1973ul]
-
-It is only within these subdivisions--including the power elite as a small and local community of its own--that Bourdieu's fields of cultural production operate according to a logic of peer recognition. Yet these local communities do not form the larger share of a professor's quotidian reward. As a sanctioned officer of the academy professors enjoy influence not with their peers but with their laity--students and members of the disciplinary public. Horizontal stratification also allows professors to safely exchange recognition across disciplinary boundaries without fear of competition.
-
-
-#References
-
-```{r t-stages,eval=ev,echo=ec,results='asis'}
-t.stag<-data.frame(
-	Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
-	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
-	,Control=c('Private','Peer','Provider','Professional')
-	)
-
-stargazer(t.stag,style='ajs',summary=F)
-```
-
-\input{`r paste(tab,'devstages.tex',sep='')`}
-
-![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf) 
 
 ```{r master2wok-f,eval=ev,echo=ec}
 master2wok<-master2wok.f(
@@ -416,6 +371,62 @@ jwc[,DT:=factor(DT,levels=c('Article','Review','edi','Book Review','mis','nws'))
 jwc[,PY:=as.double(PY)]
 setkey(jwc,db,DT)
 ```
+
+Each study depends on a database of records of the contents of journals. This database is compiled from two sources, JSTOR and the Thompson Reuters Web of Knowledge Social Science Citation Index (WOK).
+
+Ideally, I would analyze the entire stock of recorded publication material to give the best chance of observing when authors contravene institutional boundaries. Practically, I must take a sample, however sampled networks are not small versions of the population network [@Handcock:2010iw]. Sampling may have the effect of degrading the network cohesion on which community detection methods depend, such that a method will not detect the same boundaries in a sample as it would in the population. To avoid a sampling effect on network cohesion, I draw a full census of articles, reviews, and book reviews from each journal selected.
+
+Sampling on journals creates another problem, which is to merely reproduce boundaries coextensive with the journals from which the articles are drawn. Even though journals market themselves at catering to particular disciplines and subfields, I should not assume that authors, editors, and reviewers always obey these distinctions. If a scholarly field exists with a grounding in two or more journals, the omission of one may also degrade its cohesion to the point of rendering its boundaries undetectable. As an indicator of affiliation among journals, I use Leydesdorff's [-@Leydesdorff:2010ci]
+
+I should also expect to observe boundaries due to several other institutional levels higher than journals, like publishers, disciplines, or national and language groups. To provide ample opportunity to observe boundaries existing in the space between journals and between academic disciplines, I also take a large sample of journals
+
+To observe some of these high level institutions, I draw sets of journals from four social science disciplines–anthropology, sociology, economics, and political science–and I draw these in blocks from the same publisher. Journals were selected from the disciplinary affiliations signaled in their titles. From a JSTOR master list of archived materials, journals were selected if they contained any of the disciplinary prefixes anth-, soci-, econ-, and poli-. {{Though not all journals that are affiliated with a discipline signal this with a word containing the signature prefix, those that do are affiliated with a high degree of accuracy. Soci is an exception, and journals like the Royal Society of Statistics [madeup] are excluded.}} This list was cross referenced with the TR WOK database.
+
+To begin it will be useful to consider a theory that is diametrically opposed to the classification of groups. I find one in Bourdieu's essay, *The Social Space and the Genesis of Groups* {*Bourdieu:1985wh}. Bourdieu claims that marxian social class categories, and their implied boundaries, are analytical constructs with no real referent in the world. The rules for placing an uncategorized actor into a class are well established in any number of class theory traditions. The rules relate to attributes of the actor which may be independently measured, e.g. does she sell labor or buy it? If she sells it, she is a proletarian, if she buys it she is a bourgeoise. Because these categorical rules are the analyst's, Bourdieu decries the reification of the boundary between classes so constituted. Rather than a multidimensional multinomial space, Bourdieu argues that people actually exist in the world in a multidimensional euclidean space, where, in capitalism at least, each dimension is a form of capital. Money, for instance, may be used to place people on a scale and the difference in their holding defines their distance along one dimension of that space. cultural capital (the same thing would be true, mutatis mutandis, of the economic game) determines the aggregate chances of profit in all the games in which cultural capital is effective, thereby helping to determine position in social space" [-@Bourdieu:1985wh\:724] Murkier is Bourdieu's notion of relationship. In the field theory relationships tend to be competitive bids for profit in a field constituted by a form of capital. [@Shwed:2012wt]
+
+##Study 2: The Transition from Extensive to Intensive Development
+
+Growth in the number of scholars and the number of published scholarly works is attended by a qualitative transitions between extensive and intensive patterns of citation. When disciplines are very young scholars are almost always exploring new or at least unclaimed terrain with little interest in covering the same ground twice. As disciplines develop a transition invariably occurs; scholars become much more likely to retrace familiar ground. Much of the work of this study aims to understand the significance of this fact.
+
+First the fact must be established. Intellectual terrain is often imagined as a space of meaning or a population meaningfully distinguishable ideas. Because ideas cannot be directly observed, several indicators of their presence have been used, citations chief among them. Empirically, then, we will start on the basis of the citations as a useful indicator of ideas. Later we will discuss the limitations of the ideational theory, and we will present an alternative interpretation of a citation space. Luckily the facts at issue will not change.
+
+So, then, it will be useful to treat the terrain of scholarship as the accumulating stock of already cited references. The act of exploration, so to speak, of this space consists in the inclusion, in the reference list of a scholarly publication, of a particular set of citations and not another. A footprint in this space, left by one publication, may be represented as a count of each citation pair in the list of references. This operationalization allows footprints to overlap completely, partially, or not at all. By enumerating citation pairs or co-citations instead of their individual counts, we also claim that the meaning of a reference may vary in combination with other references.
+
+A more empiricist and less theory laden interpretation is to claim that we may identify how disparate acts of cultural production hang together, without knowing why they do so. Citations provide merely one kind of thread, but were we to trace out several more modes of relatedness then we might provide a fuller picture of the sociocultural structure underpinning scholarship. Such a task is beyond scope for the present study, but we can at least specify ignorance [@Merton1987:vi]. Clearly there is much more to the content of a publication than its list of references. But even considering this narrow slice of its meaningful content, we are already at pains to generalize from the observation of a citation pattern to the cause of that pattern appearing in a particular time and place. It will be difficult, for instance, to posit a choice mechanism, for we cannot discern whether the inclusion of a reference was the choice of the author, the editor of a journal, the reviewers refereeing the manuscript, a colleague listed in the acknowledgements, an uncredited inspiration, etc. I therefore make no effort to identify an actor responsible for an included reference, but rather consider it the outcome of the local art world surrounding the production of that piece of scholarship [c.f. theories of authorship @ ;@ ]. What is a critical problem to solve for the intellectual historian may a fool's errand for the population researcher. It is a mistake to treat any particular citation, and especially to treat the entire reference list, as reflective of the choice of the author. Indeed this mystifies the production process behind scholarship.
+
+An extensive pattern of citation then is one that both introduces never before cited references and one that favors those extant references that have been cited the least by others. A Poisson distribution is a simple first approximation of a random search in this space, and observed citation counts with a mean below the random pattern (underdispersion) can be considered to represent the extensive pattern, while means above the same (overdispersion) may represent the intensive pattern.
+
+This extensive pattern of development may be compared to the paradigmatic model described by Kuhn [-@Kuhn:1970vn\:10]. Once a paradigm, in the sense of a model to be extended, takes hold among a community of scholars, normal science ensues as a process of narrowing the range of possibilities opened by the paradigm. The specifically scientific pattern of development is to retrace familiar problems until they are solved, and then to relegate the solution to one or another form of black box, such as mathematical codification, textbook explication, or codification in technology. Familiar ground is in one moment intensely retraced, and in the next systematically forgotten. Indeed Kuhn aims to demonstrate that the ideology of cumulative development in the sciences is a consequence of black boxing, which serves to render subsequent generations of scientists ignorant of a history better described by a cyclical or sinusoidal trend.
+
+While pre-history of disciplines are beyond Kuhn's scope, here they are paramount. This emphasis is based in a hunch that the mechanisms that govern the genesis of disciplines may be implicated in their ongoing development.
+
+
+#Knowledge & Professions (900)
+
+## Summary: Cultural and Social Mechanisms
+
+A cultural action is teleological, autonomously controlled, socially neutralized, facility constrained, and indeterminant. A social action is
+teleological, heteronomously controlled, culturally neutralized, constrained normatively by prestige, sanctions, and rightness or competitively by scarcity, acquisition, and attrition, and determinant. A sociocultural behavior is merely an admixture of the two.
+
+##Teleology
+
+Not all of the things people "do" are behaviors in this sense. Teleological behaviors have a goal or end known to the subject
+
+Whether knowledge is found or invented is less important than whether it is addressable; knowledge that is not recoverable might as well not exist. Addressing occurs when a source is recoverable via a portable reference to its location. Because using knowledge tends to reinforce rather than deplete it, knowledge is only paradoxically scarce. Knowledge is scarce to the extent that it is easily lost.
+
+Such references went through a process of formalization wherein casual statements of credit were replaced with precise street address-like registrations of locations. When for whatever reason citations became precisely codified, especially in the journal space, it became possible to use references as a form of currency in the profession. Here the function of citations became something more than an aide to understanding the text; they became on one hand raw material for sustained cultural production and on the other a set of credentials for membership in social science disciplines and their specialties.
+
+Citations now play several roles, some of which are largely decoupled from the underlying cultural content to which the citation ostensibly points. The role of citations at the center of this article concerns how they are used by researchers to jockey for legitimacy in a competitive professional field. Citations in this sense are neither forms of cultural capital, for they may be used without understanding their significance, nor forms of social capital, because they rarely connote personal ties among the authors. Instead I consider the claim that citations are adoptable traits which refer to the abstract social categories of inclusion and exclusion that form one of the institutional bases of the academic profession. Insofar as particular lists of references must be cited to request or signal membership in an extant professional club, citations become a currency of status exchange.
+
+If a list of citations acts as a credential, there is variability in the length and content of the list, and this variability may become the basis of esoteric hierarchies within disciplines.
+
+Rewards are stratified into two tiers, the first of which is socially dominant and the second culturally dominant. In the first tier the reward is membership in the professorial occupation. Given the first, the second reward is prority ranking. This is the formal recognition that accrues to legendary individuals. A horizontal stratification attends the segmentation of disciplines--subdivisions allowing more space for local heroes. ^[Except for rare celebrities that a discipline would honor beyond its own boundaries, but again this is a cultural gesture whose tangible rewards are irrelevant to the recipient.] [@Gustin:1973ul]
+
+It is only within these subdivisions--including the power elite as a small and local community of its own--that Bourdieu's fields of cultural production operate according to a logic of peer recognition. Yet these local communities do not form the larger share of a professor's quotidian reward. As a sanctioned officer of the academy professors enjoy influence not with their peers but with their laity--students and members of the disciplinary public. Horizontal stratification also allows professors to safely exchange recognition across disciplinary boundaries without fear of competition.
+
+
+#References
+
 
 ```{r test1,eval=ev,echo=ec}
 jnut<-ggplot() +
