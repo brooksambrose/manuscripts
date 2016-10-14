@@ -3,6 +3,11 @@ title: "Development of Scholarly Disciplines"
 author: "Brooks Ambrose"
 date: "October 21, 2015"
 output:
+  word_document:
+    toc: yes
+    toc_depth: 5
+  html_notebook:
+    toc: yes
   pdf_document:
     fig_caption: yes
     keep_tex: yes
@@ -25,15 +30,14 @@ header-includes: \usepackage{dcolumn}
 #bibliography: d2016-.bib
 
 #\usepackage[labelfont=bf,justification=justified,singlelinecheck=false]{caption}
-cat('\014')
-rm(list=ls())
 source('resources/d2016-init.R')
-require(ggplot2)
-require(stargazer)
 ev=F
 ec=F
-knitr::opts_chunk$set(eval=ev,echo=ev,fig.align='center',comment=NA,results='asis')
+knitr::opts_chunk$set(eval=ev,echo=ev)
 c.f.s.o.def=T #check for saved output
+
+#initialize tables
+t<-typ()
 ```
 
 #References and the Development of Scholarly Disciplines (900)
@@ -87,28 +91,19 @@ Not so with paradigms; a novel object must be thoroughly vetted to be considered
 ##Mechanisms 
 
 ```{r t-process,eval=T,echo=ec}
-stargazer(
-	data.frame(matrix(letters[1:4],nrow=2,ncol=2,dimnames=list(Scale=c('Micro','Macro'),Mechanism=c('Cultural','Social'))))
-	,summary=F
-	,title='Ontology'
-	,style='ajs'
-	,type='latex',header=F
-)
-
+t$process<-data.frame(matrix(letters[1:4],nrow=2,ncol=2,dimnames=list(Scale=c('Micro','Macro'),Mechanism=c('Cultural','Social'))))
+sg(t$process,lab='t-process',title='Process',col.align = c('cc','ll'))
 ```
 
 ```{r t-stages,eval=ev,echo=ec}
-t.stag<-data.frame(
+t$stages<-data.frame(
 	Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
 	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
 	,Control=c('Private','Peer','Provider','Professional')
-	)
-
-sg(t.stag)
+)
+sg(t$stages,lab='t-stages',title='Stages',col.align = c('ccc','lll'))
 ```
 
-
-![Sensemaking entails discriminating first between relevent and irrelevant material, and second between relevant and productive resources.](/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf) 
 
 Struggles to establish disciplines as professions were hard fought, harder still because each was a contest on cultural, cognitive, and social fronts. While all human behavior can be analyzed as consisting in different ratios of all three components, the institutional development of professions procedes in a conditional order.
 
@@ -143,7 +138,7 @@ If cultural sensemaking were the only mechanism of disciplinary coherence then i
 ###Relevance
 
 ```{r t-relevance,eval=T,echo=ec}
-kable(t$relevance)
+sg(data.frame(t$relevance),lab='t-relevance',title='Relevance',col.align = c('cc','ll'))
 ```
 
 
@@ -182,7 +177,7 @@ Tendencies leading to each of these thresholds followed different yet often inte
 ##Typology of Relationships
 
 ```{r t-relation,eval=T,echo=ec}
-kable(t$relation)
+sg(data.frame(t$relation),lab='t-relation',title='Relation',col.align = c('ccc','lll'))
 ```
 
 #Empirical Foundations (1800)
@@ -199,29 +194,67 @@ Categories then are not the foundation of institutionalizations, but rather they
 
 What interests us presently is to trace the development of scholarly disciplines back to a point where they were weakly recognized even if they were already culturally prolific. We submit that recognition is empirically identifiable if there exists a flag around which categorizing coalesces. Categorization can be said to completed when the set of possible labels for the same cultural object shrinks to a short and ranked list. The position at the top of that list will be occupied by what we call the disciplinary prefix, and below it variations on nouns used to capture different aspects of cultrual content from created work to the authors themselves.
 
-Consider four social science disciplines--anthropology, economics, psychology, and sociology. In english the flag uniting the concept of discipline are the prefixes anth-, econ-, psyc-, and soci-. We contend that these prefixes will diffuse first as generic and weakly categorical terms ()
+Consider five social science disciplines--anthropology, economics, political science, psychology, and sociology. In english the labels that like flags lay claim to disciplinary resources are the prefixes anth-, econ-, poli-, psyc-, and soci-. We contend that these prefixes will diffuse first as generic and weakly categorical terms that could modify and lay claim to any worldly object. These adjectives begin to describe the feature of an object as being explicable by the knowledge that the discipline may bring to bear. Yet, even before these disciplines exist all that someon can do to categorize the explanation is apply the modifier. As table \ref{t-prefix} shows.
 
-#TODO reshape data.table for nice table of flagbearers
-```{r t-dprefixes,eval=T,echo=ec}
+
+```{r t-prefix,eval=T,echo=ec}
 gng2tts<-gng2tts.f()
-sg(gng2tts$ts[,.N,by=c('stem','cat','Phrase')],title = 'Flagbearers',col.align=c(old='cccc',new='llll'))
+t$prefix<-dcast(unique(gng2tts$ts[,list(Phrase,stem,cat)]),stem~cat,value.var='Phrase',fun=paste,collapse=', ')
+t$prefix[c('anth','psyc'),'A.generic':=ital(A.generic),with=F]
+sg(t$prefix,lab='t-prefix',title='Disciplinary Prefixes',col.align=c(old='ccccc',new='lllll')
+	 #	 ,notes.align = 'l',notes = 'Italicized items deviate from the stem convention.'
+)
 ```
 
-```{r f-disciplines,eval=T,echo=ec,fig.height=10,fig.width=7.5,fig.cap='Disciplinary Prefixes'}
+```{r f-prefix,eval=T,echo=ec,fig.height=10,fig.width=7.5,fig.cap='Disciplinary Prefixes',fig.label='f-prefix'}
 # #chunk options
 gng2tts$p
 ```
 
 ##A lexical sample
 
-```{r master2wok-f,eval=ev,echo=ec}
-master2wok<-master2wok.f(
-	out='./resources'
-	,detect.language=T
-	,check.for.saved.output = T
-	,grep=c('ANTH', 'SOCI', 'ECON', 'POLI')
-)
+Following these trends in the use of prefixes, we develop a sample or journals that use them under the assumption that these signal domain relevance for the disciplines.
+
+```{r master2wok-f,eval=T,echo=ec,include=F}
+dpfx<-c('ANTH', 'SOCI', 'ECON', 'POLI','PSYC')
+if(any(grepl('master2wok.RData',dir('resources')))) {
+	load('resources/master2wok.RData')
+	master2wok[,usa:=as.logical(ifelse(grepl(" USA,",PA),T,F))]
+	setkey(master2wok,usa)
+	master2wok[list(T),Prefix:=sapply(SO,tag)]
+} else {
+	master2wok<-master2wok.f(
+		out='./resources'
+		,detect.language=F
+		,check.for.saved.output = T
+		#,grep=dpfx
+	)
+	save(master2wok,file='master2wok.RData')
+}
 ```
+
+```{r,eval=T,echo=ec,include=F}
+m2w<-master2wok[,.N,keyby=Prefix]
+m2w[,p:=round(prop.table(N)*100,3)]
+m2w<-m2w[master2wok[,list(Example=toTitleCase(tolower(sample(SO,1)))),keyby=Prefix]]
+m2w[is.na(Prefix),Prefix:='Non-english out-sample'] %>% setkey(Prefix)
+m2w['Out',Prefix:='Non-prefix out-sample'] %>% setkey(Prefix)
+setorder(m2w,-N)
+```
+
+```{r}
+dpfx<-c('ANTH', 'SOCI', 'ECON', 'POLI','PSYC')
+lex<-data.table(t=sort(unique(unlist(strsplit(tolower(master2wok$SO),split='[^a-z0-9]+')))))
+lex[,Tag:=sapply(t,FUN=tag,srch = tolower(dpfx))] %>% setkey(Tag)
+lex<-lex[,list(terms=paste(t,collapse=', ')),keyby=Tag]
+```
+
+
+```{r}
+sg(m2w,lab = 'Journals in the Web of Knowledge Master List',col.align = c(old='cccc',new='lrrl'))
+```
+
+The WOK master as of `r format(attributes(master2wok)$date.downloaded,'%D')` listed `r nicen(nrow(master2wok),0)` titles. It is not clear what sample of historical population of journals this represents, but it is a substantial substantive starting point. 
 
 ```{r wok2dbl-f,eval=ev,echo=ec}
 wok2dbl<-wok2dbl.f(
@@ -348,13 +381,13 @@ nut<-ggplot(data=dbl2dbw[expand.grid(
 		,'Book Review'
 		,'Review'
 	),top5),.N,by=c('SO','disc','DT','PY')]
-,mapping = aes(PY,fill=DT,weight=N)
+	,mapping = aes(PY,fill=DT,weight=N)
 ) +
 	geom_histogram(binwidth=1) +
 	facet_grid(disc+SO~.
-						# ,scales='free_y'
+						 # ,scales='free_y'
 						 ,space='free'
-						 ) +
+	) +
 	theme(
 		strip.text.y=element_text(angle=0)
 		,legend.position="none"
@@ -451,7 +484,7 @@ dbl2dbw['Article',list(med=quantile(NR,.5),avg=mean(NR)),by=c('PY')]
 
 setkey(dbl2dbw,SO,DT)
 t1<-dbl2dbw[,list(list(data.table(rbind(round(prop.table(table(DT)),3))))),keyby=c('disc','SO')]
-				t1<-data.table(t1[,list(disc,SO)],rbindlist(t1$V1))
+t1<-data.table(t1[,list(disc,SO)],rbindlist(t1$V1))
 cbind(table(dbl2dbw$NR))
 
 setkey(wok2dbl,id,field)

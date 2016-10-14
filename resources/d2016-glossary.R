@@ -1,16 +1,16 @@
 require(data.table)
 
 # text formatting functions
-nicen<-function(x) format(x,big.mark=',',big.interval=3,nsmall=3)
+nicen<-function(x,ns=3) format(x,big.mark=',',big.interval=3,nsmall=ns)
 
 bold<-function(x) paste(' \\textbf{',x,'}',sep='')
 ital<-function(x) paste(' \\textit{',x,'}',sep='')
 undr<-function(x) paste(' \\underline{',x,'}',sep='')
 
-sg<-function(x,sum=F,col.align=c(old='',new=''),...) {
+sg<-function(x,lab,sum=F,col.align=c(old='',new=''),...) {
 	require(stargazer)
 	require(magrittr)
-	x<-capture.output(stargazer(x,style='ajs',summary=sum,header=F,rownames=F,...)) %>%
+	x<-capture.output(stargazer(x,label=lab,style='ajs',summary=sum,header=F,rownames=F,...)) %>%
 		gsub(pattern='\\textbackslash ',replacement='\\',fixed=T) %>%
 		gsub(pattern='\\}',replacement='}',fixed=T) %>%
 		gsub(pattern='\\{',replacement='{',fixed=T) %>%
@@ -76,7 +76,7 @@ typ<-function(){
 	hier<-rev(c('sub','par','super'))
 	d<-lapply(list(
 		relevance=list(closure=c('include','tend','exclude'),expectation=c('irregular','regular'))
-		,relation=list(throw=hier,catch=hier)
+		,relation=list(cast=hier,catch=hier)
 		,meaning=list(affect=c('attracted','neutral','repulsed'),codification=c('explicit','implicit','cryptic'))
 	),function(x) array(rep('',prod(sapply(x,length))),dim=sapply(x,length),dimnames=x))
 	d$relevance['exclude','regular']<-'abject'
@@ -97,4 +97,3 @@ typ<-function(){
 	#should be an "editing" nuance where throw is negotiated, a catch is refused while throw is appealed
 	d
 }
-(t<-typ())

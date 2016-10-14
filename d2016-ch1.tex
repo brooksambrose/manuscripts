@@ -13,7 +13,6 @@
     \usepackage{fontspec}
   \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -24,14 +23,12 @@
 }{}
 \usepackage[margin=1in]{geometry}
 \usepackage{hyperref}
-\PassOptionsToPackage{usenames,dvipsnames}{color} % color is loaded by hyperref
 \hypersetup{unicode=true,
             pdftitle={Development of Scholarly Disciplines},
             pdfauthor={Brooks Ambrose},
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -41,12 +38,25 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
 %%% Use protect on footnotes to avoid problems with footnotes in titles
 \let\rmarkdownfootnote\footnote%
@@ -73,18 +83,7 @@
   \postdate{\par}
   \date{October 21, 2015}
 
-
 \usepackage{dcolumn}
-
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
 
 \begin{document}
 \maketitle
@@ -292,26 +291,18 @@ revolutionary crisis ensues.
 \subsection{Mechanisms}\label{mechanisms}
 
 \begin{table}[!htbp] \centering 
-  \caption{Ontology} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} ccc} 
+  \caption{Process} 
+  \label{t-process} 
+\begin{tabular}{@{\extracolsep{5pt}} ll} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & Cultural & Social \\ 
+Cultural & Social \\ 
 \hline \\[-1.8ex] 
-Micro & a & c \\ 
-Macro & b & d \\ 
+a & c \\ 
+b & d \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics{/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf}
-\caption{Sensemaking entails discriminating first between relevent and
-irrelevant material, and second between relevant and productive
-resources.}
-\end{figure}
 
 Struggles to establish disciplines as professions were hard fought,
 harder still because each was a contest on cultural, cognitive, and
@@ -441,16 +432,20 @@ idiosyncratic interests.
 
 \subsubsection{Relevance}\label{relevance}
 
-\begin{longtable}[c]{@{}lll@{}}
-\toprule
-& irregular & regular\tabularnewline
-\midrule
-\endhead
-include & retroject & retroject\tabularnewline
-tend & object & object\tabularnewline
-exclude & reject & abject\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{table}[!htbp] \centering 
+  \caption{Relevance} 
+  \label{t-relevance} 
+\begin{tabular}{@{\extracolsep{5pt}} ll} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+irregular & regular \\ 
+\hline \\[-1.8ex] 
+retroject & retroject \\ 
+object & object \\ 
+reject & abject \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
 
 \subsubsection{Cognition}\label{cognition}
 
@@ -571,16 +566,20 @@ often intersecting developmental logics.
 
 \subsection{Typology of Relationships}\label{typology-of-relationships}
 
-\begin{longtable}[c]{@{}llll@{}}
-\toprule
-& super & par & sub\tabularnewline
-\midrule
-\endhead
-super & contest & challenge & subject\tabularnewline
-par & challenge & citizen &\tabularnewline
-sub & subject & & genteel\tabularnewline
-\bottomrule
-\end{longtable}
+\begin{table}[!htbp] \centering 
+  \caption{Relation} 
+  \label{t-relation} 
+\begin{tabular}{@{\extracolsep{5pt}} lll} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+super & par & sub \\ 
+\hline \\[-1.8ex] 
+contest & challenge & subject \\ 
+challenge & citizen &  \\ 
+subject &  & genteel \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
 
 \section{Empirical Foundations (1800)}\label{empirical-foundations-1800}
 
@@ -643,54 +642,86 @@ by what we call the disciplinary prefix, and below it variations on
 nouns used to capture different aspects of cultrual content from created
 work to the authors themselves.
 
-Consider four social science disciplines--anthropology, economics,
-psychology, and sociology. In english the flag uniting the concept of
-discipline are the prefixes anth-, econ-, psyc-, and soci-. We contend
-that these prefixes will diffuse first as generic and weakly categorical
-terms ()
+Consider five social science disciplines--anthropology, economics,
+political science, psychology, and sociology. In english the labels that
+like flags lay claim to disciplinary resources are the prefixes anth-,
+econ-, poli-, psyc-, and soci-. We contend that these prefixes will
+diffuse first as generic and weakly categorical terms that could modify
+and lay claim to any worldly object. These adjectives begin to describe
+the feature of an object as being explicable by the knowledge that the
+discipline may bring to bear. Yet, even before these disciplines exist
+all that someon can do to categorize the explanation is apply the
+modifier. As table \ref{t-prefix} shows.
+
+stem A.generic B.discipline C.technical 1: anth
+\textbackslash{}textit\{cultural\} anthropology anthropological 2: econ
+economic economics economical 3: poli political political science\\
+4: psyc \textbackslash{}textit\{mental\} psychology psychological 5:
+soci social sociology sociological D.profession 1: anthropologist 2:
+economist 3: political scientist 4: psychologist 5: sociologist
 
 \begin{table}[!htbp] \centering 
-  \caption{Flagbearers} 
-  \label{} 
-\begin{tabular}{@{\extracolsep{5pt}} llll} 
+  \caption{Disciplinary Prefixes} 
+  \label{t-prefix} 
+\begin{tabular}{@{\extracolsep{5pt}} lllll} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
-stem & cat & Phrase & N \\ 
+stem & A.generic & B.discipline & C.technical & D.profession \\ 
 \hline \\[-1.8ex] 
-anth & 1generic & cultural & $139$ \\ 
-anth &  & anthropic & $139$ \\ 
-anth & 2discipline & anthropology & $139$ \\ 
-anth & 3technical & anthropological & $139$ \\ 
-anth & 4profession & anthropologist & $139$ \\ 
-econ & 1generic & economic & $139$ \\ 
-econ & 2discipline & economics & $139$ \\ 
-econ & 3technical & economical & $139$ \\ 
-econ & 4profession & economist & $139$ \\ 
-poli & 1generic & political & $139$ \\ 
-poli & 2discipline & political science & $139$ \\ 
-poli & 4profession & political scientist & $139$ \\ 
-psyc & 1generic & mental & $139$ \\ 
-psyc & 2discipline & psychology & $139$ \\ 
-psyc & 3technical & psychological & $139$ \\ 
-psyc & 4profession & psychologist & $139$ \\ 
-soci & 1generic & social & $139$ \\ 
-soci & 2discipline & sociology & $139$ \\ 
-soci & 3technical & sociological & $139$ \\ 
-soci & 4profession & sociologist & $139$ \\ 
+anth &  \textit{cultural} & anthropology & anthropological & anthropologist \\ 
+econ & economic & economics & economical & economist \\ 
+poli & political & political science &  & political scientist \\ 
+psyc &  \textit{mental} & psychology & psychological & psychologist \\ 
+soci & social & sociology & sociological & sociologist \\ 
 \hline \\[-1.8ex] 
 \end{tabular} 
 \end{table}
 
 \begin{figure}
 
-{\centering \includegraphics{d2016-ch1_files/figure-latex/f-disciplines-1} 
+{\centering \includegraphics{d2016-ch1_files/figure-latex/f-prefix-1} 
 
 }
 
-\caption{Disciplinary Prefixes}\label{fig:f-disciplines}
+\caption{Disciplinary Prefixes}\label{fig:f-prefix}
 \end{figure}
 
 \subsection{A lexical sample}\label{a-lexical-sample}
+
+Following these trends in the use of prefixes, we develop a sample or
+journals that use them under the assumption that these signal domain
+relevance for the disciplines.
+
+\begin{table}[!htbp] \centering 
+  \caption{} 
+  \label{Journals in the Web of Knowledge Master List} 
+\begin{tabular}{@{\extracolsep{5pt}} lrrl} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Prefix & N & p & Example \\ 
+\hline \\[-1.8ex] 
+Out & $9,462$ & $47.967$ & Bulletin of Gunma Museum of Natural History \\ 
+ & $9,272$ & $47.004$ & Miscellanea Faunistica Helvetiae \\ 
+soci & $271$ & $1.374$ & New Genetics and Society \\ 
+psyc & $250$ & $1.267$ & Psychology of Well-Being \\ 
+econ & $210$ & $1.065$ & Journal of Urban Economics \\ 
+poli & $135$ & $.684$ & International Political Science Review \\ 
+anth & $35$ & $.177$ & Anthropology of Work Review \\ 
+econ, poli & $27$ & $.137$ & Global Food Security-Agriculture Policy Economics and Environment \\ 
+soci, psyc & $25$ & $.127$ & Journals of Gerontology Series b-Psychological Sciences and Social Sciences \\ 
+soci, econ & $17$ & $.086$ & Journal of Economic Sociology-Ekonomicheskaya Sotsiologiya \\ 
+soci, poli & $16$ & $.081$ & Annals of the American Academy of Political and Social Science \\ 
+econ, psyc & $2$ & $.010$ & Journal of Neuroscience Psychology and Economics \\ 
+poli, psyc & $2$ & $.010$ & Psychological Trauma-Theory Research Practice and Policy \\ 
+anth, poli & $1$ & $.005$ & Polar-Political and Legal Anthropology Review \\ 
+soci, econ, poli & $1$ & $.005$ & Journal of Economic and Social Policy \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
+
+The WOK master as of NULL listed 19,726 titles. It is not clear what
+sample of historical population of journals this represents, but it is a
+substantial substantive starting point.
 
 The source data are observations on documents spanning years.
 
@@ -926,5 +957,6 @@ allows professors to safely exchange recognition across disciplinary
 boundaries without fear of competition.
 
 \section{References}\label{references}
+
 
 \end{document}

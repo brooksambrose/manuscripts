@@ -9,6 +9,7 @@ output:
     toc: yes
   pdf_document:
     toc: yes
+  html_notebook
 bibliography: d2016-.bib
 ---
 
