@@ -27,7 +27,6 @@ require(ggplot2)
 require(stargazer)
 require(magrittr)
 require(tools)
-require(textcat)
 
 # knitr options
 knitr::opts_chunk$set(

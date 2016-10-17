@@ -186,6 +186,27 @@ This brief foray into the different sociocultural functions of citations may be 
 
 What was really different about the 1960s?
 
+#5. Data
+
+##Google Books
+
+##Thompson Reuters Web of Knowledge
+
+##JSTOR Data for Research
+
+##Sample Selection
+
+First we assess the level of overlap between the JSTOR and WOK master lists.
+
+```{r mstr2mstr,include=F}
+jstorm<-fread(rev(dir(pattern='JSTOR_Global_AllTitlesArchive',recursive=T))[1])$publication_title %>% toupper()
+load('resources/master2wok.RData')
+wokm<-master2wok$SO
+library(stringdist)
+system.time(m<-amatch(jstorm,wokm))
+```
+
+
 ##Study 1: Labels: Diffusion of Disciplinary Prefix
 
 There may not be a formative moment for disciplines, but there are tendencies of development that when compared are relatively large times scales show transitions into institutional relationships. Nothing forbids creators from inventing knoweldge about the world before it is clear how to label that knowledge. The organization of one's work along disciplinary lines does however tend to make one more productive. Audience and contemporary may become obvious, and paths of influence may present themselves as stimulating creative opportunities. Ultimately disciplines intersect with organizational resources, first as a market for tutorship and ultimately as a professorship (c.f. Weber's description of prebends  [/@Weber:1917wi/:343]). The development of such social structures is necessarily endogenous to the recognition of particular forms of cultural production as belonging to a category.

@@ -3,6 +3,8 @@ title: "Appendix-Full"
 author: "Brooks Ambrose"
 date: "August 14, 2015"
 output:
+  html_notebook:
+    toc: yes
   html_document:
     highlight: textmate
     keep_md: yes
@@ -10,11 +12,34 @@ output:
     toc: yes
 ---
 
-```{r clear-console-and-memory}
+```{r clear-console-and-memory, include=FALSE}
 rm(list=ls())
 cat('\014')
+library(htmltools)
+library(data.table)
+source(file = '../pack-dev/dissertation_source.R')
+rm(list=ls()[!ls()%in%c(
+	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','bel2mel','out'
+	)])
 ```
 
+```{r}
+as.vector(lsf.str())
+```
+
+```{r}
+cb<-readLines('resources/codebase.txt')
+head(cb)
+cb<-data.table(do.call(rbind,strsplit(cb,': ')))
+cb[,`:=`(
+	path=sub(':.+','',V1)
+	,line=as.integer(sub('^[^:]+:','',V1))
+	,file=sub(':.+','',sub('^.+/','',V1))
+	,ob=regmatches(V2,regexpr('[A-Za-z0-9.-_]+\\.f[(<=]',V2))
+	)]
+cb[,.N,by=c('file','ob')]
+cb[grep('wok',ob),list(V1,V2)]
+```
 
 # Introduction
 
@@ -25,14 +50,6 @@ This appendix explains the research procedures used to produce tables and figure
 ## Thomson Reuters Web of Knowledge
 
 Web of Knowledge (WOK) data that are available through regular subscriptions may be reported in a long, field-tagged, plain text format. The `wok2dbl.f` function recursively searches a directory for plain text batches of records and quickly imports them into R in a long format that may be easily queried. By default case standardization and deduplication by record ID is performed. The function returns a data.table object and optionally saves the same to the hard drive. Use of `data.table` provides accomodation for very large databases that perform poorly when treated as a data.frame.
-
-```{r source,echo=F,message=FALSE}
-library(data.table)
-source(file = '../pack-dev/dissertation_source.R')
-rm(list=ls()[!ls()%in%c(
-	'wok2dbl.f','jstor2dbw.f','dbl2bel.f','bel2mel.f','dbl2bel','wok2dbl','bel2mel','out'
-	)])
-```
 
 ```{r wok2dbl-f,echo=T}
 wok2dbl<-wok2dbl.f(
