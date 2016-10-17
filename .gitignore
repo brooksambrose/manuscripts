@@ -1,10 +1,12 @@
 .DS_Store
 .Rapp.history
 .Rhistory
-/in
+.RDataTmp
+.RData
+.Rproj.user
 /out
-*.Rproj.user
-*.RData
+/in
+
 *.Rproj
 *.pdf
 *.PDF
@@ -13,6 +15,4 @@
 *.xlsx
 .Rproj.user
 *ignore*
-*.html
 *.docx
-*.RDataTmp
