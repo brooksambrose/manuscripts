@@ -4,12 +4,12 @@ Brooks Ambrose
 October 21, 2016
 
 1. Introduction
-2. Theory
-  A. Cultural
-  B. Personal
-  C. Social
-  D. Facilitory
-  E. Developmental
+2. Theory  
+  * Cultural  
+  * Personal  
+  * Social  
+  * Facilitory  
+  * Developmental  
 3. Critical Review
   * Lena
   * Kuhn
