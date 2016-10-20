@@ -3,41 +3,26 @@ title: "Development of Scholarly Disciplines"
 author: "Brooks Ambrose"
 date: "October 21, 2015"
 output:
-  word_document:
-    toc: yes
-    toc_depth: 5
-  html_notebook:
-    toc: yes
-  pdf_document:
-    fig_caption: yes
-    keep_tex: yes
-    toc: yes
   html_document:
     fig_caption: yes
     highlight: textmate
     keep_md: yes
     number_sections: yes
     toc: yes
+  html_notebook:
+    toc: yes
+  word_document:
+    toc: yes
+    toc_depth: 5
+  pdf_document:
+    fig_caption: yes
+    keep_tex: yes
+    toc: yes
 header-includes: \usepackage{dcolumn}
 ---
 
-```{r init,include=F}
-#csl: asa.csl
-#bibliography: d2016.bib
-#documentclass: uclathes
-#classoption: PhD
-#cls: uclathes.cls
-#bibliography: d2016-.bib
-
-#\usepackage[labelfont=bf,justification=justified,singlelinecheck=false]{caption}
+```{r init,message=F,warning=F,include=F}
 source('resources/d2016-init.R')
-ev=F
-ec=F
-knitr::opts_chunk$set(eval=ev,echo=ev)
-c.f.s.o.def=T #check for saved output
-
-#initialize tables
-t<-typ()
 ```
 
 #References and the Development of Scholarly Disciplines (900)
@@ -90,17 +75,11 @@ Not so with paradigms; a novel object must be thoroughly vetted to be considered
 
 ##Mechanisms 
 
-```{r t-process,eval=T,echo=ec}
-t$process<-data.frame(matrix(letters[1:4],nrow=2,ncol=2,dimnames=list(Scale=c('Micro','Macro'),Mechanism=c('Cultural','Social'))))
+```{r t-process,eval=T}
 sg(t$process,lab='t-process',title='Process',col.align = c('cc','ll'))
 ```
 
-```{r t-stages,eval=ev,echo=ec}
-t$stages<-data.frame(
-	Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
-	,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
-	,Control=c('Private','Peer','Provider','Professional')
-)
+```{r t-stages,eval=T}
 sg(t$stages,lab='t-stages',title='Stages',col.align = c('ccc','lll'))
 ```
 
@@ -137,7 +116,7 @@ If cultural sensemaking were the only mechanism of disciplinary coherence then i
 
 ###Relevance
 
-```{r t-relevance,eval=T,echo=ec}
+```{r t-relevance,eval=T}
 sg(data.frame(t$relevance),lab='t-relevance',title='Relevance',col.align = c('cc','ll'))
 ```
 
@@ -176,13 +155,13 @@ Tendencies leading to each of these thresholds followed different yet often inte
 
 ##Typology of Relationships
 
-```{r t-relation,eval=T,echo=ec}
+```{r t-relation,eval=T}
 sg(data.frame(t$relation),lab='t-relation',title='Relation',col.align = c('ccc','lll'))
 ```
 
 #Empirical Foundations (1800)
 
-This brief foray into the different sociocultural functions of citations may be demonstrated by the observation of the formative moments of U.S. social science. The impressions left by the earliest social scientists became a terrain of disciplines and `try(onm$sd)` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. 
+This brief foray into the different sociocultural functions of citations may be demonstrated by the observation of the formative moments of U.S. social science. The impressions left by the earliest social scientists became a terrain of disciplines and `r onm(2)` that could be landscaped but not easily turned over by future generations. Paradigms or hegemonic cultures developed in the first half of the 20th century. These paradigms endured even during times of social upheaval such as the Great Depression and WWII. However, at the dawn of the 1960s, such monoliths were toppled in quick succession. For the first time in American history, the cultural heritage was treated in an a la carte fashion by new generations. 
 
 What was really different about the 1960s?
 
@@ -198,14 +177,33 @@ What was really different about the 1960s?
 
 First we assess the level of overlap between the JSTOR and WOK master lists.
 
-```{r mstr2mstr,include=F}
-jstorm<-fread(rev(dir(pattern='JSTOR_Global_AllTitlesArchive',recursive=T))[1])$publication_title %>% toupper()
-load('resources/master2wok.RData')
-wokm<-master2wok$SO
-library(stringdist)
-system.time(m<-amatch(jstorm,wokm))
+```{r mstr2mstr,eval=T,include=F}
+jstorm<-fread(rev(dir(pattern='JSTOR_Global_AllTitlesArchive',recursive=T))[1])
+
+dpfx<-c('ANTH', 'SOCI', 'ECON', 'POLI','PSYC')
+
+if(any(grepl('master2wok.RData',dir('resources')))) {
+	load('resources/master2wok.RData')
+	master2wok[,usa:=as.logical(ifelse(grepl(" USA,",PA),T,F))]
+	setkey(master2wok,usa)
+	master2wok[,Prefix:=sapply(SO,tag)]
+} else {
+	master2wok<-master2wok.f(
+		out='./resources'
+		,detect.language=F
+		,check.for.saved.output = T
+		#,grep=dpfx
+	)
+	save(master2wok,file='master2wok.RData')
+}
+
+load('../mstr2mstr/m2m.RData')
+setkey(master2wok,ix)
+master2wok[list(m2m$wix),`:=`(jix=m2m$jix,jstor=jstorm$publication_title[m2m$jix])]
+setkey(master2wok,Prefix)
 ```
 
+Between the `r try(nrow(jstorm))` items on the JSTOR master list and the `r try(nrow(master2wok))` on the WOK master list, `r try(nrow(m2m))` overlap. This defines a sampling frame of journals for which full citation data and limited text data are available. If we filter further on journals published in the United States, the frame is reduced to `r try(nrow(master2wok[!is.na(jix)][]))`.
 
 ##Study 1: Labels: Diffusion of Disciplinary Prefix
 
@@ -218,7 +216,7 @@ What interests us presently is to trace the development of scholarly disciplines
 Consider five social science disciplines--anthropology, economics, political science, psychology, and sociology. In english the labels that like flags lay claim to disciplinary resources are the prefixes anth-, econ-, poli-, psyc-, and soci-. We contend that these prefixes will diffuse first as generic and weakly categorical terms that could modify and lay claim to any worldly object. These adjectives begin to describe the feature of an object as being explicable by the knowledge that the discipline may bring to bear. Yet, even before these disciplines exist all that someon can do to categorize the explanation is apply the modifier. As table \ref{t-prefix} shows.
 
 
-```{r t-prefix,eval=T,echo=ec}
+```{r t-prefix,eval=T}
 gng2tts<-gng2tts.f()
 t$prefix<-dcast(unique(gng2tts$ts[,list(Phrase,stem,cat)]),stem~cat,value.var='Phrase',fun=paste,collapse=', ')
 t$prefix[c('anth','psyc'),'A.generic':=ital(A.generic),with=F]
@@ -227,7 +225,7 @@ sg(t$prefix,lab='t-prefix',title='Disciplinary Prefixes',col.align=c(old='ccccc'
 )
 ```
 
-```{r f-prefix,eval=T,echo=ec,fig.height=10,fig.width=7.5,fig.cap='Disciplinary Prefixes',fig.label='f-prefix'}
+```{r f-prefix,eval=T,fig.height=10,fig.width=7.5,fig.cap='Disciplinary Prefixes',fig.label='f-prefix'}
 # #chunk options
 gng2tts$p
 ```
@@ -236,31 +234,37 @@ gng2tts$p
 
 Following these trends in the use of prefixes, we develop a sample or journals that use them under the assumption that these signal domain relevance for the disciplines.
 
-```{r master2wok-f,eval=T,echo=ec,include=F}
-dpfx<-c('ANTH', 'SOCI', 'ECON', 'POLI','PSYC')
-if(any(grepl('master2wok.RData',dir('resources')))) {
-	load('resources/master2wok.RData')
-	master2wok[,usa:=as.logical(ifelse(grepl(" USA,",PA),T,F))]
-	setkey(master2wok,usa)
-	master2wok[list(T),Prefix:=sapply(SO,tag)]
-} else {
-	master2wok<-master2wok.f(
-		out='./resources'
-		,detect.language=F
-		,check.for.saved.output = T
-		#,grep=dpfx
-	)
-	save(master2wok,file='master2wok.RData')
-}
+```{r master2wok-f, eval=T, include=F}
+master2wok[,`:=`(j=!is.na(jix),p=Prefix!='Out')]
+
 ```
 
-```{r,eval=T,echo=ec,include=F}
+```{r,eval=T,include=T, message=FALSE, warning=FALSE, include=T}
+#sg(
+(sfr<-round(prop.table(ftable(master2wok[,list(usa,j,p)]))*100,3))
+#,sum=F,lab="Sampling Frame Reduction")
+```
+
+We reduce the sampling frame in several steps. First, we require that the journal publisher be located in the United States. Second, we require that the journal be included in the JSTOR database. Third, we require that the journal title contain, with some exceptions, at least one of the prefixes `r paste(dpfx,'-',sep='') %>% paste(collapse=', ') %>% tolower()`. Of the `r nicen(nrow(master2wok))` journals in the WOK master list, these criteria limit the sample to `r nicen(master2wok[,sum(usa&j&p)])` titles or less than half of a percent of the original sampling frame.
+
+```{r t-sframe,eval=T,include=T}
+sg(
+	master2wok[usa&j&p,list(Journal=paste(jstor,collapse=', ')),by=Prefix]
+	,lab='t-sframe'
+	,title='All the Journals'
+	,col.align = c(old='cc',new='p{1in}p{4in}')
+)
+```
+
+
+```{r}
 m2w<-master2wok[,.N,keyby=Prefix]
 m2w[,p:=round(prop.table(N)*100,3)]
 m2w<-m2w[master2wok[,list(Example=toTitleCase(tolower(sample(SO,1)))),keyby=Prefix]]
-m2w[is.na(Prefix),Prefix:='Non-english out-sample'] %>% setkey(Prefix)
-m2w['Out',Prefix:='Non-prefix out-sample'] %>% setkey(Prefix)
+m2w[is.na(Prefix),Prefix:='Non-US out-sample'] %>% setkey(Prefix)
+m2w['Out',Prefix:='English non-prefix out-sample'] %>% setkey(Prefix)
 setorder(m2w,-N)
+m2w
 ```
 
 ```{r}
@@ -272,12 +276,12 @@ lex<-lex[,list(terms=paste(t,collapse=', ')),keyby=Tag]
 
 
 ```{r}
-sg(m2w,lab = 'Journals in the Web of Knowledge Master List',col.align = c(old='cccc',new='lrrl'))
+sg(m2w,lab='t-m2w',title = 'Journals in the Web of Knowledge Master List',col.align = c(old='cccc',new='lrrl'))
 ```
 
 The WOK master as of `r format(attributes(master2wok)$date.downloaded,'%D')` listed `r nicen(nrow(master2wok),0)` titles. It is not clear what sample of historical population of journals this represents, but it is a substantial substantive starting point. 
 
-```{r wok2dbl-f,eval=ev,echo=ec}
+```{r wok2dbl-f}
 wok2dbl<-wok2dbl.f(
 	dir=inn$wok0041
 	,out=out$wok0041
@@ -290,11 +294,11 @@ wok2dbl<-wok2dbl.f(
 col.ord<-attributes(wok2dbl)$col.ord
 ```
 
-```{r dbl2inspect-f,eval=ev,echo=ec}
+```{r dbl2inspect-f}
 system.time(x<-dbl2inspect.f(wok2dbl))
 ```
 
-```{r wok2dbl-cleaning,eval=ev,echo=ec}
+```{r wok2dbl-cleaning}
 ##DROP
 setkey(wok2dbl,field)
 low<-c('C1','CA','DI','EI','ID','PN','RI','RP','SU') # low observation count
@@ -329,19 +333,19 @@ invisible(wok2dbl[expand.grid(c('EP'),unique(grep('[A-Za-z]',wok2dbl[c('EP')]$va
 
 ```
 
-```{r dbl2dbw-f,eval=ev,echo=ec}
+```{r dbl2dbw-f}
 attributes(wok2dbl)$col.ord<-col.ord
 dbl2dbw<-dbl2dbw.f(wok2dbl)
 ```
 
-```{r dbl2dbw-imputing,eval=ev,echo=ec}
+```{r dbl2dbw-imputing}
 # 3% of records are missing a publication month
 dbl2dbw[is.na(dbl2dbw$PD),PD:=sample(na.omit(dbl2dbw$PD),sum(is.na(dbl2dbw$PD)))]
 ```
 
 The source data are `r try(nicen(nrow(wok2dbl)))` observations on `r try(nicen(length(unique(wok2dbl[,id]))))` documents spanning `r try(nicen(diff(range(wok2dbl[list(id,'PY'),as.integer(val)]))))` years.
 
-```{r dbl2dbw-deriv,eval=ev,echo=ec}
+```{r dbl2dbw-deriv}
 # secondary or derivative measurements
 dbl2dbw[,db:='wok']
 
@@ -367,7 +371,7 @@ dbl2dbw[c('SAGE PUBLICATIONS INC','SPRINGER','WILEY-BLACKWELL'),putyp:='Private'
 
 ```
 
-```{r wok2dbl-summary1,eval=ev,echo=ec}
+```{r wok2dbl-summary1}
 graphics.off()
 setkey(dbl2dbw,PY)
 top5<-unique(dbl2dbw[list(1900),SO])
@@ -396,7 +400,7 @@ so_disc_dt_nr_py<-ggplot(data=dbl2dbw[expand.grid(c(
 so_disc_dt_nr_py
 ```
 
-```{r f-what,eval=ev,echo=ec}
+```{r f-what}
 nut<-ggplot(data=dbl2dbw[expand.grid(
 	c('Article'
 		,'Book Review'
@@ -416,7 +420,7 @@ nut<-ggplot(data=dbl2dbw[expand.grid(
 nut + scale_fill_brewer(palette='Set1')
 ```
 
-```{r jstor-wok-comparison,eval=ev,echo=ec}
+```{r jstor-wok-comparison}
 setkey(jstor2dbw,SO)
 setkey(dbl2dbw,SO)
 jwc<-rbindlist(list(dbl2dbw[list(top5),list(SO,DT,PY,db)],jstor2dbw[list(top5),list(SO,DT,PY,db)]))
@@ -482,7 +486,7 @@ It is only within these subdivisions--including the power elite as a small and l
 #References
 
 
-```{r test1,eval=ev,echo=ec}
+```{r test1}
 jnut<-ggplot() +
 	geom_bar(data=jwc['jstor',.N,by=c('SO','DT','PY','db')],aes(x = PY-.2,y = N,fill=DT),width=.4,stat='identity') + 
 	geom_bar(data=jwc['wok',.N,by=c('SO','DT','PY','db')],aes(x = PY+.2,y=N,fill=DT),width=.4,stat='identity') + 
@@ -500,7 +504,7 @@ jnut<-ggplot() +
 jnut + scale_fill_brewer(palette='Set1')
 ```
 
-```{r test2,eval=ev,echo=ec}
+```{r test2}
 dbl2dbw['Article',list(med=quantile(NR,.5),avg=mean(NR)),by=c('PY')]
 
 setkey(dbl2dbw,SO,DT)

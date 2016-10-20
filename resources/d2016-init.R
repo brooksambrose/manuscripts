@@ -37,6 +37,7 @@ knitr::opts_chunk$set(
 	,eval=FALSE
 	,warning=FALSE
 	,message=FALSE
+	,include=FALSE
 	,tidy=TRUE
 	,comment=NA
 	,results='asis'
@@ -56,3 +57,6 @@ out$wok0041<-'../knowledge-survival/outwok0041'
 out$wok0099<-'../knowledge-survival/outwok0099'
 inn$jstor0041<-'../knowledge-survival/injstor0041top5'
 out$jstor0041<-'../knowledge-survival/outjstor0041top5'
+
+#initialize tables
+t<-typ()

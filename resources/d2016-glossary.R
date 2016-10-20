@@ -10,6 +10,7 @@ undr<-function(x) paste(' \\underline{',x,'}',sep='')
 sg<-function(x,lab,sum=F,col.align=c(old='',new=''),...) {
 	require(stargazer)
 	require(magrittr)
+	if(!sum) x<-data.frame(lapply(x,gsub,pattern='&',replacement='\\&',fixed=T))
 	x<-capture.output(stargazer(x,label=lab,style='ajs',summary=sum,header=F,rownames=F,...)) %>%
 		gsub(pattern='\\textbackslash ',replacement='\\',fixed=T) %>%
 		gsub(pattern='\\}',replacement='}',fixed=T) %>%
@@ -33,6 +34,7 @@ one<-function(sp=1,n=NULL){
 	if(is.null(n)) n<-sample(rownames(r),1)
 	r[n,sp]
 }
+
 # interchangeable names for ontological element as person
 ones<-function(sp=1,n=NULL){
 	r<-rbind(
@@ -94,6 +96,15 @@ typ<-function(){
 	d$relation[throw='par',catch='sub']<-''  # strained
 	d$relation[throw='sub',catch='par']<-'' # strained
 	d$relation[throw='sub',catch='sub']<-'genteel' # strained
-	#should be an "editing" nuance where throw is negotiated, a catch is refused while throw is appealed
+
+	d$process<-data.frame(matrix(letters[1:4],nrow=2,ncol=2,dimnames=list(Scale=c('Micro','Macro'),Mechanism=c('Cultural','Social'))))
+
+	d$stages<-data.frame(
+		Stage=c('Prototyping','Assemblage','Facilitation','Accumulation')
+		,Sensemaking=c('Obsession','Recognition','Mastery','Competition')
+		,Control=c('Private','Peer','Provider','Professional')
+	)
+
+		#should be an "editing" nuance where throw is negotiated, a catch is refused while throw is appealed
 	d
 }
