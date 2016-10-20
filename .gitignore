@@ -3,11 +3,11 @@
 .RData
 .RDataTmp
 .Rhistory
-/out
-/in
-/resources
-/tests
-/waste
+out
+in
+resources
+tests
+waste
 
 #*.bst
 #*.cls
