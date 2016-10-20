@@ -1,11 +1,72 @@
-Development of Scholarly Disciplines
-====================================
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
-| Brooks Ambrose
-| October 21, 2015
+\date{}
 
-References and the Development of Scholarly Disciplines (900)
-=============================================================
+\begin{document}
+
+\section{Development of Scholarly
+Disciplines}\label{development-of-scholarly-disciplines}
+
+Brooks Ambrose\\
+October 21, 2015
+
+\section{References and the Development of Scholarly Disciplines
+(900)}\label{references-and-the-development-of-scholarly-disciplines-900}
 
 Between 1900 and 1925 each American social science discipline
 distinguished itself as an autonomous profession. .
@@ -24,8 +85,10 @@ the source in question.
 
 Over several decades however the act of referencing became both more
 common and more consistently codified. Whereas in 1900 the average
-number of references in an article bibliography for the journal <> was
-<>, by 1925 it had grown to <> and by 1940 to <>.
+number of references in an article bibliography for the journal
+\textless{}\textgreater{} was \textless{}\textgreater{}, by 1925 it had
+grown to \textless{}\textgreater{} and by 1940 to
+\textless{}\textgreater{}.
 
 These references indicate the general technical upgrading of scholarly
 rigor. Scholars were, especially among peers, expected to be transparent
@@ -52,8 +115,8 @@ did not mean that they worked in isolation; insofar as they were
 required to meet heteronomous standards these were content standards,
 either defined by peer pressure, by the personal relationships of
 rivalry and comraderie (c.f. restricted fields of cultural production
-[/@Bourdieu:1993vo/ :39]) or by the tastes of lay audiences who mattered
-for the scholar's livelihood.
+{[}/@Bourdieu:1993vo/ :39{]}) or by the tastes of lay audiences who
+mattered for the scholar's livelihood.
 
 The relationships defining these content standards were institutions
 like any other mechanisms restricting what scholars might otherwise do
@@ -76,12 +139,12 @@ correct practice that puts only very weak restrictions on correct
 cultural or intellectual content. But differently, two scholars on equal
 footing may consider each other's substantive work profane, but this
 mere fact of heterodoxy would not normally disqualify either of them
-from membership in the profession. The submission of an "unprofessional"
-manuscript, one that, for instance, did not adhere to citation
-conventions, would bar the work from publication.
+from membership in the profession. The submission of an
+``unprofessional'' manuscript, one that, for instance, did not adhere to
+citation conventions, would bar the work from publication.
 
 Scholarship then is a cultural lifeworld steered by a professional
-system [@Habermas:1987]. Habermas's concepts provide a more precise
+system {[}@Habermas:1987{]}. Habermas's concepts provide a more precise
 forumulation of the familar embeddeness concept in sociology. The
 metaphorical content of embeddeness suggests close contact between the
 focal field of practice and the more or less hidden mechanisms that
@@ -92,8 +155,8 @@ instance, among students in a seminar or symposium, between a reader and
 the written words of a reference, or between a writer and her own
 consciousness, then by mechanisms of discourse we must mean the ways
 that proximate utterances shape their antecedeants in streams of
-discourse @CA, @CommunitiesOfPractice, @Wittgenstein]. Professions then
-are embedded much like pylons struck into the shifting sands of
+discourse @CA, @CommunitiesOfPractice, @Wittgenstein{]}. Professions
+then are embedded much like pylons struck into the shifting sands of
 language. However this reverses the embeddeness metaphor. Scholarly
 discourse is not supported by the unseen mechanisms of the profession,
 rather the profession is supported by the unseen mechanisms of the
@@ -105,15 +168,15 @@ hierarchy between professions and culture, but the lack thereof.
 Professions and culture are interpenetrating; the resources and chance
 opportunities determining one's control over the other turnover to such
 an extent that we might as well accept Sewell's anti theory of
-structural multiplicity @Sewell?:].
+structural multiplicity @Sewell?:{]}.
 
 Abbott calls culture or lifeworld an interactional field. Cf abbots
 basketweave
 
-@Abbott:2001uy]
+@Abbott:2001uy{]}
 
-Paradigms, Structural Mechanisms, and Stage-sequential Development
-------------------------------------------------------------------
+\subsection{Paradigms, Structural Mechanisms, and Stage-sequential
+Development}\label{paradigms-structural-mechanisms-and-stage-sequential-development}
 
 It is the contention of this study that this transition in scholarly
 practice between casual and informal citation behavior is both a cause
@@ -121,15 +184,15 @@ and a consequence of a developmental transition in the social an
 cultural structures of scholarly fields.
 
 A substantive theory of such structures was introduced by Kuhn in the
-*The Structure of Scientific Revolutions* [-@Kuhn:1970vn]. Rather than
-reproducing Kuhn's theory, my aim here is to generalize his model--which
-was intended for application to the natural sciences especially prior to
-the maturation of the university system in the twentieth century--to
-scholarship in general, in the United States, and in the first half of
-the twentieth century. Though my theoretical scope aims to be inclusive
-all disciplines finding a support in the U.S. university system, I will
-restrict my empirical investigations to selected disciplines in the
-social sciences.
+\emph{The Structure of Scientific Revolutions} {[}-@Kuhn:1970vn{]}.
+Rather than reproducing Kuhn's theory, my aim here is to generalize his
+model--which was intended for application to the natural sciences
+especially prior to the maturation of the university system in the
+twentieth century--to scholarship in general, in the United States, and
+in the first half of the twentieth century. Though my theoretical scope
+aims to be inclusive all disciplines finding a support in the U.S.
+university system, I will restrict my empirical investigations to
+selected disciplines in the social sciences.
 
 To generalize Kuhn I draw on more recent work in the sociologies of
 knowledge, of cultural production, and of professions. Whereas Kuhn
@@ -141,8 +204,8 @@ Citation practices however did not necessarily represent better
 scholarly practice, in the sense of a capacity to communicate more
 clearly and with fewer errors of fact or interpretation. These different
 possible meanings of a reference made them polysemic in a way that
-belied a "disciplined" discourse. Rather than trying to "get Kuhn
-right", I will draw selectively to fill out the conceptual matrix
+belied a ``disciplined'' discourse. Rather than trying to ``get Kuhn
+right'', I will draw selectively to fill out the conceptual matrix
 outlined below.
 
 A lacuna in Kuhn's model of scientific development concerns a clear
@@ -150,17 +213,15 @@ conceptual model of what might be called non-cyclical or
 original/genetic development. The basic cyclical pattern is between
 revolutionary and normal science, where each is always a prerequisite
 for the other. This poses a chicken and egg question; presumably a
-different process explains an "original" revolution developing out of no
-prior paradigm. Kuhn is able to forestall this question through an
+different process explains an ``original'' revolution developing out of
+no prior paradigm. Kuhn is able to forestall this question through an
 historical approach where antecedent moments in historical (not
 analytical) development are always at hand for the researcher who has
 done her homework.
 
-Kuhn's uses of the term
-~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection{Kuhn's uses of the term}\label{kuhns-uses-of-the-term}
 
-A reconceptualization
-~~~~~~~~~~~~~~~~~~~~~
+\subsubsection{A reconceptualization}\label{a-reconceptualization}
 
 Paradigm has at least two referents, one concerning the process of
 cultural production which emphasizes the relationship of creators to
@@ -181,7 +242,7 @@ as a very simple ecological model with only two things (rival paradigms)
 drawing on the same scarce resource base (professional science).
 
 In the sociology of music a very different developmental theory has been
-proposed centering on the concept of genre [-@Lena:2008er]. Genres
+proposed centering on the concept of genre {[}-@Lena:2008er{]}. Genres
 differ significantly from paradigms in that they do not require a strong
 cultural consensus to be reproduced. Disparate cultural objects and
 practices may be united under a genre if similarities are successfully
@@ -199,8 +260,7 @@ a sniff test it will be ignored, and if it insists on being recognized
 and remains incommensurate with extant expectations then the familiar
 revolutionary crisis ensues.
 
-Mechanisms
-----------
+\subsection{Mechanisms}\label{mechanisms}
 
 Struggles to establish disciplines as professions were hard fought,
 harder still because each was a contest on cultural, cognitive, and
@@ -212,10 +272,10 @@ In sociology to declare something an institution is to ask how patterns
 of human behavior became regular and to excavate the hidden mechanisms
 that maintain that regularity within limits. Religious practice is
 regulated by the church, political practice by the state
-[@Sewell:2005vq\\:172]. Such large scale organizations eclipse the
-cultures that provide the content around which they initially organized.
-They assure their own cultural inputs, and may be open or closed with
-respect to novel culture.
+{[}@Sewell:2005vq\textbackslash{}:172{]}. Such large scale organizations
+eclipse the cultures that provide the content around which they
+initially organized. They assure their own cultural inputs, and may be
+open or closed with respect to novel culture.
 
 Paradigms reflect an advanced stage of institutional development in the
 history of disciplines. They presuppose professions, which provide the
@@ -223,7 +283,7 @@ organizational resources necessary to enforce conventions. Though
 paradigms are often associated with ideas.
 
 Culture preceeds cognition in the sense that practices develop tacitly
-before they are "recognized" explicitly, and indeed recognition is,
+before they are ``recognized'' explicitly, and indeed recognition is,
 while often transformative, not actually necessary. On the contrary a
 cultural thing, whether an object or a practice, must already exist for
 it to be recognized. Likewise cognition, especially classification,
@@ -253,7 +313,7 @@ discipline could aqcuire the machinery of education it could control the
 presumption of its own legitimacy, at least among new generations of
 students.
 
-:raw-latex:`\input{Tabs/ch0/devstages.tex}`
+\input{Tabs/ch0/devstages.tex}
 
 This study is about the second stage of development, recognition. I
 assume that protoypes of disciplinary knowledge were readily available
@@ -262,8 +322,7 @@ challenge for disciples was to relabel what had already been
 accomplished in an effort to create an occupation out of what was
 formally a personal undertaking, an obsession or a pastime.
 
-Cultural Sensemaking
-~~~~~~~~~~~~~~~~~~~~
+\subsubsection{Cultural Sensemaking}\label{cultural-sensemaking}
 
 In order to regulate their own creative activity, disciples curated
 prototypes into sets that drew a boundary, however roughly, around the
@@ -288,14 +347,13 @@ the growing stock of taken for granted knowledge, since introducing
 something could not garner attention without attaching it to something
 old.
 
-.. figure:: /Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf
-   :alt: Sensemaking entails discriminating first between relevent and
-   irrelevant material, and second between relevant and productive
-   resources.
-
-   Sensemaking entails discriminating first between relevent and
-   irrelevant material, and second between relevant and productive
-   resources.
+\begin{figure}[htbp]
+\centering
+\includegraphics{/Users/bambrose/Dropbox/GitHub/manuscripts/Figs/ch0/sensemaking.pdf}
+\caption{Sensemaking entails discriminating first between relevent and
+irrelevant material, and second between relevant and productive
+resources.}
+\end{figure}
 
 The rejoinder to the claim that nothing can overtake the core is found
 in Kuhnian accounts of scientific revolution. Yet the theory of
@@ -330,18 +388,16 @@ scholars is the opportunity to stand up and be seen through ceremonies
 around the core while being otherwise totally invisible when pursuing
 idiosyncratic interests.
 
-Relevance
-~~~~~~~~~
+\subsubsection{Relevance}\label{relevance}
 
-Cognition
-~~~~~~~~~
+\subsubsection{Cognition}\label{cognition}
 
 Here I attempt to combine internalist and externalist theories of
-culture. "Art for art's sake" characterizes the internalist view;
+culture. ``Art for art's sake'' characterizes the internalist view;
 cultural expression is both motivated and regulated by a concept of the
 object and standards of quality that, no matter how they got there, are
-autonomously held in the mind of the creator. "Art for the artists's
-sake" characterizes the externalist view, where the interests of the
+autonomously held in the mind of the creator. ``Art for the artists's
+sake'' characterizes the externalist view, where the interests of the
 creator may be multiply determined by a number of social pressures
 including fame, fortune, fraud, or force. Many couplets of opposing
 forces--knowledge and professions, culture and society, truth and
@@ -353,8 +409,7 @@ cultural production, and how such productive activity may be embedded in
 larger social structures and cultural milieus. I break this distinction
 into three simple processes that make creative work easier.
 
-Social Structures
-~~~~~~~~~~~~~~~~~
+\subsubsection{Social Structures}\label{social-structures}
 
 It is during the period where recognition develops that social control
 begins to collide with personal sensemaking. This control may at first
@@ -436,10 +491,13 @@ growth of disciplines.
 Recognition, a process that amounts to the social organization of
 existing cultural material. This is the process of genre formation.
 Though the term is sometimes use to refer to the entire developing art
-world or field of cultural production [@Lena:2008er], *genre* is better
-reserved to refer to the development of the cognitive institution alone.
-Here genres represent the collision of social constraints with cultural
-production.  [1]_ The initial symbols were indexical, allowing
+world or field of cultural production {[}@Lena:2008er{]}, \emph{genre}
+is better reserved to refer to the development of the cognitive
+institution alone. Here genres represent the collision of social
+constraints with cultural production. \footnote{In Habermas's terms,
+  genres represent a development of system against lifeworld. In
+  Bourdieu's terms, genres are fields, specifically the definition of
+  positions to be taken.} The initial symbols were indexical, allowing
 productions to be labeled according to a cogntive categories
 representing the disciplines. For the U.S. social sciences, by the end
 of the ninteenth century symbolism had already been developed around the
@@ -449,11 +507,9 @@ development that has been articulated in the context of artistic genre.
 Tendencies leading to each of these thresholds followed different yet
 often intersecting developmental logics.
 
-Typology of Relationships
--------------------------
+\subsection{Typology of Relationships}\label{typology-of-relationships}
 
-Empirical Foundations (1800)
-============================
+\section{Empirical Foundations (1800)}\label{empirical-foundations-1800}
 
 This brief foray into the different sociocultural functions of citations
 may be demonstrated by the observation of the formative moments of U.S.
@@ -469,20 +525,16 @@ new generations.
 
 What was really different about the 1960s?
 
-5. Data
-=======
+\section{5. Data}\label{data}
 
-Google Books
-------------
+\subsection{Google Books}\label{google-books}
 
-Thompson Reuters Web of Knowledge
----------------------------------
+\subsection{Thompson Reuters Web of
+Knowledge}\label{thompson-reuters-web-of-knowledge}
 
-JSTOR Data for Research
------------------------
+\subsection{JSTOR Data for Research}\label{jstor-data-for-research}
 
-Sample Selection
-----------------
+\subsection{Sample Selection}\label{sample-selection}
 
 First we assess the level of overlap between the JSTOR and WOK master
 lists.
@@ -493,8 +545,8 @@ which full citation data and limited text data are available. If we
 filter further on journals published in the United States, the frame is
 reduced to 840.
 
-Study 1: Labels: Diffusion of Disciplinary Prefix
--------------------------------------------------
+\subsection{Study 1: Labels: Diffusion of Disciplinary
+Prefix}\label{study-1-labels-diffusion-of-disciplinary-prefix}
 
 There may not be a formative moment for disciplines, but there are
 tendencies of development that when compared are relatively large times
@@ -506,8 +558,8 @@ Audience and contemporary may become obvious, and paths of influence may
 present themselves as stimulating creative opportunities. Ultimately
 disciplines intersect with organizational resources, first as a market
 for tutorship and ultimately as a professorship (c.f. Weber's
-description of prebends [/@Weber:1917wi/:343]). The development of such
-social structures is necessarily endogenous to the recognition of
+description of prebends {[}/@Weber:1917wi/:343{]}). The development of
+such social structures is necessarily endogenous to the recognition of
 particular forms of cultural production as belonging to a category.
 
 Categories then are not the foundation of institutionalizations, but
@@ -545,22 +597,21 @@ and lay claim to any worldly object. These adjectives begin to describe
 the feature of an object as being explicable by the knowledge that the
 discipline may bring to bear. Yet, even before these disciplines exist
 all that someon can do to categorize the explanation is apply the
-modifier. As table :raw-latex:`\ref{t-prefix}` shows.
+modifier. As table \ref{t-prefix} shows.
 
-A lexical sample
-----------------
+\subsection{A lexical sample}\label{a-lexical-sample}
 
 Following these trends in the use of prefixes, we develop a sample or
 journals that use them under the assumption that these signal domain
 relevance for the disciplines.
 
-::
+\begin{verbatim}
+        p  FALSE   TRUE
+\end{verbatim}
 
-            p  FALSE   TRUE
-
-| usa j
-| FALSE FALSE 61.548 4.953 TRUE 1.288 0.279 TRUE FALSE 26.675 2.565 TRUE
-  2.246 0.446
+usa j\\
+FALSE FALSE 61.548 4.953 TRUE 1.288 0.279 TRUE FALSE 26.675 2.565 TRUE
+2.246 0.446
 
 We reduce the sampling frame in several steps. First, we require that
 the journal publisher be located in the United States. Second, we
@@ -570,28 +621,26 @@ one of the prefixes anth-, soci-, econ-, poli-, psyc-. Of the 19,726
 journals in the WOK master list, these criteria limit the sample to 88
 titles or less than half of a percent of the original sampling frame.
 
-.. raw:: latex
-
-   \begin{table}[!htbp] \centering 
-     \caption{All the Journals} 
-     \label{t-sframe} 
-   \begin{tabular}{@{\extracolsep{5pt}} p{1in}p{4in}} 
-   \\[-1.8ex]\hline 
-   \hline \\[-1.8ex] 
-   Prefix & Journal \\ 
-   \hline \\[-1.8ex] 
-   anth & American Anthropologist, Annual Review of Anthropology, Anthropological Quarterly, Anthropology \& Education Quarterly, Arctic Anthropology, Cultural Anthropology, Current Anthropology, Journal of Anthropological Research, Journal of Linguistic Anthropology, Medical Anthropology Quarterly \\ 
-   econ & African Economic History, American Journal of Agricultural Economics, American Law and Economics Review, Annual Review of Economics, Annual Review of Resource Economics, Brookings Papers on Economic Activity, Econometric Theory, Econometrica, Economic Botany, Economic Development and Cultural Change, Economic Geography, Economic Theory, Economica, International Economic Review, Journal of Agricultural and Resource Economics, Journal of Applied Econometrics, Journal of Business \& Economic Statistics, Journal of Economic Literature, Journal of Labor Economics, Journal of Population Economics, Land Economics, Marine Resource Economics, NBER Macroeconomics Annual, Southern Economic Journal \\ 
-   econ, poli & Applied Economic Perspectives and Policy, Journal of Political Economy \\ 
-   poli & American Journal of Political Science, American Political Thought, British Journal of Political Science, Comparative Politics, Education Finance and Policy, Educational Evaluation and Policy Analysis, Journal of Policy Analysis and Management, Journal of Public Policy \& Marketing, Metropolitan Museum Journal, Perspectives on Politics, Political Behavior, Political Research Quarterly, Political Science Quarterly, Political Theory, State Politics \& Policy Quarterly, World Politics \\ 
-   poli, psyc & Political Psychology \\ 
-   psyc & Current Directions in Psychological Science, Educational Psychology Review, European Journal of Psychology of Education, Journal of Business and Psychology, Journal of Consumer Psychology, Psychological Science \\ 
-   soci & American Journal of Sociology, American Sociological Review, Annual Review of Sociology, Behavioral Ecology and Sociobiology, Comparative Studies in Society and History, Journal of Health and Social Behavior, Journal of Law and Society, Journal of Social History, Language in Society, Law \& Society Review, Science \& Society, Social Choice and Welfare, Social Forces, Social Problems, Social Research, Social Science History, Social Science Quarterly, Social Service Review, Social Work, Social Work Research, Sociological Forum, Sociological Methodology, Sociological Perspectives, Sociological Theory, Sociology of Education, Sociology of Religion, Teaching Sociology \\ 
-   soci, poli & Latin American Politics and Society \\ 
-   soci, psyc & Social Psychology Quarterly \\ 
-   \hline \\[-1.8ex] 
-   \end{tabular} 
-   \end{table}
+\begin{table}[!htbp] \centering 
+  \caption{All the Journals} 
+  \label{t-sframe} 
+\begin{tabular}{@{\extracolsep{5pt}} p{1in}p{4in}} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Prefix & Journal \\ 
+\hline \\[-1.8ex] 
+anth & American Anthropologist, Annual Review of Anthropology, Anthropological Quarterly, Anthropology \& Education Quarterly, Arctic Anthropology, Cultural Anthropology, Current Anthropology, Journal of Anthropological Research, Journal of Linguistic Anthropology, Medical Anthropology Quarterly \\ 
+econ & African Economic History, American Journal of Agricultural Economics, American Law and Economics Review, Annual Review of Economics, Annual Review of Resource Economics, Brookings Papers on Economic Activity, Econometric Theory, Econometrica, Economic Botany, Economic Development and Cultural Change, Economic Geography, Economic Theory, Economica, International Economic Review, Journal of Agricultural and Resource Economics, Journal of Applied Econometrics, Journal of Business \& Economic Statistics, Journal of Economic Literature, Journal of Labor Economics, Journal of Population Economics, Land Economics, Marine Resource Economics, NBER Macroeconomics Annual, Southern Economic Journal \\ 
+econ, poli & Applied Economic Perspectives and Policy, Journal of Political Economy \\ 
+poli & American Journal of Political Science, American Political Thought, British Journal of Political Science, Comparative Politics, Education Finance and Policy, Educational Evaluation and Policy Analysis, Journal of Policy Analysis and Management, Journal of Public Policy \& Marketing, Metropolitan Museum Journal, Perspectives on Politics, Political Behavior, Political Research Quarterly, Political Science Quarterly, Political Theory, State Politics \& Policy Quarterly, World Politics \\ 
+poli, psyc & Political Psychology \\ 
+psyc & Current Directions in Psychological Science, Educational Psychology Review, European Journal of Psychology of Education, Journal of Business and Psychology, Journal of Consumer Psychology, Psychological Science \\ 
+soci & American Journal of Sociology, American Sociological Review, Annual Review of Sociology, Behavioral Ecology and Sociobiology, Comparative Studies in Society and History, Journal of Health and Social Behavior, Journal of Law and Society, Journal of Social History, Language in Society, Law \& Society Review, Science \& Society, Social Choice and Welfare, Social Forces, Social Problems, Social Research, Social Science History, Social Science Quarterly, Social Service Review, Social Work, Social Work Research, Sociological Forum, Sociological Methodology, Sociological Perspectives, Sociological Theory, Sociology of Education, Sociology of Religion, Teaching Sociology \\ 
+soci, poli & Latin American Politics and Society \\ 
+soci, psyc & Social Psychology Quarterly \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table}
 
 The WOK master as of NULL listed 19,726 titles. It is not clear what
 sample of historical population of journals this represents, but it is a
@@ -607,7 +656,7 @@ Ideally, I would analyze the entire stock of recorded publication
 material to give the best chance of observing when authors contravene
 institutional boundaries. Practically, I must take a sample, however
 sampled networks are not small versions of the population network
-[@Handcock:2010iw]. Sampling may have the effect of degrading the
+{[}@Handcock:2010iw{]}. Sampling may have the effect of degrading the
 network cohesion on which community detection methods depend, such that
 a method will not detect the same boundaries in a sample as it would in
 the population. To avoid a sampling effect on network cohesion, I draw a
@@ -622,7 +671,7 @@ authors, editors, and reviewers always obey these distinctions. If a
 scholarly field exists with a grounding in two or more journals, the
 omission of one may also degrade its cohesion to the point of rendering
 its boundaries undetectable. As an indicator of affiliation among
-journals, I use Leydesdorff's [-@Leydesdorff:2010ci]
+journals, I use Leydesdorff's {[}-@Leydesdorff:2010ci{]}
 
 I should also expect to observe boundaries due to several other
 institutional levels higher than journals, like publishers, disciplines,
@@ -631,27 +680,27 @@ boundaries existing in the space between journals and between academic
 disciplines, I also take a large sample of journals
 
 To observe some of these high level institutions, I draw sets of
-journals from four social science disciplines–anthropology, sociology,
-economics, and political science–and I draw these in blocks from the
+journals from four social science disciplines--anthropology, sociology,
+economics, and political science--and I draw these in blocks from the
 same publisher. Journals were selected from the disciplinary
 affiliations signaled in their titles. From a JSTOR master list of
 archived materials, journals were selected if they contained any of the
-disciplinary prefixes anth-, soci-, econ-, and poli-. {{Though not all
+disciplinary prefixes anth-, soci-, econ-, and poli-. \{\{Though not all
 journals that are affiliated with a discipline signal this with a word
 containing the signature prefix, those that do are affiliated with a
 high degree of accuracy. Soci is an exception, and journals like the
-Royal Society of Statistics [madeup] are excluded.}} This list was cross
-referenced with the TR WOK database.
+Royal Society of Statistics {[}madeup{]} are excluded.\}\} This list was
+cross referenced with the TR WOK database.
 
 To begin it will be useful to consider a theory that is diametrically
 opposed to the classification of groups. I find one in Bourdieu's essay,
-*The Social Space and the Genesis of Groups* {\*Bourdieu:1985wh}.
+\emph{The Social Space and the Genesis of Groups} \{*Bourdieu:1985wh\}.
 Bourdieu claims that marxian social class categories, and their implied
 boundaries, are analytical constructs with no real referent in the
 world. The rules for placing an uncategorized actor into a class are
 well established in any number of class theory traditions. The rules
 relate to attributes of the actor which may be independently measured,
-e.g. does she sell labor or buy it? If she sells it, she is a
+e.g.~does she sell labor or buy it? If she sells it, she is a
 proletarian, if she buys it she is a bourgeoise. Because these
 categorical rules are the analyst's, Bourdieu decries the reification of
 the boundary between classes so constituted. Rather than a
@@ -663,13 +712,14 @@ their holding defines their distance along one dimension of that space.
 cultural capital (the same thing would be true, mutatis mutandis, of the
 economic game) determines the aggregate chances of profit in all the
 games in which cultural capital is effective, thereby helping to
-determine position in social space" [-@Bourdieu:1985wh\\:724] Murkier is
-Bourdieu's notion of relationship. In the field theory relationships
-tend to be competitive bids for profit in a field constituted by a form
-of capital. [@Shwed:2012wt]
+determine position in social space"
+{[}-@Bourdieu:1985wh\textbackslash{}:724{]} Murkier is Bourdieu's notion
+of relationship. In the field theory relationships tend to be
+competitive bids for profit in a field constituted by a form of capital.
+{[}@Shwed:2012wt{]}
 
-Study 2: The Transition from Extensive to Intensive Development
----------------------------------------------------------------
+\subsection{Study 2: The Transition from Extensive to Intensive
+Development}\label{study-2-the-transition-from-extensive-to-intensive-development}
 
 Growth in the number of scholars and the number of published scholarly
 works is attended by a qualitative transitions between extensive and
@@ -707,9 +757,9 @@ without knowing why they do so. Citations provide merely one kind of
 thread, but were we to trace out several more modes of relatedness then
 we might provide a fuller picture of the sociocultural structure
 underpinning scholarship. Such a task is beyond scope for the present
-study, but we can at least specify ignorance [@Merton1987:vi]. Clearly
-there is much more to the content of a publication than its list of
-references. But even considering this narrow slice of its meaningful
+study, but we can at least specify ignorance {[}@Merton1987:vi{]}.
+Clearly there is much more to the content of a publication than its list
+of references. But even considering this narrow slice of its meaningful
 content, we are already at pains to generalize from the observation of a
 citation pattern to the cause of that pattern appearing in a particular
 time and place. It will be difficult, for instance, to posit a choice
@@ -719,7 +769,7 @@ refereeing the manuscript, a colleague listed in the acknowledgements,
 an uncredited inspiration, etc. I therefore make no effort to identify
 an actor responsible for an included reference, but rather consider it
 the outcome of the local art world surrounding the production of that
-piece of scholarship [c.f. theories of authorship @ ;@ ]. What is a
+piece of scholarship {[}c.f. theories of authorship @ ;@ {]}. What is a
 critical problem to solve for the intellectual historian may a fool's
 errand for the population researcher. It is a mistake to treat any
 particular citation, and especially to treat the entire reference list,
@@ -735,30 +785,31 @@ can be considered to represent the extensive pattern, while means above
 the same (overdispersion) may represent the intensive pattern.
 
 This extensive pattern of development may be compared to the
-paradigmatic model described by Kuhn [-@Kuhn:1970vn\\:10]. Once a
-paradigm, in the sense of a model to be extended, takes hold among a
-community of scholars, normal science ensues as a process of narrowing
-the range of possibilities opened by the paradigm. The specifically
-scientific pattern of development is to retrace familiar problems until
-they are solved, and then to relegate the solution to one or another
-form of black box, such as mathematical codification, textbook
-explication, or codification in technology. Familiar ground is in one
-moment intensely retraced, and in the next systematically forgotten.
-Indeed Kuhn aims to demonstrate that the ideology of cumulative
-development in the sciences is a consequence of black boxing, which
-serves to render subsequent generations of scientists ignorant of a
-history better described by a cyclical or sinusoidal trend.
+paradigmatic model described by Kuhn
+{[}-@Kuhn:1970vn\textbackslash{}:10{]}. Once a paradigm, in the sense of
+a model to be extended, takes hold among a community of scholars, normal
+science ensues as a process of narrowing the range of possibilities
+opened by the paradigm. The specifically scientific pattern of
+development is to retrace familiar problems until they are solved, and
+then to relegate the solution to one or another form of black box, such
+as mathematical codification, textbook explication, or codification in
+technology. Familiar ground is in one moment intensely retraced, and in
+the next systematically forgotten. Indeed Kuhn aims to demonstrate that
+the ideology of cumulative development in the sciences is a consequence
+of black boxing, which serves to render subsequent generations of
+scientists ignorant of a history better described by a cyclical or
+sinusoidal trend.
 
 While pre-history of disciplines are beyond Kuhn's scope, here they are
 paramount. This emphasis is based in a hunch that the mechanisms that
 govern the genesis of disciplines may be implicated in their ongoing
 development.
 
-Knowledge & Professions (900)
-=============================
+\section{Knowledge \& Professions
+(900)}\label{knowledge-professions-900}
 
-Summary: Cultural and Social Mechanisms
----------------------------------------
+\subsection{Summary: Cultural and Social
+Mechanisms}\label{summary-cultural-and-social-mechanisms}
 
 A cultural action is teleological, autonomously controlled, socially
 neutralized, facility constrained, and indeterminant. A social action is
@@ -767,10 +818,9 @@ constrained normatively by prestige, sanctions, and rightness or
 competitively by scarcity, acquisition, and attrition, and determinant.
 A sociocultural behavior is merely an admixture of the two.
 
-Teleology
----------
+\subsection{Teleology}\label{teleology}
 
-Not all of the things people "do" are behaviors in this sense.
+Not all of the things people ``do'' are behaviors in this sense.
 Teleological behaviors have a goal or end known to the subject
 
 Whether knowledge is found or invented is less important than whether it
@@ -814,7 +864,10 @@ reward is membership in the professorial occupation. Given the first,
 the second reward is prority ranking. This is the formal recognition
 that accrues to legendary individuals. A horizontal stratification
 attends the segmentation of disciplines--subdivisions allowing more
-space for local heroes.  [2]_ [@Gustin:1973ul]
+space for local heroes. \footnote{Except for rare celebrities that a
+  discipline would honor beyond its own boundaries, but again this is a
+  cultural gesture whose tangible rewards are irrelevant to the
+  recipient.} {[}@Gustin:1973ul{]}
 
 It is only within these subdivisions--including the power elite as a
 small and local community of its own--that Bourdieu's fields of cultural
@@ -826,15 +879,6 @@ members of the disciplinary public. Horizontal stratification also
 allows professors to safely exchange recognition across disciplinary
 boundaries without fear of competition.
 
-References
-==========
+\section{References}\label{references}
 
-.. [1]
-   In Habermas's terms, genres represent a development of system against
-   lifeworld. In Bourdieu's terms, genres are fields, specifically the
-   definition of positions to be taken.
-
-.. [2]
-   Except for rare celebrities that a discipline would honor beyond its
-   own boundaries, but again this is a cultural gesture whose tangible
-   rewards are irrelevant to the recipient.
+\end{document}

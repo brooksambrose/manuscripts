@@ -1,8 +1,58 @@
-R Notebook
-==========
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
-1. Introduction
-===============
+\date{}
+
+\begin{document}
+
+\section{R Notebook}\label{r-notebook}
+
+\section{1. Introduction}\label{introduction}
 
 This collection of studies seeks to accomplish a simplistic goal. I wish
 to enumerate schools of thought in the historical record of U.S. social
@@ -29,100 +79,100 @@ Chapters 7 and 8 I summarize findings and discuss limitations of the
 study. In Chapter 9 I conclude by updating the theory building of
 Chapters 2 and 3 with the results of the studies.
 
-2. Theory
-=========
+\section{2. Theory}\label{theory}
 
-A. Cultural
------------
+\subsection{A. Cultural}\label{a.-cultural}
 
-B. Personal
------------
+\subsection{B. Personal}\label{b.-personal}
 
-C. Social
----------
+\subsection{C. Social}\label{c.-social}
 
-D. Facilitory
--------------
+\subsection{D. Facilitory}\label{d.-facilitory}
 
-E. Developmental
-----------------
+\subsection{E. Developmental}\label{e.-developmental}
 
-3. Critical Review
-==================
+\section{3. Critical Review}\label{critical-review}
 
-Lena
-----
+\subsection{Lena}\label{lena}
 
-Kuhn
-----
+\subsection{Kuhn}\label{kuhn}
 
-Collins
--------
+\subsection{Collins}\label{collins}
 
-Abbott
-------
+\subsection{Abbott}\label{abbott}
 
-4. Historical Case: U.S. Social Sciences, 1900-1942
-===================================================
+\section{4. Historical Case: U.S. Social Sciences,
+1900-1942}\label{historical-case-u.s.-social-sciences-1900-1942}
 
-5. Data
-=======
+\section{5. Data}\label{data}
 
-Google Books
-------------
+\subsection{Google Books}\label{google-books}
 
-Thompson Reuters Web of Knowledge
----------------------------------
+\subsection{Thompson Reuters Web of
+Knowledge}\label{thompson-reuters-web-of-knowledge}
 
-JSTOR Data for Research
------------------------
+\subsection{JSTOR Data for Research}\label{jstor-data-for-research}
 
-Sample Selection
-----------------
+\subsection{Sample Selection}\label{sample-selection}
 
-6. Studies
-==========
+\section{6. Studies}\label{studies}
 
-Study 1: Disciplinary Prefixes
-------------------------------
+\subsection{Study 1: Disciplinary
+Prefixes}\label{study-1-disciplinary-prefixes}
 
--  Ordered Diffusion of Disciplinary Bases: A Time Series Analysis
+\begin{itemize}
+\tightlist
+\item
+  Ordered Diffusion of Disciplinary Bases: A Time Series Analysis
+\end{itemize}
 
-Study 2: Settlement of Citation Landscape
------------------------------------------
+\subsection{Study 2: Settlement of Citation
+Landscape}\label{study-2-settlement-of-citation-landscape}
 
--  Poisson Permutation Test to Locate Transition from Extensive to
-   Intensive Development
+\begin{itemize}
+\tightlist
+\item
+  Poisson Permutation Test to Locate Transition from Extensive to
+  Intensive Development
+\end{itemize}
 
-Study 3: Subdiscipline Formation
---------------------------------
+\subsection{Study 3: Subdiscipline
+Formation}\label{study-3-subdiscipline-formation}
 
--  k-Clique Percolation Clustering of Co-reference Network
+\begin{itemize}
+\tightlist
+\item
+  k-Clique Percolation Clustering of Co-reference Network
+\end{itemize}
 
-Study 4: Survival of Knowledge
-------------------------------
+\subsection{Study 4: Survival of
+Knowledge}\label{study-4-survival-of-knowledge}
 
--  Cox Proportional Hazard Analysis of k-Cliques
+\begin{itemize}
+\tightlist
+\item
+  Cox Proportional Hazard Analysis of k-Cliques
+\end{itemize}
 
-Study 5: Genre Signaling
-------------------------
+\subsection{Study 5: Genre Signaling}\label{study-5-genre-signaling}
 
--  Association between k-Clique and Topic Model Classifications
+\begin{itemize}
+\tightlist
+\item
+  Association between k-Clique and Topic Model Classifications
+\end{itemize}
 
-7. Summary of Findings
-======================
+\section{7. Summary of Findings}\label{summary-of-findings}
 
-8. Limitations
-==============
+\section{8. Limitations}\label{limitations}
 
-9. Conclusion
-=============
+\section{9. Conclusion}\label{conclusion}
 
-10. Appendices
-==============
+\section{10. Appendices}\label{appendices}
 
-Codebase
---------
+\subsection{Codebase}\label{codebase}
 
-Reproducible Software Container
--------------------------------
+\subsection{Reproducible Software
+Container}\label{reproducible-software-container}
+
+\end{document}

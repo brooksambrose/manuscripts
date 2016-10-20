@@ -1,60 +1,198 @@
-Studies in the Development of Scholarly Disciplines
-===================================================
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
-| Dissertation Outline
-| Brooks Ambrose
-| October 21, 2016
+\date{}
 
-1. Introduction
-2. Theory
+\begin{document}
 
--  Cultural
--  Personal
--  Social
--  Facilitory
--  Developmental
+\section{Studies in the Development of Scholarly
+Disciplines}\label{studies-in-the-development-of-scholarly-disciplines}
 
-3. Critical Review
+Dissertation Outline\\
+Brooks Ambrose\\
+October 21, 2016
 
--  Lena
--  Kuhn
--  Collins
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Introduction
+\item
+  Theory\\
+\end{enumerate}
 
-4. Historical Case: U.S. Social Sciences, 1900-1942
-5. Data
+\begin{itemize}
+\tightlist
+\item
+  Cultural\\
+\item
+  Personal\\
+\item
+  Social\\
+\item
+  Facilitory\\
+\item
+  Developmental\\
+\end{itemize}
 
--  Google Books
--  Thompson Reuters Web of Knowledge
--  JSTOR Data for Research
--  Sample Selection
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Critical Review
+\end{enumerate}
 
-6. Studies
+\begin{itemize}
+\tightlist
+\item
+  Lena
+\item
+  Kuhn
+\item
+  Collins
+\end{itemize}
 
--  Study 1: Disciplinary Prefixes
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Historical Case: U.S. Social Sciences, 1900-1942
+\item
+  Data
+\end{enumerate}
 
-   -  Ordered Diffusion of Disciplinary Bases: A Time Series Analysis
+\begin{itemize}
+\tightlist
+\item
+  Google Books
+\item
+  Thompson Reuters Web of Knowledge
+\item
+  JSTOR Data for Research
+\item
+  Sample Selection
+\end{itemize}
 
--  Study 2: Settlement of Citation Landscape
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Studies
+\end{enumerate}
 
-   -  Poisson Permutation Test to Locate Transition from Extensive to
-      Intensive Development
+\begin{itemize}
+\tightlist
+\item
+  Study 1: Disciplinary Prefixes
 
--  Study 3: Subdiscipline Formation
+  \begin{itemize}
+  \tightlist
+  \item
+    Ordered Diffusion of Disciplinary Bases: A Time Series Analysis
+  \end{itemize}
+\item
+  Study 2: Settlement of Citation Landscape
 
-   -  k-Clique Percolation Clustering of Co-reference Network
+  \begin{itemize}
+  \tightlist
+  \item
+    Poisson Permutation Test to Locate Transition from Extensive to
+    Intensive Development
+  \end{itemize}
+\item
+  Study 3: Subdiscipline Formation
 
--  Study 4: Survival of Knowledge
+  \begin{itemize}
+  \tightlist
+  \item
+    k-Clique Percolation Clustering of Co-reference Network
+  \end{itemize}
+\item
+  Study 4: Survival of Knowledge
 
-   -  Cox Proportional Hazard Analysis of k-Cliques
+  \begin{itemize}
+  \tightlist
+  \item
+    Cox Proportional Hazard Analysis of k-Cliques
+  \end{itemize}
+\item
+  Study 5: Genre Signaling
 
--  Study 5: Genre Signaling
+  \begin{itemize}
+  \tightlist
+  \item
+    Association between k-Clique and Topic Model Classifications
+  \end{itemize}
+\end{itemize}
 
-   -  Association between k-Clique and Topic Model Classifications
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Summary of Findings
+\item
+  Limitations
+\item
+  Conclusion
+\item
+  Appendices
+\end{enumerate}
 
-7.  Summary of Findings
-8.  Limitations
-9.  Conclusion
-10. Appendices
+\begin{itemize}
+\tightlist
+\item
+  Codebase
+\item
+  Reproducible Software Container
+\end{itemize}
 
--  Codebase
--  Reproducible Software Container
+\end{document}
